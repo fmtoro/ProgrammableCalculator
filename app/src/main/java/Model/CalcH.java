@@ -4,6 +4,8 @@
 
 package Model;
 
+
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -15,20 +17,38 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class CalcH extends SQLiteOpenHelper {
 
-    static  final   String      DB_Name     =   "ftProgCalc.db";
+    static  final   String      DB_Name     =   "ftPgCalc.db";
     static  final   int         DB_V        =   1;
 
     static  final   String      TABLE_N     =   "calc";
 
-    static  final   String      cId         =   "Id";
+    static  final   String      Id         =   "Id";
     static  final   String      cName       =   "cName";
+    static  final   String      cBackgroundImage       =   "cBackgroundImage";
+    static  final   String      cDisplayColor       =   "cDisplayColor";
+    static  final   String      cDisplayTextColor       =   "cDisplayTextColor";
+    static  final   String      cDisplayTextSize       =   "cDisplayTextSize";
+    static  final   String      cBasicBtnsColor       =   "cBasicBtnsColor";
+    static  final   String      cBasicBtnsTextColor       =   "cBasicBtnsTextColor";
+    static  final   String      cBasicBtnsTextSize       =   "cBasicBtnsTextSize";
+    static  final   String      cBasicBtnsMargines       =   "cBasicBtnsMargines";
+    static  final   String      cBasicBtnsPadding       =   "cBasicBtnsPadding";
 
     // Creations
     static  final   String      CREATE_TABLE =
             "CREATE TABLE " + TABLE_N + " (" +
-                    cId + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    cName +  " TEXT " +
-    ")";
+                    Id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    cName +  " TEXT , " +
+                    cBackgroundImage +  " TEXT , " +
+                    cDisplayColor +  " INTEGER , " +
+                    cDisplayTextColor +  " INTEGER , " +
+                    cDisplayTextSize +  " INTEGER , " +
+                    cBasicBtnsColor +  " INTEGER , " +
+                    cBasicBtnsTextColor +  " INTEGER , " +
+                    cBasicBtnsTextSize +  " INTEGER , " +
+                    cBasicBtnsMargines +  " INTEGER , " +
+                    cBasicBtnsPadding +  " INTEGER,  " +
+                    ")";
 
 
     public CalcH(Context context) {
@@ -39,7 +59,7 @@ public class CalcH extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_TABLE);
-
+        //Log internal (LOGTAG, TABLE_N + "  Created");
 
     }
 
@@ -49,7 +69,7 @@ public class CalcH extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + TABLE_N);
 
 
-        //Log.i(LOGTAG, TABLE_N + "  Droped");
+        //Log internal(LOGTAG, TABLE_N + "  Droped");
         onCreate(db);
     }
 

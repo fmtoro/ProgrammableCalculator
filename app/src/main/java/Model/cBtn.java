@@ -5,6 +5,10 @@
 package Model;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.internal.widget.ActivityChooserModel;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 
 
@@ -12,6 +16,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.ftpha.programmablecalculator.ftG;
 
@@ -25,35 +31,37 @@ import java.util.List;
  */
 public class cBtn {
 
-    private Context ctx;
+    Button b;
 
+    private cBtn yo;
 
     private static SQLiteOpenHelper dbH;
     private static SQLiteDatabase db;
 
-    public long Id;
-    public String cName;
-    public String pName;
-    public String lName;
-    public String bName;
-    public int ubColor;
-    public int ubTextColor;
-    public String ubText;
-    public String ubCode;
-    public String ubCodeDescription;
-    public String ubAuthor;
-    public boolean ubActive;
-    public boolean ubVisible;
-    public boolean ubLocked;
-    public String ubBackgroundImage;
-    public boolean ubTextVisible;
-    public int ubRelativeW;
+    public long         Id                      ;
+    public String       cName                   ;
+    public String       pName                   ;
+    public long         lId                     ;
+    public String       bName                   ;
+    public int          ubColor                 ;
+    public int          ubTextColor             ;
+    public String       ubText                  ;
+    public String       ubCode                  ;
+    public String       ubCodeDescription       ;
+    public String       ubAuthor                ;
+    public int          ubActive                ;
+    public int          ubVisible               ;
+    public int          ubLocked                ;
+    public String       ubBackgroundImage       ;
+    public int          ubTextVisible           ;
+    public float        ubRelativeW             ;
 
+    public long ubBelongToLayout    ;
+    public long ubPosInLayout       ;
 
-    public cBtn(){}
 
     public Button doButton(Button b) {
-        if (!this.ubLocked) {
+        if (this.ubLocked != 1) {
             b.setText(this.ubText);
             //TODO: set other properties etc
         }
@@ -69,13 +77,52 @@ public class cBtn {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public void autoCreate(LinearLayout l){
 
+        this.b = new Button(ftG.ctx);
+        this.b.setText(yo.ubText);
+        long elId = ftG.makeBtnId(yo.lId, yo.Id);
+        this.b.setId((int) elId);
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        lP.width = 0;
+        lP.weight=this.ubRelativeW;
+        this.b.setLayoutParams(lP);
+
+        b.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                String a ="The button is: " + yo.Id + "\n";
+                a += "In layout: " + yo.lId;
+
+
+                Toast.makeText(ftG.ctx, a,Toast.LENGTH_LONG).show();
+            }
+        });
+
+        l.addView(this.b);
+    }
+
+    public void autoShowAll(){
+
+        this.b.setText(yo.ubText + "  " + yo.lId + " - " + yo.Id);
+
+
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        lP.width = 0;
+        lP.weight = 1f;
+        this.b.setLayoutParams(lP);
+        this.ubVisible = LinearLayout.VISIBLE;
+    }
+
+    public void autoUpdate(){
+
+
+    }
 
     private static final String[] allCols = {
             cBtnH.Id,
             cBtnH.cName,
             cBtnH.pName,
-            cBtnH.lName,
+            cBtnH.lId,
             cBtnH.bName,
             cBtnH.ubColor,
             cBtnH.ubTextColor,
@@ -88,12 +135,41 @@ public class cBtn {
             cBtnH.ubLocked,
             cBtnH.ubBackgroundImage,
             cBtnH.ubTextVisible,
-            cBtnH.ubRelativeW
+            cBtnH.ubRelativeW,
+            cBtnH.ubBelongToLayout,
+            cBtnH.ubPosInLayout
+
     };
+
+    public static  void initDb(){
+
+        dbH = new cBtnH(ftG.ctx);
+
+    }
 
     public cBtn(Context context){
 
         dbH = new cBtnH(context);
+        yo = this;
+        yo.Id = 0;
+        yo.cName = "x";
+        yo.pName = "x";
+        yo.lId = 0;
+        yo.bName = "x";
+        yo.ubColor = 0;
+        yo.ubTextColor = 0;
+        yo.ubText = "x";
+        yo.yo.ubCode = "x";
+        yo.ubCodeDescription = "x";
+        yo.ubAuthor = "x";
+        yo.ubActive = 1;
+        yo.ubVisible = 1;
+        yo.ubLocked = 0;
+        yo.ubBackgroundImage = "x";
+        yo.ubTextVisible = 1;
+        yo.ubRelativeW = 1f;
+        yo.ubBelongToLayout = 0;
+        yo.ubPosInLayout = 0;
     }
 
     public static void Open(){
@@ -123,7 +199,7 @@ public class cBtn {
 
         values.put(cBtnH.cName, this.cName);
         values.put(cBtnH.pName, this.pName);
-        values.put(cBtnH.lName, this.lName);
+        values.put(cBtnH.lId, this.lId);
         values.put(cBtnH.bName, this.bName);
         values.put(cBtnH.ubColor, this.ubColor);
         values.put(cBtnH.ubTextColor, this.ubTextColor);
@@ -137,6 +213,8 @@ public class cBtn {
         values.put(cBtnH.ubBackgroundImage, this.ubBackgroundImage);
         values.put(cBtnH.ubTextVisible, this.ubTextVisible);
         values.put(cBtnH.ubRelativeW, this.ubRelativeW);
+        values.put(cBtnH.ubBelongToLayout, this.ubBelongToLayout);
+        values.put(cBtnH.ubPosInLayout, this.ubPosInLayout);
 
 
         long insertId = db.insert(cBtnH.TABLE_N, null,values );
@@ -152,7 +230,7 @@ public class cBtn {
 
         vals.put(cBtnH.cName, this.cName);
         vals.put(cBtnH.pName, this.pName);
-        vals.put(cBtnH.lName, this.lName);
+        vals.put(cBtnH.lId, this.lId);
         vals.put(cBtnH.bName, this.bName);
         vals.put(cBtnH.ubColor, this.ubColor);
         vals.put(cBtnH.ubTextColor, this.ubTextColor);
@@ -166,6 +244,8 @@ public class cBtn {
         vals.put(cBtnH.ubBackgroundImage, this.ubBackgroundImage);
         vals.put(cBtnH.ubTextVisible, this.ubTextVisible);
         vals.put(cBtnH.ubRelativeW, this.ubRelativeW);
+        vals.put(cBtnH.ubBelongToLayout, this.ubBelongToLayout);
+        vals.put(cBtnH.ubPosInLayout, this.ubPosInLayout);
 
 
         boolean rslt;
@@ -183,18 +263,18 @@ public class cBtn {
 
     public static List<cBtn> listAll(){
         List<cBtn> loc_cBtn = new ArrayList<cBtn>();
-
+Open();
         Cursor cursor = db.query(cBtnH.TABLE_N, allCols, null, null, null, null, null);
 
         ftG.L("Found " + cursor.getCount() + " rows in " + cBtnH.TABLE_N);
 
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                cBtn xx = new cBtn();
+                cBtn xx = new cBtn(ftG.ctx);
                 xx.Id = cursor.getLong(cursor.getColumnIndex(cBtnH.Id));
                 xx.cName = cursor.getString(cursor.getColumnIndex(cBtnH.cName));
                 xx.pName = cursor.getString(cursor.getColumnIndex(cBtnH.pName));
-                xx.lName = cursor.getString(cursor.getColumnIndex(cBtnH.lName));
+                xx.lId = cursor.getLong(cursor.getColumnIndex(cBtnH.lId));
                 xx.bName = cursor.getString(cursor.getColumnIndex(cBtnH.bName));
                 xx.ubColor = cursor.getInt(cursor.getColumnIndex(cBtnH.ubColor));
                 xx.ubTextColor = cursor.getInt(cursor.getColumnIndex(cBtnH.ubTextColor));
@@ -202,17 +282,67 @@ public class cBtn {
                 xx.ubCode = cursor.getString(cursor.getColumnIndex(cBtnH.ubCode));
                 xx.ubCodeDescription = cursor.getString(cursor.getColumnIndex(cBtnH.ubCodeDescription));
                 xx.ubAuthor = cursor.getString(cursor.getColumnIndex(cBtnH.ubAuthor));
-                xx.ubActive = Boolean.getBoolean(cursor.getString(cursor.getColumnIndex(cBtnH.ubActive)));
-                xx.ubVisible = Boolean.getBoolean(cursor.getString(cursor.getColumnIndex(cBtnH.ubVisible)));
-                xx.ubLocked = Boolean.getBoolean(cursor.getString(cursor.getColumnIndex(cBtnH.ubLocked)));
+                xx.ubActive = cursor.getInt(cursor.getColumnIndex(cBtnH.ubActive));
+                xx.ubVisible = cursor.getInt(cursor.getColumnIndex(cBtnH.ubVisible));
+                xx.ubLocked = cursor.getInt(cursor.getColumnIndex(cBtnH.ubLocked));
                 xx.ubBackgroundImage = cursor.getString(cursor.getColumnIndex(cBtnH.ubBackgroundImage));
-                xx.ubTextVisible = Boolean.getBoolean(cursor.getString(cursor.getColumnIndex(cBtnH.ubTextVisible)));
-                xx.ubRelativeW = cursor.getInt(cursor.getColumnIndex(cBtnH.ubRelativeW));
+                xx.ubTextVisible = cursor.getInt(cursor.getColumnIndex(cBtnH.ubTextVisible));
+                xx.ubRelativeW = cursor.getFloat(cursor.getColumnIndex(cBtnH.ubRelativeW));
+                xx.ubBelongToLayout = cursor.getLong(cursor.getColumnIndex(cBtnH.ubBelongToLayout));
+                xx.ubPosInLayout = cursor.getLong(cursor.getColumnIndex(cBtnH.ubPosInLayout));
 
                 loc_cBtn.add(xx);
             }
         }
+Close();
+        return loc_cBtn;
+    }
 
+    public static List<cBtn> listFroLayout(long forLayout){
+        List<cBtn> loc_cBtn = new ArrayList<cBtn>();
+//Open();
+        if(!TableExists(cBtnH.TABLE_N,true)){
+            dbH.onCreate(db);
+        }
+        Cursor cursor = db.query(
+                cBtnH.TABLE_N,
+                allCols,
+                cBtnH.lId + " = " + forLayout,
+                null,
+                null,
+                null,
+                "ubPosInLayout asc"
+        );
+
+        ftG.L("Found " + cursor.getCount() + " rows in " + cBtnH.TABLE_N);
+
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                cBtn xx = new cBtn(ftG.ctx);
+                xx.Id = cursor.getLong(cursor.getColumnIndex(cBtnH.Id));
+                xx.cName = cursor.getString(cursor.getColumnIndex(cBtnH.cName));
+                xx.pName = cursor.getString(cursor.getColumnIndex(cBtnH.pName));
+                xx.lId = cursor.getLong(cursor.getColumnIndex(cBtnH.lId));
+                xx.bName = cursor.getString(cursor.getColumnIndex(cBtnH.bName));
+                xx.ubColor = cursor.getInt(cursor.getColumnIndex(cBtnH.ubColor));
+                xx.ubTextColor = cursor.getInt(cursor.getColumnIndex(cBtnH.ubTextColor));
+                xx.ubText = cursor.getString(cursor.getColumnIndex(cBtnH.ubText));
+                xx.ubCode = cursor.getString(cursor.getColumnIndex(cBtnH.ubCode));
+                xx.ubCodeDescription = cursor.getString(cursor.getColumnIndex(cBtnH.ubCodeDescription));
+                xx.ubAuthor = cursor.getString(cursor.getColumnIndex(cBtnH.ubAuthor));
+                xx.ubActive = cursor.getInt(cursor.getColumnIndex(cBtnH.ubActive));
+                xx.ubVisible = cursor.getInt(cursor.getColumnIndex(cBtnH.ubVisible));
+                xx.ubLocked = cursor.getInt(cursor.getColumnIndex(cBtnH.ubLocked));
+                xx.ubBackgroundImage = cursor.getString(cursor.getColumnIndex(cBtnH.ubBackgroundImage));
+                xx.ubTextVisible = cursor.getInt(cursor.getColumnIndex(cBtnH.ubTextVisible));
+                xx.ubRelativeW = cursor.getFloat(cursor.getColumnIndex(cBtnH.ubRelativeW));
+                xx.ubBelongToLayout = cursor.getLong(cursor.getColumnIndex(cBtnH.ubBelongToLayout));
+                xx.ubPosInLayout = cursor.getLong(cursor.getColumnIndex(cBtnH.ubPosInLayout));
+
+                loc_cBtn.add(xx);
+            }
+        }
+Close();
         return loc_cBtn;
     }
 
@@ -221,7 +351,7 @@ public class cBtn {
 
     public static cBtn getById(long ID){
 
-        cBtn xx = new cBtn();
+        cBtn xx = new cBtn(ftG.ctx);
 
         Open();
 
@@ -242,7 +372,7 @@ public class cBtn {
             xx.Id = cursor.getLong(cursor.getColumnIndex(cBtnH.Id));
             xx.cName = cursor.getString(cursor.getColumnIndex(cBtnH.cName));
             xx.pName = cursor.getString(cursor.getColumnIndex(cBtnH.pName));
-            xx.lName = cursor.getString(cursor.getColumnIndex(cBtnH.lName));
+            xx.lId = cursor.getLong(cursor.getColumnIndex(cBtnH.lId));
             xx.bName = cursor.getString(cursor.getColumnIndex(cBtnH.bName));
             xx.ubColor = cursor.getInt(cursor.getColumnIndex(cBtnH.ubColor));
             xx.ubTextColor = cursor.getInt(cursor.getColumnIndex(cBtnH.ubTextColor));
@@ -250,12 +380,14 @@ public class cBtn {
             xx.ubCode = cursor.getString(cursor.getColumnIndex(cBtnH.ubCode));
             xx.ubCodeDescription = cursor.getString(cursor.getColumnIndex(cBtnH.ubCodeDescription));
             xx.ubAuthor = cursor.getString(cursor.getColumnIndex(cBtnH.ubAuthor));
-            xx.ubActive = Boolean.getBoolean(cursor.getString(cursor.getColumnIndex(cBtnH.ubActive)));
-            xx.ubVisible = Boolean.getBoolean(cursor.getString(cursor.getColumnIndex(cBtnH.ubVisible)));
-            xx.ubLocked = Boolean.getBoolean(cursor.getString(cursor.getColumnIndex(cBtnH.ubLocked)));
+            xx.ubActive = cursor.getInt(cursor.getColumnIndex(cBtnH.ubActive));
+            xx.ubVisible = cursor.getInt(cursor.getColumnIndex(cBtnH.ubVisible));
+            xx.ubLocked = cursor.getInt(cursor.getColumnIndex(cBtnH.ubLocked));
             xx.ubBackgroundImage = cursor.getString(cursor.getColumnIndex(cBtnH.ubBackgroundImage));
-            xx.ubTextVisible = Boolean.getBoolean(cursor.getString(cursor.getColumnIndex(cBtnH.ubTextVisible)));
-            xx.ubRelativeW = cursor.getInt(cursor.getColumnIndex(cBtnH.ubRelativeW));
+            xx.ubTextVisible = cursor.getInt(cursor.getColumnIndex(cBtnH.ubTextVisible));
+            xx.ubRelativeW = cursor.getFloat(cursor.getColumnIndex(cBtnH.ubRelativeW));
+            xx.ubBelongToLayout = cursor.getLong(cursor.getColumnIndex(cBtnH.ubBelongToLayout));
+            xx.ubPosInLayout = cursor.getLong(cursor.getColumnIndex(cBtnH.ubPosInLayout));
 
         }
 
@@ -263,7 +395,28 @@ public class cBtn {
         return xx;
     }
 
+    public static boolean TableExists(String tableName, boolean openDb) {
+        if(openDb) {
+            if(db == null || !db.isOpen()) {
+                db = dbH.getWritableDatabase();
+            }
 
+            if(!db.isReadOnly()) {
+                db.close();
+                db = dbH.getWritableDatabase();
+            }
+        }
+
+        Cursor cursor = db.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '" + tableName + "'", null);
+        if(cursor!=null) {
+            if(cursor.getCount()>0) {
+                cursor.close();
+                return true;
+            }
+            cursor.close();
+        }
+        return false;
+    }
 
 
 }

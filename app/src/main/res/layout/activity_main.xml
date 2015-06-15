@@ -71,7 +71,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:text="Add Mem"
-                    android:textSize="10sp"/>
+                    android:textSize="10sp"
+                    android:onClick="addMem"
+                    />
 
                     <ScrollView
                         android:layout_width="match_parent"
@@ -81,42 +83,48 @@
                     <Button
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:text="M1"
+                    android:text="+ Lay w/bttn"
                     android:textSize="9sp"
                     android:layout_marginTop="-3dp"
-                    android:layout_marginBottom="-4dp"/>
+                    android:layout_marginBottom="-4dp"
+                    android:onClick="onAddLayout"
+                        />
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:text="M2"
+                    android:text="+Btn Ly 1"
                     android:textSize="9sp"
                     android:layout_marginTop="-4dp"
-                    android:layout_marginBottom="-4dp"/>
+                    android:layout_marginBottom="-4dp"
+                    android:onClick="onAddB1"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:text="M3"
+                    android:text="+Btn Ly 2"
                     android:textSize="9sp"
                     android:layout_marginTop="-4dp"
-                    android:layout_marginBottom="-4dp"/>
+                    android:layout_marginBottom="-4dp"
+                    android:onClick="onAddB2"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:text="M4"
+                    android:text="+Btn Ly 3"
                     android:textSize="9sp"
                     android:layout_marginTop="-4dp"
-                    android:layout_marginBottom="-4dp"/>
+                    android:layout_marginBottom="-4dp"
+                    android:onClick="onAddB3"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:text="M5"
+                    android:text="+Btn Ly 4"
                     android:textSize="9sp"
                     android:layout_marginTop="-4dp"
-                    android:layout_marginBottom="-4dp"/>
+                    android:layout_marginBottom="-4dp"
+                    android:onClick="onAddB4"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:text="M6"
+                    android:text="Goto edit"
                     android:textSize="9sp"
                     android:layout_marginTop="-4dp"
                     android:layout_marginBottom="-4dp"/>

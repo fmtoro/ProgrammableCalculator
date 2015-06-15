@@ -43,6 +43,13 @@ public class ftG {
     public static Calc clc;
     public static CalcH clcH;
 
+    public static int makeBtnId(long lid, long id){
+
+        int a = (100*((int)lid + 3) + ((int)id + 1));
+
+        return a;
+
+    }
 
     public static void appendDisplay(MainActivity a,String strToAppend){
         display += strToAppend;

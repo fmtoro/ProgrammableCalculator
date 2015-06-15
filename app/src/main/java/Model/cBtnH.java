@@ -17,15 +17,15 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class cBtnH extends SQLiteOpenHelper {
 
-    static  final   String      DB_Name     =   "ftProgCalc.db";
-    static  final   int         DB_V        =   3;
+    static  final   String      DB_Name     =   "ftPgCalc.db";
+    static  final   int         DB_V        =   1;
 
     static  final   String      TABLE_N     =   "cbtn";
 
     static  final   String      Id         =   "Id";
     static  final   String      cName       =   "cName";
     static  final   String      pName       =   "pName";
-    static  final   String      lName       =   "lName";
+    static  final   String      lId       =   "lId";
     static  final   String      bName       =   "bName";
     static  final   String      ubColor       =   "ubColor";
     static  final   String      ubTextColor       =   "ubTextColor";
@@ -39,6 +39,8 @@ public class cBtnH extends SQLiteOpenHelper {
     static  final   String      ubBackgroundImage       =   "ubBackgroundImage";
     static  final   String      ubTextVisible       =   "ubTextVisible";
     static  final   String      ubRelativeW       =   "ubRelativeW";
+    static  final   String      ubBelongToLayout       =   "ubBelongToLayout";
+    static  final   String      ubPosInLayout       =   "ubPosInLayout";
 
     // Creations
     static  final   String      CREATE_TABLE =
@@ -46,7 +48,7 @@ public class cBtnH extends SQLiteOpenHelper {
                     Id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     cName +  " TEXT , " +
                     pName +  " TEXT , " +
-                    lName +  " TEXT , " +
+                    lId +  " INTEGER , " +
                     bName +  " TEXT , " +
                     ubColor +  " TEXT , " +
                     ubTextColor +  " TEXT , " +
@@ -54,12 +56,14 @@ public class cBtnH extends SQLiteOpenHelper {
                     ubCode +  " TEXT , " +
                     ubCodeDescription +  " TEXT , " +
                     ubAuthor +  " TEXT,  " +
-                    ubActive +  " TEXT , " +
-                    ubVisible +  " TEXT , " +
-                    ubLocked +  " TEXT , " +
+                    ubActive +  " INTEGER , " +
+                    ubVisible +  " INTEGER , " +
+                    ubLocked +  " INTEGER , " +
                     ubBackgroundImage +  " TEXT , " +
-                    ubTextVisible +  " TEXT , " +
-                    ubRelativeW +  " TEXT " +
+                    ubTextVisible +  " INTEGER , " +
+                    ubRelativeW +  " REAL , " +
+                    ubBelongToLayout +  " INTEGER , " +
+                    ubPosInLayout +  " INTEGER " +
             ")";
 
 

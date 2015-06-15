@@ -23,9 +23,9 @@ import java.util.List;
  */
 public class cLayout{
 
-    private LinearLayout lLL;
+    public LinearLayout lLL;
+    public List<cBtn> btS;
 
-    private Context ctx;
 
     private static SQLiteOpenHelper dbH;
     private static SQLiteDatabase db;
@@ -34,10 +34,9 @@ public class cLayout{
     public String cName;
     public String pName;
     public String lName;
-    public long lRelativeH;
+    public float lRelativeH;
 
 
-    public cLayout(){}
 
     @Override
     public String toString() {
@@ -47,7 +46,32 @@ public class cLayout{
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public void autoCreate(){
 
+        this.lLL = new LinearLayout(ftG.ctx);
+        this.lLL.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        lP.height = 0;
+        lP.weight=this.lRelativeH;
+        this.lLL.setLayoutParams(lP);
+        ftG.tlll.addView(this.lLL);
+    }
+
+    public void autoShowAll(){
+
+
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        lP.height = 0;
+        lP.weight= 1f;
+        this.lLL.setLayoutParams(lP);
+
+    }
+
+    public void autoSetProps(){
+
+
+
+    }
 
     private static final String[] allCols = {
             cLayoutH.Id,
@@ -57,9 +81,18 @@ public class cLayout{
             cLayoutH.lRelativeH
     };
 
+
+
     public cLayout(Context context){
 
         dbH = new cLayoutH(context);
+
+    }
+
+    public static  void initDb(){
+
+        dbH = new cLayoutH(ftG.ctx);
+
     }
 
     public static void Open(){
@@ -126,23 +159,25 @@ public class cLayout{
     public static List<cLayout> listAll(){
         List<cLayout> loc_cLayout = new ArrayList<cLayout>();
 
+        Open();
+
         Cursor cursor = db.query(cLayoutH.TABLE_N, allCols, null, null, null, null, null);
 
         ftG.L("Found " + cursor.getCount() + " rows in " + cLayoutH.TABLE_N);
 
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                cLayout xx = new cLayout();
+                cLayout xx = new cLayout(ftG.ctx);
                 xx.Id = cursor.getLong(cursor.getColumnIndex(cLayoutH.Id));
                 xx.cName = cursor.getString(cursor.getColumnIndex(cLayoutH.cName));
                 xx.pName = cursor.getString(cursor.getColumnIndex(cLayoutH.pName));
                 xx.lName = cursor.getString(cursor.getColumnIndex(cLayoutH.lName));
-                xx.lRelativeH = cursor.getLong(cursor.getColumnIndex(cLayoutH.lRelativeH));
+                xx.lRelativeH = cursor.getFloat(cursor.getColumnIndex(cLayoutH.lRelativeH));
 
                 loc_cLayout.add(xx);
             }
         }
-
+Close();
         return loc_cLayout;
     }
 
@@ -151,7 +186,7 @@ public class cLayout{
 
     public static cLayout getById(long ID){
 
-        cLayout xx = new cLayout();
+        cLayout xx = new cLayout(ftG.ctx);
 
         Open();
 
@@ -173,7 +208,7 @@ public class cLayout{
             xx.cName = cursor.getString(cursor.getColumnIndex(cLayoutH.cName));
             xx.pName = cursor.getString(cursor.getColumnIndex(cLayoutH.pName));
             xx.lName = cursor.getString(cursor.getColumnIndex(cLayoutH.lName));
-            xx.lRelativeH = cursor.getLong(cursor.getColumnIndex(cLayoutH.lRelativeH));
+            xx.lRelativeH = cursor.getFloat(cursor.getColumnIndex(cLayoutH.lRelativeH));
 
         }
 

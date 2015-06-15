@@ -17,8 +17,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class cLayoutH extends SQLiteOpenHelper {
 
-    static  final   String      DB_Name     =   "ftProgCalc.db";
-    static  final   int         DB_V        =   3;
+    static  final   String      DB_Name     =   "ftPgCalc.db";
+    static  final   int         DB_V        =   1;
 
     static  final   String      TABLE_N     =   "clayout";
 
@@ -35,7 +35,7 @@ public class cLayoutH extends SQLiteOpenHelper {
                     cName +  " TEXT , " +
                     pName +  " TEXT , " +
                     lName +  " TEXT , " +
-                    lRelativeH +  " INTEGER " +
+                    lRelativeH +  " REAL " +
                     ")";
 
 

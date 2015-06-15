@@ -5,221 +5,234 @@
 package Model;
 
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+    import android.content.ContentValues;
+    import android.content.Context;
+    import android.database.Cursor;
+    import android.database.sqlite.SQLiteDatabase;
+    import android.database.sqlite.SQLiteOpenHelper;
+    import android.widget.Button;
 
-import com.ftpha.programmablecalculator.ftG;
+    import com.ftpha.programmablecalculator.ftG;
 
-import java.util.ArrayList;
-import java.util.List;
+    import java.util.ArrayList;
+    import java.util.List;
 
+    /**
+     * Created by Fernando on 2015-06-09.
+     * Originally created as part of: Programmable Calculator
+     * You will love this code and be awed by it's magnificence
+     */
+    public class Calc {
 
-/**
- * Created by Fernando on 2015-06-05.
- * Originally created as part of: PartialTab
- * You will love this code and be awed by it's magnificence
- */
-public class Calc{
-    private Context ctx;
+        public List<cLayout> ltS;
 
-    private static SQLiteOpenHelper dbH;
-    private static SQLiteDatabase db;
+        private Context ctx;
 
-    //    Muy importante
-    public long cId;
-    public String cName;
+        private static SQLiteOpenHelper dbH;
+        private static SQLiteDatabase db;
 
-    public String cBackgroundImage;
+        //    Muy importante
+        public long Id;
+        public String cName;
 
-    // Display
-    public int cDisplayColor;
-    public int cDisplayTextColor;
-    public int cDisplayTextSize;
+        public String cBackgroundImage;
 
-    // Basic Buttons
-    public int cBasicBtnsColor;
-    public int cBasicBtnsTextColor;
-    public int cBasicBtnsTextSize;
-    public int cBasicBtnsMargines;
-    public int cBasicBtnsPadding;
+        // Display
+        public int cDisplayColor;
+        public int cDisplayTextColor;
+        public int cDisplayTextSize;
 
-    // Memories
-    public int cMemW;  // for the scrollable
-    public int cMemH;  // for each button
-    public int cMemColor;
-    public int cMemMargins;
-    public int cMemPaddings;
-    public int cMemTextSize;
-    public int cMemTextColor;
-
-
-    public Calc(){}
-
-    public Calc(Context c, String cname){
-
-        this.ctx = c;
-        this.cName = cname;
-
-        this.cBackgroundImage = "na";
-        this.cDisplayColor = -1;
-        this.cDisplayTextColor = -1;
-        this.cDisplayTextSize = -1;
-
-        this.cBasicBtnsColor = -1;
-        this.cBasicBtnsTextColor = -1;
-        this.cBasicBtnsTextSize = -1;
-        this.cBasicBtnsMargines = -1;
-        this.cBasicBtnsPadding = -1;
-
-        this.cMemW = -1;
-        this.cMemH = -1;
-        this.cMemColor = -1;
-        this.cMemMargins = -1;
-        this.cMemPaddings = -1;
-        this.cMemTextSize = -1;
-        this.cMemTextColor = -1;
-
-    }
+        // Basic Buttons
+        public int cBasicBtnsColor;
+        public int cBasicBtnsTextColor;
+        public int cBasicBtnsTextSize;
+        public int cBasicBtnsMargines;
+        public int cBasicBtnsPadding;
 
 
 
 
+        @Override
+        public String toString() {
+            return this.cName;
+        }
 
 
-    @Override
-    public String toString() {
-        return this.cName;
-    }
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-    private static final String[] allUTCs = {
-            CalcH.cId,
-            CalcH.cName,
+        private static final String[] allCols = {
+                CalcH.Id,
+                CalcH.cName,
+                CalcH.cBackgroundImage,
+                CalcH.cDisplayColor,
+                CalcH.cDisplayTextColor,
+                CalcH.cDisplayTextSize,
+                CalcH.cBasicBtnsColor,
+                CalcH.cBasicBtnsTextColor,
+                CalcH.cBasicBtnsTextSize,
+                CalcH.cBasicBtnsMargines,
+                CalcH.cBasicBtnsPadding
+        };
 
-    };
+        public Calc(Context context){
 
-    public Calc(Context context){
+            dbH = new CalcH(context);
+            this.ltS = cLayout.listAll();
 
-        dbH = new CalcH(context);
-    }
-
-    public static void Open(){
-
-
-        db = dbH.getWritableDatabase();
-        ftG.L(" The db has opened");
-
-    }
-
-
-    public static void Close(){
-
-        dbH.close();
-        ftG.L(" The db has closed");
-
-    }
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public void createUser(){
-
-        Open();
-
-        ContentValues values = new ContentValues();
-
-        values.put(CalcH.cName, this.cName);
-
-
-        long insertCId = db.insert(CalcH.TABLE_N, null,values );
-        this.cId = insertCId;
-
-        Close();
-    }
-
-    public boolean updateUser(long ID){
-
-        Open();
-        ContentValues vals = new ContentValues();
-
-        vals.put(CalcH.cName, this.cName);
-//        vals.put(CalcH.U_C_PHONE, this.Algo);
-
-
-        boolean rslt;
-
-        rslt = db.update(
-                CalcH.TABLE_N,
-                vals,
-                CalcH.cId + " = " + ID,
-                null
-        ) == 1;
-        Close();
-
-        return rslt;
-    }
-
-    public static List<Calc> findAllUsers(){
-        List<Calc> users = new ArrayList<Calc>();
-
-        Cursor cursor = db.query(CalcH.TABLE_N, allUTCs, null, null, null, null, null);
-
-        ftG.L("Found " + cursor.getCount() + " rows in " + CalcH.TABLE_N);
-
-        if (cursor.getCount() > 0) {
-            while (cursor.moveToNext()) {
-                Calc user = new Calc();
-                user.cId =cursor.getLong(cursor.getColumnIndex(CalcH.cId));
-                user.cName =cursor.getString(cursor.getColumnIndex(CalcH.cName));
-
-                users.add(user);
+            for (cLayout l : ltS) {
+                l.btS = cBtn.listFroLayout(l.Id);
             }
-        }
-
-        return users;
-    }
-
-
-
-
-    public static Calc getUser(long uID){
-
-        Calc user = new Calc();
-
-        Open();
-
-
-        Cursor cursor = db.query(
-                CalcH.TABLE_N,
-                allUTCs,
-                CalcH.cId + " = " + uID,
-                null,
-                null,
-                null,
-                null);
-
-
-        if (cursor.getCount() > 0) {
-            cursor.moveToNext();
-
-            user.cId = cursor.getLong(cursor.getColumnIndex(CalcH.cId));
-            user.cName = cursor.getString(cursor.getColumnIndex(CalcH.cName));
 
         }
 
-        Close();
-        return user;
+        public static void Open(){
+
+
+            db = dbH.getWritableDatabase();
+            ftG.L(" The db has opened from Calc");
+
+        }
+
+
+        public static void Close(){
+
+            dbH.close();
+            ftG.L(" The db has closed from Calc");
+
+        }
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public void create(){
+
+            Open();
+
+            ContentValues values = new ContentValues();
+
+            values.put(CalcH.cName, this.cName);
+            values.put(CalcH.cBackgroundImage, this.cBackgroundImage);
+            values.put(CalcH.cDisplayColor, this.cDisplayColor);
+            values.put(CalcH.cDisplayTextColor, this.cDisplayTextColor);
+            values.put(CalcH.cDisplayTextSize, this.cDisplayTextSize);
+            values.put(CalcH.cBasicBtnsColor, this.cBasicBtnsColor);
+            values.put(CalcH.cBasicBtnsTextColor, this.cBasicBtnsTextColor);
+            values.put(CalcH.cBasicBtnsTextSize, this.cBasicBtnsTextSize);
+            values.put(CalcH.cBasicBtnsMargines, this.cBasicBtnsMargines);
+            values.put(CalcH.cBasicBtnsPadding, this.cBasicBtnsPadding);
+
+
+            long insertId = db.insert(CalcH.TABLE_N, null,values );
+            this.Id = insertId;
+
+            Close();
+        }
+
+        public boolean update(long ID){
+
+            Open();
+            ContentValues vals = new ContentValues();
+
+            vals.put(CalcH.cName, this.cName);
+            vals.put(CalcH.cBackgroundImage, this.cBackgroundImage);
+            vals.put(CalcH.cDisplayColor, this.cDisplayColor);
+            vals.put(CalcH.cDisplayTextColor, this.cDisplayTextColor);
+            vals.put(CalcH.cDisplayTextSize, this.cDisplayTextSize);
+            vals.put(CalcH.cBasicBtnsColor, this.cBasicBtnsColor);
+            vals.put(CalcH.cBasicBtnsTextColor, this.cBasicBtnsTextColor);
+            vals.put(CalcH.cBasicBtnsTextSize, this.cBasicBtnsTextSize);
+            vals.put(CalcH.cBasicBtnsMargines, this.cBasicBtnsMargines);
+            vals.put(CalcH.cBasicBtnsPadding, this.cBasicBtnsPadding);
+
+
+            boolean rslt;
+
+            rslt = db.update(
+                    CalcH.TABLE_N,
+                    vals,
+                    CalcH.Id + " = " + ID,
+                    null
+            ) == 1;
+            Close();
+
+            return rslt;
+        }
+
+        public static List<Calc> listAll(){
+            List<Calc> loc_Calc = new ArrayList<Calc>();
+
+            Open();
+
+            Cursor cursor = db.query(CalcH.TABLE_N, allCols, null, null, null, null, null);
+
+            ftG.L("Found " + cursor.getCount() + " rows in " + CalcH.TABLE_N);
+
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    Calc xx = new Calc(ftG.ctx);
+                    xx.Id = cursor.getLong(cursor.getColumnIndex(CalcH.Id));
+                    xx.cName = cursor.getString(cursor.getColumnIndex(CalcH.cName));
+                    xx.cBackgroundImage = cursor.getString(cursor.getColumnIndex(CalcH.cBackgroundImage));
+                    xx.cDisplayColor = cursor.getInt(cursor.getColumnIndex(CalcH.cDisplayColor));
+                    xx.cDisplayTextColor = cursor.getInt(cursor.getColumnIndex(CalcH.cDisplayTextColor));
+                    xx.cDisplayTextSize = cursor.getInt(cursor.getColumnIndex(CalcH.cDisplayTextSize));
+                    xx.cBasicBtnsColor = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsColor));
+                    xx.cBasicBtnsTextColor = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsTextColor));
+                    xx.cBasicBtnsTextSize = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsTextSize));
+                    xx.cBasicBtnsMargines = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsMargines));
+                    xx.cBasicBtnsPadding = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsPadding));
+
+                    loc_Calc.add(xx);
+                }
+            }
+            Close();
+            return loc_Calc;
+        }
+
+
+
+
+        public static Calc getById(long ID){
+
+            Calc xx = new Calc(ftG.ctx);
+
+            Open();
+
+
+            Cursor cursor = db.query(
+                    CalcH.TABLE_N,
+                    allCols,
+                    CalcH.Id + " = " + ID,
+                    null,
+                    null,
+                    null,
+                    null);
+
+
+            if (cursor.getCount() > 0) {
+                cursor.moveToNext();
+
+                xx.Id = cursor.getLong(cursor.getColumnIndex(CalcH.Id));
+                xx.cName = cursor.getString(cursor.getColumnIndex(CalcH.cName));
+                xx.cBackgroundImage = cursor.getString(cursor.getColumnIndex(CalcH.cBackgroundImage));
+                xx.cDisplayColor = cursor.getInt(cursor.getColumnIndex(CalcH.cDisplayColor));
+                xx.cDisplayTextColor = cursor.getInt(cursor.getColumnIndex(CalcH.cDisplayTextColor));
+                xx.cDisplayTextSize = cursor.getInt(cursor.getColumnIndex(CalcH.cDisplayTextSize));
+                xx.cBasicBtnsColor = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsColor));
+                xx.cBasicBtnsTextColor = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsTextColor));
+                xx.cBasicBtnsTextSize = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsTextSize));
+                xx.cBasicBtnsMargines = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsMargines));
+                xx.cBasicBtnsPadding = cursor.getInt(cursor.getColumnIndex(CalcH.cBasicBtnsPadding));
+
+            }
+
+            Close();
+            return xx;
+        }
+
+
+
+
     }
-
-
-
-
-}

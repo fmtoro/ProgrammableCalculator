@@ -1,22 +1,29 @@
 package com.ftpha.programmablecalculator;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.internal.widget.ContentFrameLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
 import java.util.List;
 
 import Model.Calc;
+import Model.cBtn;
+import Model.cLayout;
 import Model.cPage;
 import Model.cPageH;
 
@@ -56,29 +63,107 @@ public class MainActivity extends Activity{
         ftG.tlll = (LinearLayout) findViewById(R.id.tlll);
 
         initBasic();
-        testObjs();
+        ponLosAndamios();
+    }
+
+    private void ponLosAndamios(){
+
+        cLayout.initDb();
+        cBtn.initDb();
+
+        ftG.clc = new Calc(ftG.ctx);
+
+        for (cLayout l : ftG.clc.ltS) {
+            l.autoCreate();
+
+            for (cBtn b : l.btS) {
+                b.autoCreate(l.lLL);
+            }
+        }
+        int a = 1;
+    }
+
+    private void addAButton() {
+        //Aqui:
+        cLayout lay;
+        if (ftG.clc.ltS.isEmpty()) {
+            lay = new cLayout(ftG.ctx);
+            lay.lRelativeH = 1f;
+            lay.create();
+            lay.autoCreate();
+            ftG.clc.ltS.add(lay);
+        } else {
+            lay = ftG.clc.ltS.get(0);
+        }
+
+        cBtn but = new cBtn(ftG.ctx);
+        but.lId = lay.Id;
+        but.ubVisible = LinearLayout.VISIBLE; //0
+        but.create();
+        but.ubBelongToLayout = but.lId;
+        but.ubPosInLayout = but.Id;
+        but.ubText = "new " + but.lId + "-" + but.Id;
+        but.update(but.Id);
+        but.autoCreate(lay.lLL);
+        lay.btS.add(but);
+
+    }
+
+    private void addAButtonToLayout(int theLayout) {
+        //Aqui:
+        cLayout lay;
+
+        lay = ftG.clc.ltS.get(theLayout);
+
+
+        cBtn but = new cBtn(ftG.ctx);
+        but.lId = lay.Id;
+        but.ubVisible = LinearLayout.VISIBLE; //0
+        but.create();
+        but.ubBelongToLayout = but.lId;
+        but.ubPosInLayout = but.Id;
+        but.ubText = "new " + but.lId + "-" + but.Id;
+        but.update(but.Id);
+        but.autoCreate(lay.lLL);
+        lay.btS.add(but);
+
+    }
+
+    private void addABtnInNewLayout() {
+        //Aqui:
+        cLayout lay;
+
+            lay = new cLayout(ftG.ctx);
+            lay.lRelativeH = 1f;
+            lay.create();
+            lay.autoCreate();
+            ftG.clc.ltS.add(lay);
+
+
+        cBtn but = new cBtn(ftG.ctx);
+        but.lId = lay.Id;
+        but.ubVisible = LinearLayout.VISIBLE; //0
+        but.create();
+        but.ubBelongToLayout = but.lId;
+        but.ubPosInLayout = but.Id;
+        but.ubText = "new " + but.lId + "-" + but.Id;
+        but.update(but.Id);
+        but.autoCreate(lay.lLL);
+        lay.btS.add(but);
+
+    }
+
+    private void showAll(){
+        for (cLayout l : ftG.clc.ltS) {
+            l.autoShowAll();
+
+            for (cBtn b : l.btS) {
+                b.autoShowAll();
+            }
+        }
     }
 
 
-
-    private void testObjs(){
-
-        cPage cP = new cPage(MainActivity.this);
-        cPageH cpH = new cPageH(MainActivity.this);
-
-        cP.cName = "Standard";
-        cP.pName = "Pg1";
-
-        cP.create();
-
-        cP.cName = "cmhdcalcdm";
-        cP.cName = "avanumdt, pe";
-
-        cP = cPage.getById(cP.Id);
-
-        Toast.makeText(MainActivity.this, cP.cName, Toast.LENGTH_LONG).show();
-
-    }
     private void initBasic(){
         b0      = (Button) findViewById(R.id.b0);
         b1      = (Button) findViewById(R.id.b1);
@@ -275,5 +360,27 @@ public class MainActivity extends Activity{
 
     public void onOpsClick(View v) {
         onClick(v);
+    }
+
+    public void addMem(View view) {
+//        showAll();
+        addAButton();
+    }
+
+    public void onAddLayout(View view) {
+        addABtnInNewLayout();
+    }
+
+    public void onAddB1(View view) {
+        addAButtonToLayout(0);
+    }
+    public void onAddB2(View view) {
+        addAButtonToLayout(1);
+    }
+    public void onAddB3(View view) {
+        addAButtonToLayout(2);
+    }
+    public void onAddB4(View view) {
+        addAButtonToLayout(3);
     }
 }
