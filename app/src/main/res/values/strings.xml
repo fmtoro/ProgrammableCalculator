@@ -4,4 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="youNeedGingerBread">You need Gingerbread MR1 or later to use this app</string>
+    <string name="title_activity_edit_btn">Button Edit</string>
+    <string name="buttonText">Button Text: </string>
 </resources>
