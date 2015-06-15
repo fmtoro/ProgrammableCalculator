@@ -13,34 +13,34 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.ftpha.programmablecalculator.EditBtnActivity"
     android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <CheckBox
+            android:id="@+id/chBxActive"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Active"
-            android:id="@+id/checkBox"
-            android:checked="true"/>
-
+            android:text="@string/active"
+            android:checked="true"
+            android:onClick="onActiveStatusSet"/>
         <CheckBox
+            android:id="@+id/chBxShowText"
             android:layout_width="0dp"
             android:layout_weight="1.1"
             android:layout_height="wrap_content"
-            android:text="Show Text"
-            android:id="@+id/checkBox2"
-            android:checked="true"/>
+            android:text="@string/showText"
+            android:checked="true"
+            android:onClick="onShowTextStatusSet"/>
 
         <CheckBox
+            android:id="@+id/chBxLocked"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Locked"
-            android:id="@+id/checkBox3"/>
+            android:text="@string/locked"
+            android:onClick="onLockedStatusSet"/>
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +57,6 @@
             android:layout_width="0dp"
             android:layout_weight="14"
             android:layout_height="wrap_content"
-            android:hint="Text for button"
             />
         <LinearLayout
             android:layout_width="0dp"
@@ -76,8 +75,10 @@
                 android:layout_marginLeft="15dp"
                 android:onClick="onButtonColClicked"
                 >
+                <!--Aqui arriba el background-->
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/llTextColorBG"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:orientation="horizontal"
@@ -85,9 +86,10 @@
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"
-                android:onClick="onTextColClicked"
-                >
+                android:onClick="onTextColClicked" >
+                <!--Aqui arriba el background-->
                 <TextView
+                    android:id="@+id/llTextColorTxt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="A"
@@ -95,8 +97,8 @@
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
-                    android:textColor="#ffe9d8e9"
-                    />
+                    android:textColor="#ffe9d8e9"/>
+                <!--Aqui arriba el background-->
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -109,14 +111,12 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Row Rel. Height: "
+                android:text="@string/rowRelHeight"
                 />
-
             <EditText
                 android:id="@+id/txtRowH"
                 android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button R. Width: "
+                android:text="@string/buttonRelWidth"
                 />
 
             <EditText
@@ -173,13 +173,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Code for this button: "/>
+                        android:text="@string/codeForThisButton"/>
                     <EditText
+                        android:id="@+id/txtButtonCode"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="top"
-                        android:background="#fffdfe"
-                        />
+                        android:background="#fffdfe"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -190,18 +190,17 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="bottom"
-                        android:layout_marginLeft="3dp"
-                        >
+                        android:layout_marginLeft="3dp">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text=" ..."
                             android:background="#cccccc"
+                            android:onClick="onGoToBttnsCode"
                             />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout> <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -217,9 +216,10 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/txtButtonDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Code for this button: "/>
+                    android:text="@string/instrForThisButton"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -242,6 +242,7 @@
                         android:layout_height="match_parent"
                         android:text=" ..."
                         android:background="#cccccc"
+                        android:onClick="onGoToBttnsDescription"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -260,13 +261,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="Save"/>
+                android:text="@string/save"
+                android:onClick="onSaveBttn"
+                />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="Exit"/>
+                android:text="@string/exit"
+                android:onClick="onExitWOSave"
+                />
         </LinearLayout>
 
 
