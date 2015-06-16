@@ -70,9 +70,9 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
-                    android:text="Add Mem"
+                    android:text="Edit"
                     android:textSize="10sp"
-                    android:onClick="addMem"
+                    android:onClick="onEditBtn"
                     />
 
                     <ScrollView
@@ -127,7 +127,9 @@
                     android:text="Goto edit"
                     android:textSize="9sp"
                     android:layout_marginTop="-4dp"
-                    android:layout_marginBottom="-4dp"/>
+                    android:layout_marginBottom="-4dp"
+                    android:onClick="onStartEditMode"/>
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="36dp"

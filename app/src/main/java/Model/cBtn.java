@@ -6,6 +6,7 @@ package Model;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.internal.widget.ActivityChooserModel;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ftpha.programmablecalculator.EditBtnActivity;
+import com.ftpha.programmablecalculator.MainActivity;
 import com.ftpha.programmablecalculator.ftG;
 
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 public class cBtn {
 
-    Button b;
+    public Button b;
 
     private cBtn yo;
 
@@ -90,11 +93,21 @@ public class cBtn {
 
         b.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                String a ="The button is: " + yo.Id + "\n";
+
+            if (!ftG.editM) {
+                String a = "The button is: " + yo.Id + "\n";
                 a += "In layout: " + yo.lId;
 
+                Toast.makeText(ftG.ctx, a, Toast.LENGTH_LONG).show();
+            } else {
+                //Aqui estamos en edit mode
 
-                Toast.makeText(ftG.ctx, a,Toast.LENGTH_LONG).show();
+                int ix = ftG.clc.ltS.get((int) yo.lId - 1).btS.indexOf(yo);
+                ftG.wB = ftG.clc.ltS.get((int) yo.lId - 1).btS.get(ix);
+
+                Intent in = new Intent(ftG.currActivity, EditBtnActivity.class);
+                ftG.currActivity.startActivity(in);
+            }
             }
         });
 
@@ -115,6 +128,16 @@ public class cBtn {
 
     public void autoUpdate(){
 
+        this.b.setText(yo.ubText);
+
+
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        lP.width = 0;
+        lP.weight = yo.ubRelativeW;
+        this.b.setLayoutParams(lP);
+        this.ubVisible = (yo.ubActive == 1) ? LinearLayout.VISIBLE : LinearLayout.GONE;
+
+        //Aqui faltan los colores...
 
     }
 

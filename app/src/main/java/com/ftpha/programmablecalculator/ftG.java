@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import Model.Calc;
 import Model.CalcH;
+import Model.cBtn;
 
 /**
  * Created by Fernando on 2015-06-01.
@@ -14,6 +15,9 @@ import Model.CalcH;
  * You will love this code and be awed by it's magnificence
  */
 public class ftG {
+
+    public static boolean editM = false;
+    public static Activity currActivity;
 
     public static String dbName = "ftProgCalc.db";
     public static int dbVersion = 1;
@@ -42,6 +46,9 @@ public class ftG {
 
     public static Calc clc;
     public static CalcH clcH;
+
+    public static cBtn wB; //cBtn that will be edited in the edit window.
+
 
     public static int makeBtnId(long lid, long id){
 

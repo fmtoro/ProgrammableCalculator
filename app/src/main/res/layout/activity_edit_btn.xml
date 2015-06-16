@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/active"
-            android:checked="true"
+            android:checked="false"
             android:onClick="onActiveStatusSet"/>
         <CheckBox
             android:id="@+id/chBxShowText"
@@ -31,7 +31,7 @@
             android:layout_weight="1.1"
             android:layout_height="wrap_content"
             android:text="@string/showText"
-            android:checked="true"
+            android:checked="false"
             android:onClick="onShowTextStatusSet"/>
 
         <CheckBox
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_weight="14"
             android:layout_height="wrap_content"
-            />
+            android:id="@+id/txtBttnText"/>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="8"
@@ -216,7 +216,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/txtButtonDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/instrForThisButton"/>
@@ -224,13 +223,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="top"
-                    android:background="#fffdfe"/>
+                    android:background="#fffdfe"
+                    android:id="@+id/txtButtonDescription"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="7"
                 android:layout_height="match_parent"
-                >
+                android:onClick="onGoToBttnsDescription">
                 <LinearLayout
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -242,7 +242,6 @@
                         android:layout_height="match_parent"
                         android:text=" ..."
                         android:background="#cccccc"
-                        android:onClick="onGoToBttnsDescription"
                         />
                 </LinearLayout>
             </LinearLayout>
