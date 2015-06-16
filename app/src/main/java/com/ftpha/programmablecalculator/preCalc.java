@@ -7,6 +7,7 @@ package com.ftpha.programmablecalculator;
 import android.content.Context;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.widget.EditText;
 import android.widget.Toast;
 
 /**
@@ -20,6 +21,8 @@ public class preCalc {
 //    public String Opp;
 //
     private  Context cx;
+
+    private static EditText theDisp;
 //
     public preCalc(Context context){
         cx = context;
@@ -38,11 +41,24 @@ public class preCalc {
 //        return Opp;
 //    }
 //
+
+    public static void connDisp(EditText disp){
+        theDisp = disp;
+    }
+
+
     @JavascriptInterface
-    public void setResult(String theResult){
+    public void setResult(final String theResult){
+
         ftG.result = theResult;
         ftG.answ = theResult;
-        ftG.showResult();
+
+        theDisp.post(new Runnable() {
+            @Override
+            public void run() {
+                theDisp.setText(theResult);
+            }
+        });
     }
 //
     @JavascriptInterface

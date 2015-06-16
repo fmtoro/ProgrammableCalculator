@@ -85,8 +85,13 @@ public class ftG {
     }
 
     public static void showResult(){
-
+        //android.os.SystemClock.sleep(1000);
         mA.setD(result);
+
+    }
+    public static void showResult2(String r){
+        //android.os.SystemClock.sleep(1000);
+        mA.setD(r);
 
     }
 

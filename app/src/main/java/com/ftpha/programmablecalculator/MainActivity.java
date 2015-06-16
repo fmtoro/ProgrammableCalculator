@@ -28,33 +28,32 @@ import Model.cLayout;
 import Model.cPage;
 import Model.cPageH;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
 
-//    -----------------------------------------------Fields
-    private Button b0       ;
-    private Button b1       ;
-    private Button b2       ;
-    private Button b3       ;
-    private Button b4       ;
-    private Button b5       ;
-    private Button b6       ;
-    private Button b7       ;
-    private Button b8       ;
-    private Button b9       ;
+    //    -----------------------------------------------Fields
+    private Button b0;
+    private Button b1;
+    private Button b2;
+    private Button b3;
+    private Button b4;
+    private Button b5;
+    private Button b6;
+    private Button b7;
+    private Button b8;
+    private Button b9;
 
 
-    private Button bPls     ;
-    private Button bMin     ;
-    private Button bMult    ;
-    private Button bDiv     ;
-    private Button bDec     ;
-    private Button bEqu     ;
-    public EditText mainD;
+    private Button bPls;
+    private Button bMin;
+    private Button bMult;
+    private Button bDiv;
+    private Button bDec;
+    private Button bEqu;
+    public static EditText mainD;
 
-    private WebView wv;
+    private static WebView wv;
     private preCalc pC;
     private Context xt;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +66,11 @@ public class MainActivity extends Activity{
 
         initBasic();
         ponLosAndamios();
+
+        ftG.setMainAct(MainActivity.this);
     }
 
-    private void ponLosAndamios(){
+    private void ponLosAndamios() {
 
         cLayout.initDb();
         cBtn.initDb();
@@ -137,11 +138,11 @@ public class MainActivity extends Activity{
         //Aqui:
         cLayout lay;
 
-            lay = new cLayout(ftG.ctx);
-            lay.lRelativeH = 1f;
-            lay.create();
-            lay.autoCreate();
-            ftG.clc.ltS.add(lay);
+        lay = new cLayout(ftG.ctx);
+        lay.lRelativeH = 1f;
+        lay.create();
+        lay.autoCreate();
+        ftG.clc.ltS.add(lay);
 
 
         cBtn but = new cBtn(ftG.ctx);
@@ -157,7 +158,7 @@ public class MainActivity extends Activity{
 
     }
 
-    private void showAll(){
+    private void showAll() {
         for (cLayout l : ftG.clc.ltS) {
             l.autoShowAll();
 
@@ -168,45 +169,42 @@ public class MainActivity extends Activity{
     }
 
 
-    private void initBasic(){
-        b0      = (Button) findViewById(R.id.b0);
-        b1      = (Button) findViewById(R.id.b1);
-        b2      = (Button) findViewById(R.id.b2);
-        b3      = (Button) findViewById(R.id.b3);
-        b4      = (Button) findViewById(R.id.b4);
-        b5      = (Button) findViewById(R.id.b5);
-        b6      = (Button) findViewById(R.id.b6);
-        b7      = (Button) findViewById(R.id.b7);
-        b8      = (Button) findViewById(R.id.b8);
-        b9      = (Button) findViewById(R.id.b9);
-        bPls    = (Button) findViewById(R.id.bPlus);
-        bMin    = (Button) findViewById(R.id.bMinus);
-        bMult   = (Button) findViewById(R.id.bTimes);
-        bDiv    = (Button) findViewById(R.id.bDiv);
-        bDec    = (Button) findViewById(R.id.bDec);
-        bEqu    = (Button) findViewById(R.id.bEqu);
+    private void initBasic() {
+        b0 = (Button) findViewById(R.id.b0);
+        b1 = (Button) findViewById(R.id.b1);
+        b2 = (Button) findViewById(R.id.b2);
+        b3 = (Button) findViewById(R.id.b3);
+        b4 = (Button) findViewById(R.id.b4);
+        b5 = (Button) findViewById(R.id.b5);
+        b6 = (Button) findViewById(R.id.b6);
+        b7 = (Button) findViewById(R.id.b7);
+        b8 = (Button) findViewById(R.id.b8);
+        b9 = (Button) findViewById(R.id.b9);
+        bPls = (Button) findViewById(R.id.bPlus);
+        bMin = (Button) findViewById(R.id.bMinus);
+        bMult = (Button) findViewById(R.id.bTimes);
+        bDiv = (Button) findViewById(R.id.bDiv);
+        bDec = (Button) findViewById(R.id.bDec);
+        bEqu = (Button) findViewById(R.id.bEqu);
 
         initDisplay();
 
         ftG.clcMode = "Start";
 
+
         wv = (WebView) findViewById(R.id.wv);
 
 
+        //calculate();
+
+
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-        if (currentapiVersion >= 17){
+        if (currentapiVersion >= 17) {
             // Do something for froyo and above versions
 
             wv.getSettings().setJavaScriptEnabled(true);
             wv.addJavascriptInterface(new preCalc(MainActivity.this), "ftphaCalcObj");
-//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-
-//            wv.loadData("", "text/html", null);
-//            wv.loadUrl("javascript:ftphaCalcObj.showToast('Hello wierd World!')");
-//            wv.loadUrl("javascript:ftphaCalcObj.showToast(ftphaCalcObj.getN1() + ftphaCalcObj.getN2())");
-
-//\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
-        }else{
+        } else {
             pC.T(getString(R.string.youNeedGingerBread));
         }
     }
@@ -217,111 +215,119 @@ public class MainActivity extends Activity{
         mainD.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        
+
             }
-    
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-        
+
             }
-    
+
             @Override
             public void afterTextChanged(Editable s) {
                 mainD.setSelection(mainD.getText().length());
-        
+
             }
         });
     }
 
-    public void setD(String data){
+    public void setD(String data) {
+
         mainD.setText(data);
+        mainD.refreshDrawableState();
+    }
+
+    public void showRsltShortcut() {
+
+        mainD.setText(ftG.result);
     }
 
 
     public void onClick(View v) {
-    
+
         if (ftG.editM) {
             return;
         }
-    
-            if (ftG.clcMode.equals("Start")) {
-                ftG.setDisplay(MainActivity.this, "");
-                ftG.thisNum = "";
-                ftG.clcMode = "on-Going";
-            } else if (ftG.clcMode.equals("newEquation")) {
-                ftG.setDisplay(MainActivity.this, "");
-                ftG.thisNum = "";
-                ftG.clcMode = "on-Going";
-            } else if (ftG.clcMode.equals("re-Start")) {
-                ftG.thisNum = "";
-                ftG.clcMode = "on-Going";
-            }
-    
-    
-            switch (v.getId()) {
-                case R.id.b0:
-                    ftG.appendDisplay(MainActivity.this, "0");
-                    break;
-                case R.id.b1:
-                    ftG.appendDisplay(MainActivity.this, "1");
-                    break;
-                case R.id.b2:
-                    ftG.appendDisplay(MainActivity.this, "2");
-                    break;
-                case R.id.b3:
-                    ftG.appendDisplay(MainActivity.this, "3");
-                    break;
-                case R.id.b4:
-                    ftG.appendDisplay(MainActivity.this, "4");
-                    break;
-                case R.id.b5:
-                    ftG.appendDisplay(MainActivity.this, "5");
-                    break;
-                case R.id.b6:
-                    ftG.appendDisplay(MainActivity.this, "6");
-                    break;
-                case R.id.b7:
-                    ftG.appendDisplay(MainActivity.this, "7");
-                    break;
-                case R.id.b8:
-                    ftG.appendDisplay(MainActivity.this, "8");
-                    break;
-                case R.id.b9:
-                    ftG.appendDisplay(MainActivity.this, "9");
-                    break;
-                case R.id.bPlus:
-                    ftG.appendDisplay(MainActivity.this, " + ");
-                    ftG.clcMode = "re-Start";
-                    break;
-                case R.id.bMinus:
-                    ftG.appendDisplay(MainActivity.this, " - ");
-                    ftG.clcMode = "re-Start";
-                    break;
-                case R.id.bTimes:
-                    ftG.appendDisplay(MainActivity.this, " * ");
-                    ftG.clcMode = "re-Start";
-                    break;
-                case R.id.bDiv:
-                    ftG.appendDisplay(MainActivity.this, " / ");
-                    ftG.clcMode = "re-Start";
-                    break;
-                case R.id.bDec:
-                    if (ftG.putDecimal()) {
-                        ftG.appendDisplay(MainActivity.this, ".");
-                    }
-            
-                    break;
-                case R.id.bEqu:
-            
-                    ftG.setDisplay(MainActivity.this, calculate());
-                    ftG.clcMode = "newEquation";
-                    ftG.showDisplay(MainActivity.this);
-                    break;
-            }
-        
+
+        if (ftG.clcMode.equals("Start")) {
+            ftG.setDisplay(MainActivity.this, "");
+            ftG.thisNum = "";
+            ftG.clcMode = "on-Going";
+        } else if (ftG.clcMode.equals("newEquation")) {
+            ftG.setDisplay(MainActivity.this, "");
+            ftG.thisNum = "";
+            ftG.clcMode = "on-Going";
+        } else if (ftG.clcMode.equals("re-Start")) {
+            ftG.thisNum = "";
+            ftG.clcMode = "on-Going";
+        }
+
+
+        switch (v.getId()) {
+            case R.id.b0:
+                ftG.appendDisplay(MainActivity.this, "0");
+                break;
+            case R.id.b1:
+                ftG.appendDisplay(MainActivity.this, "1");
+                break;
+            case R.id.b2:
+                ftG.appendDisplay(MainActivity.this, "2");
+                break;
+            case R.id.b3:
+                ftG.appendDisplay(MainActivity.this, "3");
+                break;
+            case R.id.b4:
+                ftG.appendDisplay(MainActivity.this, "4");
+                break;
+            case R.id.b5:
+                ftG.appendDisplay(MainActivity.this, "5");
+                break;
+            case R.id.b6:
+                ftG.appendDisplay(MainActivity.this, "6");
+                break;
+            case R.id.b7:
+                ftG.appendDisplay(MainActivity.this, "7");
+                break;
+            case R.id.b8:
+                ftG.appendDisplay(MainActivity.this, "8");
+                break;
+            case R.id.b9:
+                ftG.appendDisplay(MainActivity.this, "9");
+                break;
+            case R.id.bPlus:
+                ftG.appendDisplay(MainActivity.this, " + ");
+                ftG.clcMode = "re-Start";
+                break;
+            case R.id.bMinus:
+                ftG.appendDisplay(MainActivity.this, " - ");
+                ftG.clcMode = "re-Start";
+                break;
+            case R.id.bTimes:
+                ftG.appendDisplay(MainActivity.this, " * ");
+                ftG.clcMode = "re-Start";
+                break;
+            case R.id.bDiv:
+                ftG.appendDisplay(MainActivity.this, " / ");
+                ftG.clcMode = "re-Start";
+                break;
+            case R.id.bDec:
+                if (ftG.putDecimal()) {
+                    ftG.appendDisplay(MainActivity.this, ".");
+                }
+                break;
+            case R.id.bEqu:
+
+                preCalc.connDisp(mainD);
+
+                calculate();
+                ftG.clcMode = "newEquation";
+
+                break;
+        }
+
     }
 
-    private String calculate(){
+    private void calculate() {
 
         StringBuilder codeToSend = new StringBuilder();
 
@@ -332,10 +338,24 @@ public class MainActivity extends Activity{
         codeToSend.append("ftphaCalcObj.setResult(a);");
         String r = codeToSend.toString();
 
-        ftG.setMainAct(MainActivity.this);
         wv.loadData("", "text/html", null);
         wv.loadUrl(r);
-        return ftG.result;
+        //return ftG.result;
+    }
+
+    public static void doCalculate(String jsCode) {
+
+        preCalc.connDisp(mainD);
+
+        StringBuilder codeToSend = new StringBuilder();
+
+        codeToSend.append("javascript:\n");
+        codeToSend.append(jsCode);
+        String r = codeToSend.toString();
+
+        wv.loadData("", "text/html", null);
+        wv.loadUrl(r);
+        //return ftG.result;
     }
 
     @Override
@@ -390,23 +410,28 @@ public class MainActivity extends Activity{
         }
         addAButtonToLayout(0);
     }
+
     public void onAddB2(View view) {
         if (ftG.editM) {
             return;
         }
         addAButtonToLayout(1);
     }
+
     public void onAddB3(View view) {
         if (ftG.editM) {
             return;
         }
         addAButtonToLayout(2);
     }
+
     public void onAddB4(View view) {
-        if (ftG.editM) {
-            return;
-        }
-        addAButtonToLayout(3);
+//        if (ftG.editM) {
+//            return;
+//        }
+//        addAButtonToLayout(3);
+
+        ftG.showResult();
     }
 
 

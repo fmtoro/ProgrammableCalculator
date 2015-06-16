@@ -95,10 +95,14 @@ public class cBtn {
             public void onClick(View v) {
 
             if (!ftG.editM) {
-                String a = "The button is: " + yo.Id + "\n";
-                a += "In layout: " + yo.lId;
 
-                Toast.makeText(ftG.ctx, a, Toast.LENGTH_LONG).show();
+
+                ftG.mA.doCalculate(yo.ubCode.toString());
+
+//                String a = "The button is: " + yo.Id + "\n";
+//                a += "In layout: " + yo.lId;
+//
+//                Toast.makeText(ftG.ctx, a, Toast.LENGTH_LONG).show();
             } else {
                 //Aqui estamos en edit mode
 
