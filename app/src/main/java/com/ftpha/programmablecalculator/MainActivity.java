@@ -20,11 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.List;
 
 import Model.Calc;
+import Model.DataBaseHelper;
 import Model.cBtn;
 import Model.cLayout;
+import Model.cLayoutH;
 import Model.cPage;
 import Model.cPageH;
 
@@ -60,14 +63,39 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //ifNoDbMakeDb();
+
         ftG.ctx = this;
         ftG.tlll = (LinearLayout) findViewById(R.id.tlll);
         ftG.currActivity = this;
+
+
+//        if (cLayout.TableExists(cLayoutH.TABLE_N ,false)) {
+
+//        }
 
         initBasic();
         ponLosAndamios();
 
         ftG.setMainAct(MainActivity.this);
+    }
+
+    private void ifNoDbMakeDb() {
+        DataBaseHelper myDbHelper = new DataBaseHelper(this);
+
+        try {
+
+            myDbHelper.createDataBase(true);
+
+        } catch (IOException ioe) {
+
+            throw new Error("Unable to create database");
+
+        }
+    }
+
+    public static String getDisplay(){
+        return mainD.getText().toString();
     }
 
     private void ponLosAndamios() {
@@ -101,13 +129,12 @@ public class MainActivity extends Activity {
         }
 
         cBtn but = new cBtn(ftG.ctx);
-//        but.lId = lay.Id; //Aqui es la vaina
         but.lId = lay.btS.size();
         but.ubVisible = LinearLayout.VISIBLE; //0
         but.create();
         but.ubBelongToLayout = but.lId;
         but.ubPosInLayout = but.Id;
-        but.ubText = "new " + but.lId + "-" + but.Id;
+        but.ubText = "new " + but.lId + "-" + but.ubPosInLayout;
         but.update(but.Id);
         but.autoCreate(lay.lLL);
         lay.btS.add(but);
@@ -142,7 +169,6 @@ public class MainActivity extends Activity {
         lay.lRelativeH = 1f;
         lay.create();
         lay.autoCreate();
-        ftG.clc.ltS.add(lay);
 
 
         cBtn but = new cBtn(ftG.ctx);
@@ -150,12 +176,18 @@ public class MainActivity extends Activity {
         but.ubVisible = LinearLayout.VISIBLE; //0
         but.create();
         but.ubBelongToLayout = but.lId;
-        but.ubPosInLayout = but.Id;
-        but.ubText = "new " + but.lId + "-" + but.Id;
+        but.ubPosInLayout = 0;
+        but.ubText = "new " + but.lId + "-" + but.ubPosInLayout;
         but.update(but.Id);
-        but.autoCreate(lay.lLL);
+//        but.autoCreate(lay.lLL);
         lay.btS.add(but);
+        ftG.clc.ltS.add(lay);
+        borraTuto();
+        ponLosAndamios();
+    }
 
+    private void borraTuto(){
+        ftG.tlll.removeAllViews();
     }
 
     private void showAll() {
@@ -203,7 +235,7 @@ public class MainActivity extends Activity {
             // Do something for froyo and above versions
 
             wv.getSettings().setJavaScriptEnabled(true);
-            wv.addJavascriptInterface(new preCalc(MainActivity.this), "ftphaCalcObj");
+            wv.addJavascriptInterface(new preCalc(MainActivity.this), "co");
         } else {
             pC.T(getString(R.string.youNeedGingerBread));
         }
@@ -335,7 +367,7 @@ public class MainActivity extends Activity {
         codeToSend.append("a = ");
         codeToSend.append(ftG.display);
         codeToSend.append(";\n");
-        codeToSend.append("ftphaCalcObj.setResult(a);");
+        codeToSend.append("co.setD(a);");
         String r = codeToSend.toString();
 
         wv.loadData("", "text/html", null);

@@ -15,4 +15,5 @@
     <string name="instrForThisButton">Instructions / description for this button:</string>
     <string name="save">Save</string>
     <string name="exit">Exit</string>
+    <string name="title_activity_code_editor">CodeEditorActivity</string>
 </resources>

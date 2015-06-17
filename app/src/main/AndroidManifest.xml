@@ -23,6 +23,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ftpha.programmablecalculator.MainActivity" />
         </activity>
+        <activity
+            android:name=".CodeEditorActivity"
+            android:label="@string/title_activity_code_editor"
+            android:parentActivityName=".EditBtnActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ftpha.programmablecalculator.EditBtnActivity" />
+        </activity>
     </application>
 
 </manifest>

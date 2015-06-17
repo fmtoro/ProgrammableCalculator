@@ -94,24 +94,31 @@ public class cBtn {
         b.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 
-            if (!ftG.editM) {
+                if (!ftG.editM) {
 
+                    ftG.elX = ftG.mA.getDisplay();
 
-                ftG.mA.doCalculate(yo.ubCode.toString());
+                    ftG.mA.doCalculate(yo.ubCode.toString());
 
-//                String a = "The button is: " + yo.Id + "\n";
-//                a += "In layout: " + yo.lId;
-//
-//                Toast.makeText(ftG.ctx, a, Toast.LENGTH_LONG).show();
-            } else {
-                //Aqui estamos en edit mode
+                } else {
+                    //Aqui estamos en edit mode
 
-                int ix = ftG.clc.ltS.get((int) yo.lId - 1).btS.indexOf(yo);
-                ftG.wB = ftG.clc.ltS.get((int) yo.lId - 1).btS.get(ix);
+                    int ix = ftG.clc.ltS.get((int) yo.lId - 1).btS.indexOf(yo);
+                    ftG.wB = ftG.clc.ltS.get((int) yo.lId - 1).btS.get(ix);
 
-                Intent in = new Intent(ftG.currActivity, EditBtnActivity.class);
-                ftG.currActivity.startActivity(in);
+                    Intent in = new Intent(ftG.currActivity, EditBtnActivity.class);
+                    ftG.currActivity.startActivity(in);
+                }
             }
+        });
+
+        b.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                Toast.makeText(ftG.ctx,yo.ubCodeDescription,Toast.LENGTH_LONG).show();
+
+                return false;
             }
         });
 
@@ -325,7 +332,7 @@ Close();
         return loc_cBtn;
     }
 
-    public static List<cBtn> listFroLayout(long forLayout){
+    public static List<cBtn> listForLayout(long forLayout){
         List<cBtn> loc_cBtn = new ArrayList<cBtn>();
 //Open();
         if(!TableExists(cBtnH.TABLE_N,true)){
@@ -444,6 +451,8 @@ Close();
         }
         return false;
     }
+
+
 
 
 }

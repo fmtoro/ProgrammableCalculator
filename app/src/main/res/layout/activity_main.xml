@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:gravity="right"
-            android:textSize="60sp"
+            android:textSize="55sp"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.42"
             android:paddingRight="12dp"
@@ -73,7 +73,7 @@
                     android:text="Edit"
                     android:textSize="10sp"
                     android:onClick="onEditBtn"
-                    />
+                    android:capitalize="none"/>
 
                     <ScrollView
                         android:layout_width="match_parent"

@@ -10,7 +10,6 @@ package Model;
     import android.database.Cursor;
     import android.database.sqlite.SQLiteDatabase;
     import android.database.sqlite.SQLiteOpenHelper;
-    import android.widget.Button;
 
     import com.ftpha.programmablecalculator.ftG;
 
@@ -82,7 +81,7 @@ package Model;
             this.ltS = cLayout.listAll();
 
             for (cLayout l : ltS) {
-                l.btS = cBtn.listFroLayout(l.Id);
+                l.btS = cBtn.listForLayout(l.Id);
             }
 
         }

@@ -16,39 +16,27 @@ import android.widget.Toast;
  * You will love this code and be awed by it's magnificence
  */
 public class preCalc {
-//    public int n1 = 3;
-//    public int n2 = 2;
-//    public String Opp;
-//
+
     private  Context cx;
 
     private static EditText theDisp;
-//
+
     public preCalc(Context context){
         cx = context;
     }
-//
-//    @JavascriptInterface
-//    public int getN1(){
-//        return n1;
-//    }
-//    @JavascriptInterface
-//    public int getN2(){
-//        return n2;
-//    }
-//    @JavascriptInterface
-//    public String getOpp(){
-//        return Opp;
-//    }
-//
+
 
     public static void connDisp(EditText disp){
         theDisp = disp;
     }
 
+    @JavascriptInterface
+    public String getX(){
+        return ftG.elX;
+    }
 
     @JavascriptInterface
-    public void setResult(final String theResult){
+    public void setD(final String theResult){
 
         ftG.result = theResult;
         ftG.answ = theResult;
@@ -60,7 +48,7 @@ public class preCalc {
             }
         });
     }
-//
+
     @JavascriptInterface
     public void showToast(String mssg){
         Toast.makeText(cx, mssg, Toast.LENGTH_SHORT).show();
@@ -69,17 +57,6 @@ public class preCalc {
     public void T(String mssg){
         showToast(mssg);
     }
-//
-//    public void myLog(String mssg){
-//
-//        Log.i("Xx. ftpha .xX -------->",
-//                mssg);
-//
-//    }
-//
-//    @JavascriptInterface
-//    public void g(String message){
-//        myLog(message);
-//    }
+
 
 }

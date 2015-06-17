@@ -5,6 +5,8 @@
 package com.ftpha.programmablecalculator;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -60,9 +62,9 @@ public class EditBtnActivity extends Activity {
 
         ftTxtBttnText.setText(wBc.ubText);
 
-        ftLlButtonColor.setBackgroundColor(wBc.ubColor);
-        ftLlTextColorBG.setBackgroundColor(wBc.ubColor);
-        ftLlTextColorTxt.setTextColor(wBc.ubTextColor);
+        ftLlButtonColor.setBackgroundColor(Color.parseColor("#008800"));
+        ftLlTextColorBG.setBackgroundColor(Color.parseColor("#008800"));
+        ftLlTextColorTxt.setTextColor(Color.parseColor("#ffffff"));
 
         ftTxtRowH.setText(String.valueOf(ftG.clc.ltS.get((int) wBc.lId - 1).lRelativeH));
         ftTxtBtnW.setText(String.valueOf(wBc.ubRelativeW));
@@ -115,6 +117,14 @@ public class EditBtnActivity extends Activity {
 
     public void onSaveBttn(View view) {
 
+        updateAndSaveBtn();
+
+        ftG.editM = false;
+        finish();
+
+    }
+
+    private void updateAndSaveBtn() {
         ftG.wB.ubActive         = ftChBxActive.isChecked()      ? 1 : 0;
         ftG.wB.ubTextVisible    = ftChBxShowText.isChecked()    ? 1 : 0;
         ftG.wB.ubLocked         = ftChBxLocked.isChecked()      ? 1 : 0;
@@ -135,14 +145,38 @@ public class EditBtnActivity extends Activity {
         ftG.wB.update(ax);
 
         ftG.wB.autoUpdate();
-
-        ftG.editM = false;
-        finish();
-
     }
 
     public void onExitWOSave(View view) {
         ftG.editM = false;
         finish();
+    }
+
+    public void onActiveStatusSet(View view) {
+        //?
+    }
+
+    public void onShowTextStatusSet(View view) {
+        //?
+    }
+
+    public void onLockedStatusSet(View view) {
+        //?
+    }
+
+    public void onButtonColClicked(View view) {
+        ftG.L("Button Color");
+        view.setBackgroundColor(Color.parseColor("#ff00ffff"));
+    }
+
+    public void onTextColClicked(View view) {
+        ftG.L("Text Color");
+        view.setBackgroundColor(Color.parseColor("#ff00ffff"));
+    }
+
+    public void onGoToBttnsCode(View view) {
+        Intent i = new Intent(EditBtnActivity.this, CodeEditorActivity.class);
+        updateAndSaveBtn();
+        startActivity(i);
     }
 }

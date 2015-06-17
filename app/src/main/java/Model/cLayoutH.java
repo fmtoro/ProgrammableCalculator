@@ -10,6 +10,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ftpha.programmablecalculator.ftG;
+
 /**
  * Created by Fernando on 2015-06-09.
  * Originally created as part of: Programmable Calculator
@@ -17,10 +19,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class cLayoutH extends SQLiteOpenHelper {
 
-    static  final   String      DB_Name     =   "ftPgCalc.db";
+    static  final   String      DB_Name     = "ftPgCalc";
     static  final   int         DB_V        =   1;
 
-    static  final   String      TABLE_N     =   "clayout";
+    public static  final   String      TABLE_N     =   "clayout";
 
     static  final   String      Id         =   "Id";
     static  final   String      cName       =   "cName";
@@ -47,7 +49,7 @@ public class cLayoutH extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_TABLE);
-        //Log internal (LOGTAG, TABLE_N + "  Created");
+        ftG.L(TABLE_N + "  Created  **from DB**");
 
     }
 
@@ -57,7 +59,7 @@ public class cLayoutH extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + TABLE_N);
 
 
-        //Log internal(LOGTAG, TABLE_N + "  Droped");
+        ftG.L(TABLE_N + "  Droped  **from DB**");
         onCreate(db);
     }
 

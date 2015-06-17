@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import Model.Calc;
 import Model.CalcH;
@@ -22,7 +23,7 @@ public class ftG {
     public static String dbName = "ftProgCalc.db";
     public static int dbVersion = 1;
 
-    public static boolean showLogs = true;
+    public static int showLogs = 1;
     public static String logTag = "ftpha - shdcalcdm - ";
 
     public static MainActivity mA;
@@ -30,6 +31,15 @@ public class ftG {
     public static String equation;
     public static String display;
     public static String subDisplay;
+
+    public static String elX;
+    public static String elY;
+    public static String elZ;
+    public static String elZ4;
+    public static String elZ5;
+    public static String elZ6;
+    public static String elZ7;
+    public static String elZ8;
 
     public static String clcMode;
 
@@ -108,9 +118,20 @@ public class ftG {
     }
 
     public static void L(String msg) {
-        if (showLogs) {
-            Log.i(logTag, msg);
+        switch (showLogs) {
+            case 0:
+
+                break;
+            case 1:
+                Log.i(logTag, msg);
+                break;
+            case 2:
+                Toast.makeText(ctx,msg,Toast.LENGTH_SHORT).show();
+                break;
         }
+
+
+
     }
 
 }
