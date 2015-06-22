@@ -75,13 +75,17 @@ package Model;
                 CalcH.cBasicBtnsPadding
         };
 
-        public Calc(Context context){
+        public Calc(Context context, boolean padded ){
 
             dbH = new CalcH(context);
             this.ltS = cLayout.listAll();
 
             for (cLayout l : ltS) {
-                l.btS = cBtn.listForLayout(l.Id);
+                if (padded) {
+                    l.btS = cBtn.listForLayoutPadded(l.Id);
+                } else {
+                    l.btS = cBtn.listForLayout(l.Id);
+                }
             }
 
         }
@@ -170,7 +174,7 @@ package Model;
 
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    Calc xx = new Calc(ftG.ctx);
+                    Calc xx = new Calc(ftG.ctx, false);
                     xx.Id = cursor.getLong(cursor.getColumnIndex(CalcH.Id));
                     xx.cName = cursor.getString(cursor.getColumnIndex(CalcH.cName));
                     xx.cBackgroundImage = cursor.getString(cursor.getColumnIndex(CalcH.cBackgroundImage));
@@ -195,7 +199,7 @@ package Model;
 
         public static Calc getById(long ID){
 
-            Calc xx = new Calc(ftG.ctx);
+            Calc xx = new Calc(ftG.ctx, false);
 
             Open();
 

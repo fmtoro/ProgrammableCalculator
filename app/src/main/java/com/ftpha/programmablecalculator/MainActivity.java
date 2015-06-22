@@ -1,35 +1,25 @@
 package com.ftpha.programmablecalculator;
 
-import android.app.ActionBar;
+
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.internal.widget.ContentFrameLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.List;
 
 import Model.Calc;
 import Model.DataBaseHelper;
 import Model.cBtn;
 import Model.cLayout;
-import Model.cLayoutH;
-import Model.cPage;
-import Model.cPageH;
 
 public class MainActivity extends Activity {
 
@@ -63,19 +53,17 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //ifNoDbMakeDb();
+        ifNoDbMakeDb();
 
         ftG.ctx = this;
         ftG.tlll = (LinearLayout) findViewById(R.id.tlll);
         ftG.currActivity = this;
 
 
-//        if (cLayout.TableExists(cLayoutH.TABLE_N ,false)) {
-
-//        }
 
         initBasic();
-        ponLosAndamios();
+
+        ponLosAndamios(false);
 
         ftG.setMainAct(MainActivity.this);
     }
@@ -98,18 +86,18 @@ public class MainActivity extends Activity {
         return mainD.getText().toString();
     }
 
-    private void ponLosAndamios() {
+    public void ponLosAndamios(boolean padded) {
 
         cLayout.initDb();
         cBtn.initDb();
 
-        ftG.clc = new Calc(ftG.ctx);
+        ftG.clc = new Calc(ftG.ctx,padded);
 
         for (cLayout l : ftG.clc.ltS) {
             l.autoCreate();
 
             for (cBtn b : l.btS) {
-                b.autoCreate(l.lLL);
+                b.createActual(l.lLL);
             }
         }
         int a = 1;
@@ -136,7 +124,7 @@ public class MainActivity extends Activity {
         but.ubPosInLayout = but.Id;
         but.ubText = "new " + but.lId + "-" + but.ubPosInLayout;
         but.update(but.Id);
-        but.autoCreate(lay.lLL);
+        but.createActual(lay.lLL);
         lay.btS.add(but);
 
     }
@@ -156,10 +144,37 @@ public class MainActivity extends Activity {
         but.ubPosInLayout = lay.btS.size();
         but.ubText = "new " + but.lId + "-" + but.ubPosInLayout;
         but.update(but.Id);
-        but.autoCreate(lay.lLL);
+        but.createActual(lay.lLL);
         lay.btS.add(but);
 
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        borraTuto();
+        ponLosAndamios(false);
+    }
+
+    private void MoveBtnFromTo(cBtn moveBtn,
+                               long toLayout,
+                               int toPosition){
+
+
+        for (cLayout l : ftG.clc.ltS) {
+            if (l.Id == toLayout) {
+                for (cBtn b : l.btS) {
+                    if(b.ubPosInLayout >= toPosition){
+                        b.moveRight();
+                    }
+                }
+            }
+        }
+
+        moveBtn.moveTo(toLayout, toPosition);
+
+    }
+
 
     private void addABtnInNewLayout() {
         //Aqui:
@@ -179,14 +194,14 @@ public class MainActivity extends Activity {
         but.ubPosInLayout = 0;
         but.ubText = "new " + but.lId + "-" + but.ubPosInLayout;
         but.update(but.Id);
-//        but.autoCreate(lay.lLL);
+
         lay.btS.add(but);
         ftG.clc.ltS.add(lay);
         borraTuto();
-        ponLosAndamios();
+        ponLosAndamios(false);
     }
 
-    private void borraTuto(){
+    public void borraTuto(){
         ftG.tlll.removeAllViews();
     }
 
@@ -372,7 +387,7 @@ public class MainActivity extends Activity {
 
         wv.loadData("", "text/html", null);
         wv.loadUrl(r);
-        //return ftG.result;
+
     }
 
     public static void doCalculate(String jsCode) {
@@ -387,7 +402,7 @@ public class MainActivity extends Activity {
 
         wv.loadData("", "text/html", null);
         wv.loadUrl(r);
-        //return ftG.result;
+
     }
 
     @Override
@@ -473,6 +488,8 @@ public class MainActivity extends Activity {
         //Aqui: bring in the floating '+'
 
         //Aqui: Show all buttons
+        borraTuto();
+        ponLosAndamios(true);
 
         //Aqui: Show a 'Done' button
     }

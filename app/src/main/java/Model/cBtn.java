@@ -4,10 +4,12 @@
 
 package Model;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.internal.widget.ActivityChooserModel;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -80,49 +82,188 @@ public class cBtn {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void autoCreate(LinearLayout l){
+    public void createActual(LinearLayout l) {
+        long elId;
+        btnTagData tagData = new btnTagData();
+        final boolean iAmASeparator=(yo.bName == "Separator");//Aqui por aqui voy. procesar distinto cuando es separator
 
         this.b = new Button(ftG.ctx);
         this.b.setText(yo.ubText);
-        long elId = ftG.makeBtnId(yo.lId, yo.Id);
+        if (iAmASeparator) {
+            elId = ftG.makeBtnId((yo.lId + 1000), Long.valueOf(yo.cName) );
+        }else {
+            elId = ftG.makeBtnId(yo.lId, yo.Id);
+        }
         this.b.setId((int) elId);
-        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
         lP.width = 0;
-        lP.weight=this.ubRelativeW;
+        if (iAmASeparator) {
+            lP.weight = 0.02f;
+            yo.b.setAlpha(0.01f);
+            tagData.theLayout = yo.lId;
+            tagData.Pos = Integer.valueOf( yo.cName);
+            yo.b.setTag(tagData);
+        }else {
+            yo.b.setTag((int)this.Id);
+            if (ftG.editM) {
+                if (this.ubRelativeW <= 0.1) {
+                    lP.weight = 1f;
+                } else {
+                    lP.weight = this.ubRelativeW;
+                }
+            }else{
+                lP.weight = this.ubRelativeW;
+            }
+        }
         this.b.setLayoutParams(lP);
 
-        b.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
+        if (!iAmASeparator) {
+            b.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
 
-                if (!ftG.editM) {
+                    if (!ftG.editM) {
 
-                    ftG.elX = ftG.mA.getDisplay();
+                        ftG.elX = ftG.mA.getDisplay();
 
-                    ftG.mA.doCalculate(yo.ubCode.toString());
+                        ftG.mA.doCalculate(yo.ubCode.toString());
 
-                } else {
-                    //Aqui estamos en edit mode
+                    } else {
+                        //Aqui estamos en edit mode
 
-                    int ix = ftG.clc.ltS.get((int) yo.lId - 1).btS.indexOf(yo);
-                    ftG.wB = ftG.clc.ltS.get((int) yo.lId - 1).btS.get(ix);
+                        int ix = ftG.clc.ltS.get((int) yo.lId - 1).btS.indexOf(yo);
+                        ftG.wB = ftG.clc.ltS.get((int) yo.lId - 1).btS.get(ix);
 
-                    Intent in = new Intent(ftG.currActivity, EditBtnActivity.class);
-                    ftG.currActivity.startActivity(in);
+                        Intent in = new Intent(ftG.currActivity, EditBtnActivity.class);
+                        ftG.currActivity.startActivity(in);
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            b.setOnDragListener(new ftDragL());
+        }
 
         b.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                if (ftG.editM) {
+                    if(!iAmASeparator) {
+                        ClipData data = ClipData.newPlainText("", "");
+                        View.DragShadowBuilder shwBuldr = new View.DragShadowBuilder(v);
 
-                Toast.makeText(ftG.ctx,yo.ubCodeDescription,Toast.LENGTH_LONG).show();
+                        v.startDrag(data, shwBuldr, v, 0);
+                        return true;
+                    }else{
+                        return false;
+                    }
 
-                return false;
+                }else {
+                    ftG.T(yo.ubCodeDescription);//ToDo: show differently
+                    return false;
+                }
+
             }
         });
 
         l.addView(this.b);
+    }
+
+
+    private class ftDragL implements View.OnDragListener {
+
+        @Override
+        public boolean onDrag(View v, DragEvent e) {
+            Button receivingObj;
+            LinearLayout.LayoutParams lP;
+            View view;
+            Button droppedObj;
+
+            switch (e.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    //no action necessary
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    view = (View) e.getLocalState();
+                    droppedObj = (Button) view;
+
+                    receivingObj = (Button) v;
+                    receivingObj.setAlpha(0.25f);
+                    receivingObj.setText(droppedObj.getText());
+
+                    lP= new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.MATCH_PARENT);
+                    lP.width = 0;
+                    lP.weight=1f;
+                    receivingObj.setLayoutParams(lP);
+
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+
+                    receivingObj = (Button) v;
+                    receivingObj.setAlpha(0.01f);
+
+                    lP = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.MATCH_PARENT);
+                    lP.width = 0;
+                    lP.weight=0.02f;
+                    receivingObj.setLayoutParams(lP);
+
+
+                    break;
+                case DragEvent.ACTION_DROP:
+                    //handle the dragged view being dropped over a drop view
+                    view = (View) e.getLocalState();
+                    droppedObj = (Button) view;
+                    receivingObj = (Button) v;
+                    btnTagData btd;
+                    long drOjId = Long.parseLong(droppedObj.getTag().toString());
+                    btd = (btnTagData) receivingObj.getTag();
+//                    String a = "Dropped " + droppedObj.getText() + " - " + String.valueOf(drOjId ) + "\n" +
+//                            " on "+ String.valueOf( btd.theLayout) + " - " + String.valueOf( btd.Pos);
+//                    ftG.T(a);
+                    completeMove(drOjId, btd.theLayout, btd.Pos);
+                    ftG.mA.borraTuto();
+                    ftG.mA.ponLosAndamios(true);
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    //no action necessary
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+    }
+
+    public class btnTagData{
+        public long theLayout;
+        public int Pos;
+
+    }
+    private void completeMove(long btnToMove, long dropLayout, int dropPos){
+
+        cBtn btnInQuestion = new cBtn(ftG.ctx);
+
+        for (cLayout l : ftG.clc.ltS) {
+            for (cBtn btn : l.btS) {
+                if (btn.Id == btnToMove) {
+                    btnInQuestion = btn;
+                    break;
+                }
+            }
+        }
+
+        for (cBtn btn : ftG.clc.ltS.get((int)dropLayout-1).btS ){
+            if (btn.ubPosInLayout>=dropPos) {
+                btn.moveRight();
+            }
+        }
+
+        btnInQuestion.moveTo(dropLayout, dropPos);
+
     }
 
     public void autoShowAll(){
@@ -225,7 +366,11 @@ public class cBtn {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void create(){
+    public void create() {
+
+        if (yo.bName == "Separator") {
+            return;
+        }
 
         Open();
 
@@ -251,7 +396,7 @@ public class cBtn {
         values.put(cBtnH.ubPosInLayout, this.ubPosInLayout);
 
 
-        long insertId = db.insert(cBtnH.TABLE_N, null,values );
+        long insertId = db.insert(cBtnH.TABLE_N, null, values);
         this.Id = insertId;
 
         Close();
@@ -290,6 +435,25 @@ public class cBtn {
                 cBtnH.Id + " = " + ID,
                 null
         ) == 1;
+        Close();
+
+        return rslt;
+    }
+
+    public void moveTo(long theLayout, int thePos){
+        yo.lId = theLayout;
+        yo.ubPosInLayout = thePos;
+        yo.update(yo.Id);
+    }
+
+    public void moveRight(){
+        yo.ubPosInLayout++;
+        yo.update(yo.Id);
+    }
+    public boolean delete(long ID){
+    boolean rslt;
+        Open();
+        rslt = db.delete(cBtnH.TABLE_N, cBtnH.Id + " = " + ID, null) > 0;
         Close();
 
         return rslt;
@@ -374,6 +538,75 @@ Close();
                 xx.ubPosInLayout = cursor.getLong(cursor.getColumnIndex(cBtnH.ubPosInLayout));
 
                 loc_cBtn.add(xx);
+            }
+        }
+Close();
+        return loc_cBtn;
+    }
+
+
+
+
+    public static List<cBtn> listForLayoutPadded(long forLayout){
+        List<cBtn> loc_cBtn = new ArrayList<cBtn>();
+
+
+
+        if(!TableExists(cBtnH.TABLE_N,true)){
+            dbH.onCreate(db);
+        }
+        Cursor cursor = db.query(
+                cBtnH.TABLE_N,
+                allCols,
+                cBtnH.lId + " = " + forLayout,
+                null,
+                null,
+                null,
+                "ubPosInLayout asc"
+        );
+
+        ftG.L("Found " + cursor.getCount() + " rows in " + cBtnH.TABLE_N);
+
+        int i = 0;
+
+        cBtn zz = new cBtn(ftG.ctx);
+        zz.lId = forLayout;
+        zz.bName = "Separator";
+        zz.cName = String.valueOf(i++);
+
+
+        loc_cBtn.add(zz);
+
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                cBtn xx = new cBtn(ftG.ctx);
+                xx.Id = cursor.getLong(cursor.getColumnIndex(cBtnH.Id));
+                xx.cName = cursor.getString(cursor.getColumnIndex(cBtnH.cName));
+                xx.pName = cursor.getString(cursor.getColumnIndex(cBtnH.pName));
+                xx.lId = cursor.getLong(cursor.getColumnIndex(cBtnH.lId));
+                xx.bName = cursor.getString(cursor.getColumnIndex(cBtnH.bName));
+                xx.ubColor = cursor.getInt(cursor.getColumnIndex(cBtnH.ubColor));
+                xx.ubTextColor = cursor.getInt(cursor.getColumnIndex(cBtnH.ubTextColor));
+                xx.ubText = cursor.getString(cursor.getColumnIndex(cBtnH.ubText));
+                xx.ubCode = cursor.getString(cursor.getColumnIndex(cBtnH.ubCode));
+                xx.ubCodeDescription = cursor.getString(cursor.getColumnIndex(cBtnH.ubCodeDescription));
+                xx.ubAuthor = cursor.getString(cursor.getColumnIndex(cBtnH.ubAuthor));
+                xx.ubActive = cursor.getInt(cursor.getColumnIndex(cBtnH.ubActive));
+                xx.ubVisible = cursor.getInt(cursor.getColumnIndex(cBtnH.ubVisible));
+                xx.ubLocked = cursor.getInt(cursor.getColumnIndex(cBtnH.ubLocked));
+                xx.ubBackgroundImage = cursor.getString(cursor.getColumnIndex(cBtnH.ubBackgroundImage));
+                xx.ubTextVisible = cursor.getInt(cursor.getColumnIndex(cBtnH.ubTextVisible));
+                xx.ubRelativeW = cursor.getFloat(cursor.getColumnIndex(cBtnH.ubRelativeW)); //Force to 1???
+                xx.ubBelongToLayout = cursor.getLong(cursor.getColumnIndex(cBtnH.ubBelongToLayout));
+                xx.ubPosInLayout = cursor.getLong(cursor.getColumnIndex(cBtnH.ubPosInLayout));
+
+                cBtn yy = new cBtn(ftG.ctx);
+                yy.lId = xx.lId;
+                yy.bName = "Separator";
+                yy.cName = String.valueOf(i++);
+
+                loc_cBtn.add(xx);
+                loc_cBtn.add(yy);
             }
         }
 Close();

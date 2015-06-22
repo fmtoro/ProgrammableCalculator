@@ -141,6 +141,10 @@ public class EditBtnActivity extends Activity {
         ftG.wB.ubCode = ftTxtButtonCode.getText().toString();
         ftG.wB.ubCodeDescription = ftTxtButtonDescription.getText().toString();
 
+        if (ftG.wB.ubActive == 0) {
+            ftG.wB.ubRelativeW = 0;
+        }
+
         long ax = ftG.wB.Id;
         ftG.wB.update(ax);
 

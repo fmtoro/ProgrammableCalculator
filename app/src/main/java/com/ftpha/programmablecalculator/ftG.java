@@ -24,6 +24,7 @@ public class ftG {
     public static int dbVersion = 1;
 
     public static int showLogs = 1;
+    public static int showToasts = 1;
     public static String logTag = "ftpha - shdcalcdm - ";
 
     public static MainActivity mA;
@@ -132,6 +133,12 @@ public class ftG {
 
 
 
+    }
+
+    public static void T(String msg) {
+        if (showToasts == 1) {
+            Toast.makeText(ftG.ctx, msg, Toast.LENGTH_LONG).show();
+        }
     }
 
 }
