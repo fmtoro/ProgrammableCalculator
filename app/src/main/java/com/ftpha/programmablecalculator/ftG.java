@@ -27,7 +27,13 @@ public class ftG {
     public static int showToasts = 1;
     public static String logTag = "ftpha - shdcalcdm - ";
 
+
+    public static int selColor;
+    public static String colorFor = "";
+
+
     public static MainActivity mA;
+    public static EditBtnActivity usrBtnActivity;
 
     public static String equation;
     public static String display;

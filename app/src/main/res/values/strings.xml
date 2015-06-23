@@ -16,4 +16,6 @@
     <string name="save">Save</string>
     <string name="exit">Exit</string>
     <string name="title_activity_code_editor">CodeEditorActivity</string>
+    <string name="title_activity_color_pkr">ColorPkrActivity</string>
+    <string name="ok">OK</string>
 </resources>

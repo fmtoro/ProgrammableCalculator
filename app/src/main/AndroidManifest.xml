@@ -31,6 +31,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ftpha.programmablecalculator.EditBtnActivity" />
         </activity>
+        <activity
+            android:name=".ColorPkrActivity"
+            android:label="@string/title_activity_color_pkr" >
+        </activity>
     </application>
 
 </manifest>

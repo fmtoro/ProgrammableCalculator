@@ -5,10 +5,15 @@
 package com.ftpha.programmablecalculator;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +22,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.OpacityBar;
+import com.larswerkman.holocolorpicker.SVBar;
 
 import Model.cBtn;
 import Model.cLayout;
@@ -46,6 +55,7 @@ public class EditBtnActivity extends Activity {
 
         initViewVariables();
         loadMeUp();
+        ftG.usrBtnActivity = this;
     }
 
     private void loadMeUp(){
@@ -62,9 +72,19 @@ public class EditBtnActivity extends Activity {
 
         ftTxtBttnText.setText(wBc.ubText);
 
-        ftLlButtonColor.setBackgroundColor(Color.parseColor("#008800"));
-        ftLlTextColorBG.setBackgroundColor(Color.parseColor("#008800"));
-        ftLlTextColorTxt.setTextColor(Color.parseColor("#ffffff"));
+        if (wBc.ubColor == 0) {
+            ftLlButtonColor.setBackgroundColor(Color.parseColor("#FFBBBBBB"));
+            ftLlTextColorBG.setBackgroundColor(Color.parseColor("#FFBBBBBB"));
+        }else{
+            ftLlButtonColor.setBackgroundColor(wBc.ubColor);
+            ftLlTextColorBG.setBackgroundColor(wBc.ubColor);
+        }
+        if (wBc.ubTextColor == 0) {
+            ftLlTextColorTxt.setTextColor(Color.parseColor("#FF222222"));
+        }else{
+            ftLlTextColorTxt.setTextColor(wBc.ubTextColor);
+        }
+
 
         ftTxtRowH.setText(String.valueOf(ftG.clc.ltS.get((int) wBc.lId - 1).lRelativeH));
         ftTxtBtnW.setText(String.valueOf(wBc.ubRelativeW));
@@ -131,9 +151,8 @@ public class EditBtnActivity extends Activity {
 
         ftG.wB.ubText = ftTxtBttnText.getText().toString();
 
-//        ftLlButtonColor.setBackgroundColor(wBc.ubColor);
-//        ftLlTextColorBG.setBackgroundColor(wBc.ubColor);
-//        ftLlTextColorTxt.setTextColor(wBc.ubTextColor);
+        ftG.wB.ubColor = ((ColorDrawable)ftLlButtonColor.getBackground()).getColor();
+        ftG.wB.ubTextColor = ftLlTextColorTxt.getCurrentTextColor();
 
         ftG.clc.ltS.get((int) ftG.wB.lId - 1).lRelativeH = Float.valueOf(ftTxtRowH.getText().toString());
         ftG.wB.ubRelativeW = Float.valueOf(ftTxtBtnW.getText().toString());
@@ -169,13 +188,60 @@ public class EditBtnActivity extends Activity {
     }
 
     public void onButtonColClicked(View view) {
-        ftG.L("Button Color");
-        view.setBackgroundColor(Color.parseColor("#ff00ffff"));
+        ftG.selColor = ((ColorDrawable)ftLlButtonColor.getBackground()).getColor();
+        ftG.colorFor = "btn";
+        Intent iT = new Intent(EditBtnActivity.this,ColorPkrActivity.class);
+        startActivity(iT);
     }
-
+    private ColorPicker picker;
+    private SVBar svBar;
+    private OpacityBar opacityBar;
+    private Button button;
+    private TextView text;
+//    private void showColorPickerDialog()
+//    {
+//        AlertDialog.Builder colorDialogBuilder = new AlertDialog.Builder(
+//                EditBtnActivity.this);
+//        LayoutInflater inflater = LayoutInflater.from(this);
+//        View dialogview = inflater.inflate(R.layout.activity_color_pkr, null);
+//        picker = (ColorPicker) findViewById(R.id.cPicker);
+//        svBar = (SVBar) findViewById(R.id.svbar);
+//        opacityBar = (OpacityBar) findViewById(R.id.opacitybar);
+//        picker.addSVBar(svBar);
+//        picker.addOpacityBar(opacityBar);
+//        picker.setOnColorChangedListener(new ColorPicker.OnColorChangedListener()
+//        {
+//            @Override
+//            public void onColorChanged(int color) {
+//
+//            }
+//        });
+//        colorDialogBuilder.setTitle("Choose Text Color");
+//        colorDialogBuilder.setView(dialogview);
+//        colorDialogBuilder.setPositiveButton(R.string.ok,
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        ftG.L("Color :" + picker.getColor());
+//                        //colorPickerView.setTextColor(picker.getColor());
+//                        picker.setOldCenterColor(picker.getColor());
+//                    }
+//                });
+//        colorDialogBuilder.setNegativeButton("Cancel",
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                });
+//        AlertDialog colorPickerDialog = colorDialogBuilder.create();
+//        colorPickerDialog.show();
+//    }
     public void onTextColClicked(View view) {
-        ftG.L("Text Color");
-        view.setBackgroundColor(Color.parseColor("#ff00ffff"));
+        ftG.selColor = ftLlTextColorTxt.getCurrentTextColor();
+        ftG.colorFor = "btnText";
+        Intent iT = new Intent(EditBtnActivity.this,ColorPkrActivity.class);
+        startActivity(iT);
     }
 
     public void onGoToBttnsCode(View view) {

@@ -8,6 +8,7 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.internal.widget.ActivityChooserModel;
 import android.view.DragEvent;
 import android.view.View;
@@ -95,10 +96,23 @@ public class cBtn {
             elId = ftG.makeBtnId(yo.lId, yo.Id);
         }
         this.b.setId((int) elId);
+        if (yo.ubColor == 0) {
+            this.b.setBackgroundColor(Color.parseColor("#FFBBBBBB") );
+        }else {
+            this.b.setBackgroundColor(yo.ubColor);
+        }
+        if (yo.ubTextColor == 0) {
+            this.b.setTextColor(Color.parseColor("#FF222222") );
+        }else {
+            this.b.setTextColor(yo.ubTextColor);
+        }
         LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         lP.width = 0;
+        if (!iAmASeparator) {
+            lP.setMargins(2,2,2,2);
+        }
         if (iAmASeparator) {
             lP.weight = 0.02f;
             yo.b.setAlpha(0.01f);

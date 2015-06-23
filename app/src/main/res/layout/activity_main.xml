@@ -702,7 +702,8 @@
                         android:text="7"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
                     <Button
                         android:id="@+id/b8"
                         android:layout_height="match_parent"
@@ -711,7 +712,8 @@
                         android:text="8"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
                     <Button
                         android:id="@+id/b9"
                         android:layout_height="match_parent"
@@ -720,7 +722,8 @@
                         android:text="9"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
 
 
                 </LinearLayout>
@@ -739,7 +742,8 @@
                         android:text="4"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
                     <Button
                         android:id="@+id/b5"
                         android:layout_height="match_parent"
@@ -748,7 +752,8 @@
                         android:text="5"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
                     <Button
                         android:id="@+id/b6"
                         android:layout_height="match_parent"
@@ -757,7 +762,8 @@
                         android:text="6"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
                 </LinearLayout>
 
 
@@ -775,7 +781,8 @@
                         android:text="1"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
                     <Button
                         android:id="@+id/b2"
                         android:layout_height="match_parent"
@@ -784,7 +791,8 @@
                         android:text="2"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
                     <Button
                         android:id="@+id/b3"
                         android:layout_height="match_parent"
@@ -793,7 +801,8 @@
                         android:text="3"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -810,7 +819,8 @@
                         android:text="0"
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
                     <Button
                         android:id="@+id/bDec"
                         android:layout_height="match_parent"
@@ -819,7 +829,8 @@
                         android:text="."
                         android:textSize="32sp"
                         android:onClick="onNumClick"
-                        />
+                        android:background="#ff1c0777"
+                        android:textColor="#fff9de88"/>
 
 
                 </LinearLayout>
