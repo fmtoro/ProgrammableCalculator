@@ -14,13 +14,13 @@ import com.ftpha.programmablecalculator.ftG;
 
 /**
  * Created by Fernando on 2015-06-09.
- * Originally created as part of: Programmable Calculator
- * You will love this code and be awed by it's magnificence
+ * Originally created by FT's Db Helper data generator
+ * copyright 2015, all rights reserved
  */
 public class cBtnH extends SQLiteOpenHelper {
 
     static  final   String      DB_Name     = "ftPgCalc";
-    static  final   int         DB_V        =   1;
+    static  final   int         DB_V        =   2;
 
     static  final   String      TABLE_N     =   "cbtn";
 

@@ -46,7 +46,7 @@ public class cLayout{
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void autoCreate(){
+    public void createActual(){
 
         this.lLL = new LinearLayout(ftG.ctx);
         this.lLL.setOrientation(LinearLayout.HORIZONTAL);
@@ -219,32 +219,34 @@ Close();
 
 
     public static boolean TableExists(String tableName, boolean openDb) {
+
         if(openDb) {
             if(db == null || !db.isOpen()) {
                 db = dbH.getWritableDatabase();
             }
 
-            if(!db.isReadOnly()) {
+            if(db.isReadOnly()) {
                 db.close();
                 db = dbH.getWritableDatabase();
             }
         }
 
-        Cursor cursor = null;
-        try {
-            cursor = db.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '" + tableName + "'", null);
-        } catch (Exception e) {
-            return false;
-        }
+        Cursor cursor = db.rawQuery(
+                "select DISTINCT tbl_name from sqlite_master where tbl_name = '"
+                + tableName + "'", null);
+
 
         if(cursor!=null) {
             if(cursor.getCount()>0) {
                 cursor.close();
                 return true;
+            } else {
+                cursor.close();
+                return false;
             }
-            cursor.close();
+        } else {
+            return false;
         }
-        return false;
     }
 
 

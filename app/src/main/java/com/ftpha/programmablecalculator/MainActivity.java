@@ -20,6 +20,7 @@ import Model.Calc;
 import Model.DataBaseHelper;
 import Model.cBtn;
 import Model.cLayout;
+import Model.cMemory;
 
 public class MainActivity extends Activity {
 
@@ -49,23 +50,25 @@ public class MainActivity extends Activity {
     private Context xt;
 
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ftG.ctx = this;
         ifNoDbMakeDb();
 
-        ftG.ctx = this;
+        ftG.setMainAct(MainActivity.this);
+
         ftG.tlll = (LinearLayout) findViewById(R.id.tlll);
         ftG.currActivity = this;
-
 
 
         initBasic();
 
         ponLosAndamios(false);
 
-        ftG.setMainAct(MainActivity.this);
     }
 
     private void ifNoDbMakeDb() {
@@ -90,42 +93,39 @@ public class MainActivity extends Activity {
 
         cLayout.initDb();
         cBtn.initDb();
+        cMemory.initDb();
 
-        ftG.clc = new Calc(ftG.ctx,padded);
+        ftG.clc = new Calc(ftG.ctx,padded); //Aqui: Instead of new, getById with Id = 1
 
         for (cLayout l : ftG.clc.ltS) {
-            l.autoCreate();
+            l.createActual();
 
             for (cBtn b : l.btS) {
                 b.createActual(l.lLL);
             }
         }
-        int a = 1;
+
+        for (cMemory mem : ftG.clc.memS) {
+            mem.createActual();
+        }
+
+
     }
 
     private void addAButton() {
         //Aqui:
-        cLayout lay;
-        if (ftG.clc.ltS.isEmpty()) {
-            lay = new cLayout(ftG.ctx);
-            lay.lRelativeH = 1f;
-            lay.create();
-            lay.autoCreate();
-            ftG.clc.ltS.add(lay);
-        } else {
-            lay = ftG.clc.ltS.get(0);
-        }
 
-        cBtn but = new cBtn(ftG.ctx);
-        but.lId = lay.btS.size();
-        but.ubVisible = LinearLayout.VISIBLE; //0
-        but.create();
-        but.ubBelongToLayout = but.lId;
-        but.ubPosInLayout = but.Id;
-        but.ubText = "new " + but.lId + "-" + but.ubPosInLayout;
-        but.update(but.Id);
-        but.createActual(lay.lLL);
-        lay.btS.add(but);
+        cMemory cMem = new cMemory(ftG.ctx);
+        cMem.mText = mainD.getText().toString();
+
+        cMem.create();
+        cMem.createActual();
+
+        ftG.clc.memS.add(cMem);
+        for (cMemory m : ftG.clc.memS) {
+            m.update(m.Id);
+        }
+        ftG.clc.memS = cMemory.listAll();
 
     }
 
@@ -183,7 +183,7 @@ public class MainActivity extends Activity {
         lay = new cLayout(ftG.ctx);
         lay.lRelativeH = 1f;
         lay.create();
-        lay.autoCreate();
+        lay.createActual();
 
 
         cBtn but = new cBtn(ftG.ctx);
@@ -296,18 +296,11 @@ public class MainActivity extends Activity {
             return;
         }
 
-//        if (ftG.clcMode.equals("Start")) {
+        if (ftG.clcMode.equals("Start")) {
 //            ftG.setDisplay(MainActivity.this, "");
-//            ftG.thisNum = "";
-//            ftG.clcMode = "on-Going";
-//        } else if (ftG.clcMode.equals("newEquation")) {
-//            ftG.setDisplay(MainActivity.this, "");
-//            ftG.thisNum = "";
-//            ftG.clcMode = "on-Going";
-//        } else if (ftG.clcMode.equals("re-Start")) {
-//            ftG.thisNum = "";
-//            ftG.clcMode = "on-Going";
-//        }
+            ftG.thisNum = "";
+            ftG.clcMode = "on-Going";
+        }
 
 
         switch (v.getId()) {
@@ -343,32 +336,33 @@ public class MainActivity extends Activity {
                 break;
             case R.id.bPlus:
                 ftG.appendDisplay(MainActivity.this, " + ");
-//                ftG.clcMode = "re-Start";
+                ftG.clcMode = "Start";
                 break;
             case R.id.bMinus:
                 ftG.appendDisplay(MainActivity.this, " - ");
-//                ftG.clcMode = "re-Start";
+                ftG.clcMode = "Start";
                 break;
             case R.id.bTimes:
                 ftG.appendDisplay(MainActivity.this, " * ");
-//                ftG.clcMode = "re-Start";
+                ftG.clcMode = "Start";
                 break;
             case R.id.bDiv:
                 ftG.appendDisplay(MainActivity.this, " / ");
-//                ftG.clcMode = "re-Start";
+                ftG.clcMode = "Start";
                 break;
             case R.id.bC:
                 ftG.setDisplay(MainActivity.this, "");
-                ftG.clcMode = "re-Start";
+                mainD.setText("0");
+                ftG.clcMode = "Start";
                 break;
             case R.id.bback:
                 String x = mainD.getText().toString();
                 if (x.length()>=1) {
                     mainD.setText(x.substring(0,x.length()-1));
-                    ftG.hystory = x.substring(0, x.length() - 1);
+                    ftG.history = x.substring(0, x.length() - 1);
                     ftG.display = mainD.getText().toString();
                 }
-//                ftG.clcMode = "re-Start";
+                ftG.clcMode = "Start";
                 break;
             case R.id.bDec:
                 if (ftG.putDecimal()) {
@@ -380,7 +374,7 @@ public class MainActivity extends Activity {
                 preCalc.connDisp(mainD);
 
                 calculate();
-//                ftG.clcMode = "newEquation";
+                ftG.clcMode = "Start";
                 ftG.display = mainD.getText().toString();
                 break;
         }

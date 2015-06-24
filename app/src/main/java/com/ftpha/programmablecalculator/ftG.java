@@ -28,6 +28,16 @@ public class ftG {
     public static String logTag = "ftpha - shdcalcdm - ";
 
 
+    public static int memHeight = 35;
+    public static int memColor = 0;
+    public static int memTxtColor = 0;
+    public static int memTxtSize = 18;
+    public static int memMargin = 2;
+    public static int memPadding = 0;
+
+
+
+
     public static int selColor;
     public static String colorFor = "";
 
@@ -53,7 +63,7 @@ public class ftG {
     public static String result;
 
     public static String thisNum;
-    public static String hystory;
+    public static String history;
 
 
     public static String answ;
@@ -78,7 +88,8 @@ public class ftG {
 
     public static void appendDisplay(MainActivity a,String strToAppend){
         display += strToAppend;
-        hystory += strToAppend;
+        history += strToAppend;
+        thisNum += strToAppend;
         a.setD(display);
     }
 

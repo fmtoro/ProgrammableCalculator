@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class cPageH extends SQLiteOpenHelper {
 
-    static  final   String      DB_Name     =   "ftProgCalc.db";
+    static  final   String      DB_Name     =   "ftProgCalc";
     static  final   int         DB_V        =   2;
 
     static  final   String      TABLE_N     =   "cpage";

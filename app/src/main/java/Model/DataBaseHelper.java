@@ -41,7 +41,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      */
     public DataBaseHelper(Context context) {
 
-        super(context, DB_NAME, null, 1);
+        super(context, DB_NAME, null, 2);
         this.myContext = context;
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
         DB_PATH  = context.getDatabasePath(DataBaseHelper.DB_NAME).getParent();
@@ -57,8 +57,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         boolean dbExist;
 
+        cLayout.initDb();
+
         if (checkExsists) {
-            dbExist = (checkDataBase()) && (cLayout.TableExists(cLayoutH.TABLE_N ,false));
+            dbExist = (checkDataBase())       && (cLayout.TableExists(cLayoutH.TABLE_N ,true));
         } else {
             dbExist = false;
         }

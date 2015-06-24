@@ -25,6 +25,10 @@ package Model;
 
         public List<cLayout> ltS;
 
+        public List<cMemory> memS;
+
+
+
         private Context ctx;
 
         private static SQLiteOpenHelper dbH;
@@ -79,6 +83,7 @@ package Model;
 
             dbH = new CalcH(context);
             this.ltS = cLayout.listAll();
+            this.memS = cMemory.listAll();
 
             for (cLayout l : ltS) {
                 if (padded) {
@@ -87,6 +92,8 @@ package Model;
                     l.btS = cBtn.listForLayout(l.Id);
                 }
             }
+
+
 
         }
 
