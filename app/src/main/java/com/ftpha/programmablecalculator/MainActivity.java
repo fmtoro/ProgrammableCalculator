@@ -296,18 +296,18 @@ public class MainActivity extends Activity {
             return;
         }
 
-        if (ftG.clcMode.equals("Start")) {
-            ftG.setDisplay(MainActivity.this, "");
-            ftG.thisNum = "";
-            ftG.clcMode = "on-Going";
-        } else if (ftG.clcMode.equals("newEquation")) {
-            ftG.setDisplay(MainActivity.this, "");
-            ftG.thisNum = "";
-            ftG.clcMode = "on-Going";
-        } else if (ftG.clcMode.equals("re-Start")) {
-            ftG.thisNum = "";
-            ftG.clcMode = "on-Going";
-        }
+//        if (ftG.clcMode.equals("Start")) {
+//            ftG.setDisplay(MainActivity.this, "");
+//            ftG.thisNum = "";
+//            ftG.clcMode = "on-Going";
+//        } else if (ftG.clcMode.equals("newEquation")) {
+//            ftG.setDisplay(MainActivity.this, "");
+//            ftG.thisNum = "";
+//            ftG.clcMode = "on-Going";
+//        } else if (ftG.clcMode.equals("re-Start")) {
+//            ftG.thisNum = "";
+//            ftG.clcMode = "on-Going";
+//        }
 
 
         switch (v.getId()) {
@@ -343,19 +343,32 @@ public class MainActivity extends Activity {
                 break;
             case R.id.bPlus:
                 ftG.appendDisplay(MainActivity.this, " + ");
-                ftG.clcMode = "re-Start";
+//                ftG.clcMode = "re-Start";
                 break;
             case R.id.bMinus:
                 ftG.appendDisplay(MainActivity.this, " - ");
-                ftG.clcMode = "re-Start";
+//                ftG.clcMode = "re-Start";
                 break;
             case R.id.bTimes:
                 ftG.appendDisplay(MainActivity.this, " * ");
-                ftG.clcMode = "re-Start";
+//                ftG.clcMode = "re-Start";
                 break;
             case R.id.bDiv:
                 ftG.appendDisplay(MainActivity.this, " / ");
+//                ftG.clcMode = "re-Start";
+                break;
+            case R.id.bC:
+                ftG.setDisplay(MainActivity.this, "");
                 ftG.clcMode = "re-Start";
+                break;
+            case R.id.bback:
+                String x = mainD.getText().toString();
+                if (x.length()>=1) {
+                    mainD.setText(x.substring(0,x.length()-1));
+                    ftG.hystory = x.substring(0, x.length() - 1);
+                    ftG.display = mainD.getText().toString();
+                }
+//                ftG.clcMode = "re-Start";
                 break;
             case R.id.bDec:
                 if (ftG.putDecimal()) {
@@ -367,8 +380,8 @@ public class MainActivity extends Activity {
                 preCalc.connDisp(mainD);
 
                 calculate();
-                ftG.clcMode = "newEquation";
-
+//                ftG.clcMode = "newEquation";
+                ftG.display = mainD.getText().toString();
                 break;
         }
 

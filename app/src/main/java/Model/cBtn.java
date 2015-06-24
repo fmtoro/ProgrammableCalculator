@@ -111,7 +111,7 @@ public class cBtn {
                 LinearLayout.LayoutParams.MATCH_PARENT);
         lP.width = 0;
         if (!iAmASeparator) {
-            lP.setMargins(2,2,2,2);
+            lP.setMargins(3,3,3,3);
         }
         if (iAmASeparator) {
             lP.weight = 0.02f;

@@ -36,7 +36,7 @@ public class ftG {
     public static EditBtnActivity usrBtnActivity;
 
     public static String equation;
-    public static String display;
+    public static String display = "";
     public static String subDisplay;
 
     public static String elX;
@@ -53,6 +53,7 @@ public class ftG {
     public static String result;
 
     public static String thisNum;
+    public static String hystory;
 
 
     public static String answ;
@@ -77,7 +78,7 @@ public class ftG {
 
     public static void appendDisplay(MainActivity a,String strToAppend){
         display += strToAppend;
-        thisNum += strToAppend;
+        hystory += strToAppend;
         a.setD(display);
     }
 

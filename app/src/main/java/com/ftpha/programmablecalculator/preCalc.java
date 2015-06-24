@@ -47,6 +47,7 @@ public class preCalc {
                 theDisp.setText(theResult);
             }
         });
+        ftG.display = theResult;
     }
 
     @JavascriptInterface

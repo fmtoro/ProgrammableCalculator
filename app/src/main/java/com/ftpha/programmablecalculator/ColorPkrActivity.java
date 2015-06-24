@@ -16,12 +16,16 @@ import android.widget.TextView;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SVBar;
+import com.larswerkman.holocolorpicker.SaturationBar;
+import com.larswerkman.holocolorpicker.ValueBar;
 
 
 public class ColorPkrActivity extends Activity implements ColorPicker.OnColorChangedListener{
     private ColorPicker picker;
-    private SVBar svBar;
-    private OpacityBar opacityBar;
+//    private SVBar svBar;
+    private SaturationBar saturationBar;
+    private ValueBar valueBar;
+//    private OpacityBar opacityBar;
     private Button button;
 //    private TextView text;
     
@@ -32,15 +36,19 @@ public class ColorPkrActivity extends Activity implements ColorPicker.OnColorCha
 
 
         picker = (ColorPicker) findViewById(R.id.cPicker);
-        svBar = (SVBar) findViewById(R.id.svbar);
-        opacityBar = (OpacityBar) findViewById(R.id.opacitybar);
+//        svBar = (SVBar) findViewById(R.id.svbar);
+        saturationBar = (SaturationBar) findViewById(R.id.saturationbar);
+        valueBar = (ValueBar) findViewById(R.id.valuebar);
+//        opacityBar = (OpacityBar) findViewById(R.id.opacitybar);
         button = (Button) findViewById(R.id.button1);
 //        text = (TextView) findViewById(R.id.textView1);
 
         picker.setOldCenterColor(ftG.selColor);
         picker.setNewCenterColor(ftG.selColor);
-        picker.addSVBar(svBar);
-        picker.addOpacityBar(opacityBar);
+//        picker.addSVBar(svBar);
+        picker.addSaturationBar(saturationBar);
+        picker.addValueBar(valueBar);
+//        picker.addOpacityBar(opacityBar);
         picker.setOnColorChangedListener(this);
 
         button.setOnClickListener(new View.OnClickListener() {
