@@ -29,13 +29,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="0"
-            android:gravity="right"
+            android:gravity="center_vertical|right"
             android:textSize="55sp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.42"
+            android:layout_weight=".38"
             android:paddingRight="12dp"
             android:background="#ffaac1ae"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:layout_marginTop="4dp"
+            android:focusableInTouchMode="false"/>
     </LinearLayout>
 
     <LinearLayout
@@ -77,23 +79,6 @@
                     android:layout_marginBottom="-4dp"
                     android:onClick="onEditBtn"/>
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:text="+ Lay w/bttn"
-                    android:textSize="9sp"
-                    android:layout_marginTop="-3dp"
-                    android:layout_marginBottom="-4dp"
-                    android:onClick="onAddLayout"
-                    />
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:text="+Btn Ly 1"
-                    android:textSize="9sp"
-                    android:layout_marginTop="-3dp"
-                    android:layout_marginBottom="-4dp"
-                    android:onClick="onAddB1"/>
 
                 <ScrollView
                     android:layout_width="match_parent"

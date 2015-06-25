@@ -32,14 +32,48 @@ public class preCalc {
 
     @JavascriptInterface
     public String getX(){
-        return ftG.elX;
+        return ftG.thisNum;
     }
 
     @JavascriptInterface
+    public void setX(final String theResult){
+
+        String myX = ftG.thisNum;
+        String myD = ftG.display;
+        myD = myD.substring(0, myD.lastIndexOf(myX));
+        final String myR = myD + theResult;
+
+        ftG.thisNum = theResult;
+        ftG.display = myR;
+
+        theDisp.post(new Runnable() {
+            @Override
+            public void run() {
+                theDisp.setText(myR);
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public String getFlag(){
+        return ftG.usrFlag;
+    }
+
+    @JavascriptInterface
+    public void setFlag(final String theResult){
+
+        ftG.usrFlag = theResult;
+    }
+
+    @JavascriptInterface
+    public void addM(final String strToAdd){
+        ftG.mA.addAMem(strToAdd);
+    }
+    @JavascriptInterface
     public void setD(final String theResult){
 
-        ftG.result = theResult;
-        ftG.answ = theResult;
+        ftG.display = theResult;
+        ftG.thisNum = theResult;
 
         theDisp.post(new Runnable() {
             @Override
@@ -47,7 +81,6 @@ public class preCalc {
                 theDisp.setText(theResult);
             }
         });
-        ftG.display = theResult;
     }
 
     @JavascriptInterface

@@ -106,6 +106,7 @@ public class cBtn {
         }else {
             this.b.setTextColor(yo.ubTextColor);
         }
+        this.b.setTextSize(16);
         LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);

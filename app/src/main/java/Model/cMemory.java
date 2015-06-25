@@ -81,6 +81,7 @@ public class cMemory {
 
         lP.setMargins(ftG.memMargin,ftG.memMargin,ftG.memMargin,ftG.memMargin);
         this.b.setPadding(ftG.memPadding, ftG.memPadding, ftG.memPadding, ftG.memPadding);
+        this.b.setTextSize(ftG.memTxtSize);
 
         this.b.setLayoutParams(lP);
 

@@ -249,4 +249,15 @@ public class EditBtnActivity extends Activity {
         updateAndSaveBtn();
         startActivity(i);
     }
+
+    public void onDelete(View view) {
+        //
+        ftG.wB.delete(ftG.wB.Id);
+        ftG.mA.borraTuto();
+        ftG.mA.ponLosAndamios(false);
+
+        ftG.editM = false;
+        finish();
+
+    }
 }

@@ -28,14 +28,15 @@ public class ftG {
     public static String logTag = "ftpha - shdcalcdm - ";
 
 
-    public static int memHeight = 35;
+    public static int memHeight = 76;
     public static int memColor = 0;
     public static int memTxtColor = 0;
-    public static int memTxtSize = 18;
+    public static int memTxtSize = 14;
     public static int memMargin = 2;
     public static int memPadding = 0;
 
 
+    public static String usrFlag = "";
 
 
     public static int selColor;

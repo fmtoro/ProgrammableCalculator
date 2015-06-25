@@ -129,6 +129,24 @@ public class MainActivity extends Activity {
 
     }
 
+    public void addAMem(String strToAdd) {
+        //Aqui: thread issue. Fix
+        //basically this has to be done in the UI thread.
+
+        cMemory cMem = new cMemory(ftG.ctx);
+        cMem.mText = strToAdd;
+
+        cMem.create();
+        cMem.createActual();
+
+        ftG.clc.memS.add(cMem);
+        for (cMemory m : ftG.clc.memS) {
+            m.update(m.Id);
+        }
+        ftG.clc.memS = cMemory.listAll();
+
+    }
+
     private void addAButtonToLayout(int theLayout) {
         //Aqui:
         cLayout lay;
