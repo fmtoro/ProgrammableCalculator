@@ -139,7 +139,7 @@ public class EditBtnActivity extends Activity {
 
         updateAndSaveBtn();
 
-        ftG.editM = false;
+        ftG.mA.changeEditMode();
         finish();
 
     }
@@ -171,12 +171,14 @@ public class EditBtnActivity extends Activity {
     }
 
     public void onExitWOSave(View view) {
-        ftG.editM = false;
+        ftG.mA.changeEditMode();
         finish();
     }
 
     public void onActiveStatusSet(View view) {
-        //?
+        if (ftChBxActive.isChecked()) {
+            ftTxtBtnW.setText("1.0");
+        }
     }
 
     public void onShowTextStatusSet(View view) {
@@ -193,11 +195,7 @@ public class EditBtnActivity extends Activity {
         Intent iT = new Intent(EditBtnActivity.this,ColorPkrActivity.class);
         startActivity(iT);
     }
-    private ColorPicker picker;
-    private SVBar svBar;
-    private OpacityBar opacityBar;
-    private Button button;
-    private TextView text;
+
 //    private void showColorPickerDialog()
 //    {
 //        AlertDialog.Builder colorDialogBuilder = new AlertDialog.Builder(
@@ -256,7 +254,7 @@ public class EditBtnActivity extends Activity {
         ftG.mA.borraTuto();
         ftG.mA.ponLosAndamios(false);
 
-        ftG.editM = false;
+        ftG.mA.changeEditMode();
         finish();
 
     }

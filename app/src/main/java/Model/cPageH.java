@@ -9,6 +9,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ftpha.programmablecalculator.ftG;
+
 /**
  * Created by Fernando on 2015-06-09.
  * Originally created as part of: Programmable Calculator
@@ -17,7 +19,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class cPageH extends SQLiteOpenHelper {
 
     static  final   String      DB_Name     =   "ftProgCalc";
-    static  final   int         DB_V        =   2;
+    static  final   int         DB_V        =   ftG.dbVersion;
 
     static  final   String      TABLE_N     =   "cpage";
 

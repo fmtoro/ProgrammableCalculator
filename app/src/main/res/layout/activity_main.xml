@@ -63,21 +63,39 @@
 
 
                 <Button
+                    android:id="@+id/btnAdd"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="Add Mem."
-                    android:textSize="14sp"
+                    android:layout_height="45dp"
+                    android:text="Add M"
+                    android:textSize="16sp"
                     android:layout_marginTop="2dp"
-                    android:layout_marginBottom="-4dp"
-                    android:onClick="addMem"/>
+                    android:onClick="addMem"
+                    android:background="#ff1e0978"
+                    android:textColor="#fff9f7d4"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"/>
                 <Button
+                    android:id="@+id/btnAddRow"
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="35dp"
+                    android:text="Add Row"
+                    android:textSize="14sp"
+                    android:onClick="onAddRow"
+                    android:background="#ffd6d7d7"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="6dp"
+                    android:visibility="gone"
+                    />
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
                     android:text="Edit"
-                    android:textSize="9sp"
-                    android:layout_marginTop="-3dp"
-                    android:layout_marginBottom="-4dp"
-                    android:onClick="onEditBtn"/>
+                    android:textSize="14sp"
+                    android:onClick="onEditBtn"
+                    android:background="#ffd6d7d7"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="6dp"/>
 
 
                 <ScrollView
@@ -814,19 +832,19 @@
                     android:orientation="vertical"
                     >
 
+
                     <Button
-                        android:id="@+id/bC"
+                        android:id="@+id/bDiv"
                         android:layout_height="0dp"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
-                        android:text="C"
+                        android:text="/"
                         android:textSize="32sp"
                         android:gravity="center"
                         android:onClick="onOpsClick"
-                        android:background="#ffc8654c"
+                        android:background="#ffb4bec8"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="2dp"/>
-
                     <Button
                         android:id="@+id/bTimes"
                         android:layout_height="0dp"
@@ -874,12 +892,24 @@
                     >
 
                     <Button
+                        android:id="@+id/bC"
+                        android:layout_height="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:text="C"
+                        android:textSize="32sp"
+                        android:gravity="center"
+                        android:onClick="onOpsClick"
+                        android:background="#ffc8654c"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="2dp"/>
+                    <Button
                         android:id="@+id/bback"
                         android:layout_height="0dp"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
-                        android:text="◄"
-                        android:textSize="32sp"
+                        android:text="Del"
+                        android:textSize="24sp"
                         android:gravity="center"
                         android:onClick="onOpsClick"
                         android:background="#ffb4bec8"
@@ -887,24 +917,12 @@
                         android:layout_marginTop="2dp"/>
 
                     <Button
-                        android:id="@+id/bPec"
+                        android:id="@+id/bEnter"
                         android:layout_height="0dp"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
-                        android:text="%"
-                        android:textSize="32sp"
-                        android:gravity="center"
-                        android:onClick="onOpsClick"
-                        android:background="#ffb4bec8"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginTop="2dp"/>
-                    <Button
-                        android:id="@+id/bDiv"
-                        android:layout_height="0dp"
-                        android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:text="/"
-                        android:textSize="32sp"
+                        android:text="Enter"
+                        android:textSize="24sp"
                         android:gravity="center"
                         android:onClick="onOpsClick"
                         android:background="#ffb4bec8"

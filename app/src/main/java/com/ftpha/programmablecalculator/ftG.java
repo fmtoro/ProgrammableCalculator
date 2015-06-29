@@ -2,9 +2,16 @@ package com.ftpha.programmablecalculator;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import org.xmlpull.v1.XmlSerializer;
+
+import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.List;
 
 import Model.Calc;
 import Model.CalcH;
@@ -21,7 +28,7 @@ public class ftG {
     public static Activity currActivity;
 
     public static String dbName = "ftProgCalc.db";
-    public static int dbVersion = 1;
+    public static int dbVersion = 4;
 
     public static int showLogs = 1;
     public static int showToasts = 1;
@@ -36,6 +43,44 @@ public class ftG {
     public static int memPadding = 0;
 
 
+    public static String dialogBtnPositive = "";
+    public static String dialogBtnNegative = "";
+    public static String dialogBtnNeutral = "";
+    public static String dialogTitle = "";
+    public static String dialogHeading = "";
+    public static String dialogContent = "";
+
+    ////////////////////////////////////////////////////////////////////////////////
+    public static String inBoxTitle = "";
+
+    public static String inBoxLabel1 = "";
+    public static String inBoxTxt1 = "";                    //Out
+    public static String inBoxTxt1InputType = "";
+    public static String inBoxSelNum1 = "";                 //Out
+    public static String inBoxSelNum1Post = "";
+    public static String inBoxSeekBar1Max = "";
+    public static String inBoxSeekBar1Initial = "";
+
+    public static String inBoxLabel2 = "";
+    public static String inBoxTxt2 = "";                    //Out
+    public static String inBoxTxt2InputType = "";
+    public static String inBoxSelNum2 = "";                 //Out
+    public static String inBoxSelNum2Post = "";
+    public static String inBoxSeekBar2Max = "";
+    public static String inBoxSeekBar2Initial = "";
+
+    public static String inBoxLabel3 = "";
+    public static String inBoxTxt3 = "";                    //Out
+    public static String inBoxTxt3InputType = "";
+    public static String inBoxSelNum3 = "";                 //Out
+    public static String inBoxSelNum3Post = "";
+    public static String inBoxSeekBar3Max = "";
+    public static String inBoxSeekBar3Initial = "";
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////
     public static String usrFlag = "";
 
 
@@ -51,13 +96,6 @@ public class ftG {
     public static String subDisplay;
 
     public static String elX;
-    public static String elY;
-    public static String elZ;
-    public static String elZ4;
-    public static String elZ5;
-    public static String elZ6;
-    public static String elZ7;
-    public static String elZ8;
 
     public static String clcMode;
 
@@ -70,6 +108,7 @@ public class ftG {
     public static String answ;
 
     public static LinearLayout tlll;
+    public  static LinearLayout memLl;
 
     public static Context ctx;
 
@@ -78,6 +117,12 @@ public class ftG {
 
     public static cBtn wB; //cBtn that will be edited in the edit window.
 
+    public static void msgBox(){
+
+        Intent i = new Intent(ftG.ctx, MsgBoxActivity.class);
+        ctx.startActivity(i);
+
+    }
 
     public static int makeBtnId(long lid, long id){
 
@@ -87,10 +132,14 @@ public class ftG {
 
     }
 
-    public static void appendDisplay(MainActivity a,String strToAppend){
+    public static void appendDisplay(MainActivity a,String strToAppend, boolean addToY) {
+        if (addToY) {
+            ftG.YzS.edit(strToAppend);
+        }
+
         display += strToAppend;
         history += strToAppend;
-        thisNum += strToAppend;
+        //9+**************86thisNum += strToAppend;
         a.setD(display);
     }
 
@@ -128,13 +177,17 @@ public class ftG {
     public static boolean putDecimal(){
 
 
-        return isNumeric(ftG.thisNum);
+        return isNumeric(ftG.YzS.get());
     }
 
     public static boolean isNumeric(String str)
     {
         String a = "0" + str + ".2";
         return a.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+
+    public static void setX(String toSet){
+        new preCalc(ftG.ctx).setX(toSet);
     }
 
     public static void L(String msg) {
@@ -160,4 +213,51 @@ public class ftG {
         }
     }
 
+    public static class YzS{
+
+        public static List<String> zS= new ArrayList<>();
+
+
+        public static void add(String yz){
+            zS.add(0, yz);
+            if (zS.size() > 50) {
+                zS.remove(50);
+            }
+        }
+
+        public static void edit(String modYz) {
+            if (zS.isEmpty()) {
+                add("");
+            }
+            String x = zS.get(0);
+            x += modYz;
+            zS.remove(0);
+            zS.add(0,x);
+        }
+
+        public static String get(int lvl) {
+            int nLvl = lvl;
+
+            if (zS.size() - 1 < lvl) {
+                return "";
+            } else {
+                return zS.get(nLvl);
+            }
+
+        }
+
+        public static String get() {
+            if (zS.isEmpty()) {
+                add("");
+            }
+            return zS.get(0);
+        }
+
+        public static void pop() {
+            if (!zS.isEmpty()) {
+                zS.remove(0);
+            }
+        }
+
+    }
 }

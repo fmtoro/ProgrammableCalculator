@@ -41,7 +41,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      */
     public DataBaseHelper(Context context) {
 
-        super(context, DB_NAME, null, 2);
+        super(context, DB_NAME, null, ftG.dbVersion);
         this.myContext = context;
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
         DB_PATH  = context.getDatabasePath(DataBaseHelper.DB_NAME).getParent();

@@ -20,7 +20,7 @@ import com.ftpha.programmablecalculator.ftG;
 public class CalcH extends SQLiteOpenHelper {
 
     static  final   String      DB_Name     = "ftPgCalc";
-    static  final   int         DB_V        =   2;
+    static  final   int         DB_V        =   ftG.dbVersion;
 
     static  final   String      TABLE_N     =   "calc";
 

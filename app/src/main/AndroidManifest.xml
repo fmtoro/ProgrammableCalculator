@@ -2,13 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ftpha.programmablecalculator" >
 
+    <!--package="com.ftpha.programmablecalculator"-->
     <application
         android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,23 +21,41 @@
         </activity>
         <activity
             android:name=".EditBtnActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_edit_btn"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ftpha.programmablecalculator.MainActivity" />
         </activity>
         <activity
             android:name=".CodeEditorActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_code_editor"
-            android:parentActivityName=".EditBtnActivity" >
+            android:parentActivityName=".EditBtnActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ftpha.programmablecalculator.EditBtnActivity" />
         </activity>
         <activity
             android:name=".ColorPkrActivity"
-            android:label="@string/title_activity_color_pkr" >
+            android:configChanges="orientation"
+            android:label="@string/title_activity_color_pkr"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".MsgBoxActivity"
+            android:label="mb"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".InputBoxActivity"
+            android:label="ib"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
         </activity>
     </application>
 

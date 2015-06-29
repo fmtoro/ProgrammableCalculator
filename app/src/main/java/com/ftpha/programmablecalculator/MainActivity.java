@@ -2,7 +2,7 @@ package com.ftpha.programmablecalculator;
 
 
 import android.app.Activity;
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,29 +25,15 @@ import Model.cMemory;
 public class MainActivity extends Activity {
 
     //    -----------------------------------------------Fields
-    private Button b0;
-    private Button b1;
-    private Button b2;
-    private Button b3;
-    private Button b4;
-    private Button b5;
-    private Button b6;
-    private Button b7;
-    private Button b8;
-    private Button b9;
+    private Button btnAdd;
+    private Button btnEdit;
+    private Button btnRowAdd;
 
 
-    private Button bPls;
-    private Button bMin;
-    private Button bMult;
-    private Button bDiv;
-    private Button bDec;
-    private Button bEqu;
     public static EditText mainD;
 
     private static WebView wv;
-    private preCalc pC;
-    private Context xt;
+
 
 
 
@@ -112,11 +98,18 @@ public class MainActivity extends Activity {
 
     }
 
-    private void addAButton() {
+    private void addAMem() {
         //Aqui:
 
         cMemory cMem = new cMemory(ftG.ctx);
         cMem.mText = mainD.getText().toString();
+        cMem.mGroup = "Std";
+        cMem.mName = "";
+        cMem.mTxtSize = 14;
+        cMem.mBColor = Color.parseColor("#FFCCCCCC");
+        cMem.mTxtColor = Color.parseColor("#FF222222");
+        cMem.mHeight = 80;
+
 
         cMem.create();
         cMem.createActual();
@@ -160,7 +153,7 @@ public class MainActivity extends Activity {
         but.create();
         but.ubBelongToLayout = but.lId;
         but.ubPosInLayout = lay.btS.size();
-        but.ubText = "new " + but.lId + "-" + but.ubPosInLayout;
+        but.ubText = "new";
         but.update(but.Id);
         but.createActual(lay.lLL);
         lay.btS.add(but);
@@ -221,6 +214,8 @@ public class MainActivity extends Activity {
 
     public void borraTuto(){
         ftG.tlll.removeAllViews();
+        ftG.memLl = (LinearLayout) ftG.mA.findViewById(R.id.memLL);
+        ftG.memLl.removeAllViews();
     }
 
     private void showAll() {
@@ -235,22 +230,9 @@ public class MainActivity extends Activity {
 
 
     private void initBasic() {
-        b0 = (Button) findViewById(R.id.b0);
-        b1 = (Button) findViewById(R.id.b1);
-        b2 = (Button) findViewById(R.id.b2);
-        b3 = (Button) findViewById(R.id.b3);
-        b4 = (Button) findViewById(R.id.b4);
-        b5 = (Button) findViewById(R.id.b5);
-        b6 = (Button) findViewById(R.id.b6);
-        b7 = (Button) findViewById(R.id.b7);
-        b8 = (Button) findViewById(R.id.b8);
-        b9 = (Button) findViewById(R.id.b9);
-        bPls = (Button) findViewById(R.id.bPlus);
-        bMin = (Button) findViewById(R.id.bMinus);
-        bMult = (Button) findViewById(R.id.bTimes);
-        bDiv = (Button) findViewById(R.id.bDiv);
-        bDec = (Button) findViewById(R.id.bDec);
-        bEqu = (Button) findViewById(R.id.bEqu);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnEdit = (Button) findViewById(R.id.btnEdit);
+        btnRowAdd = (Button) findViewById(R.id.btnAddRow);
 
         initDisplay();
 
@@ -270,7 +252,7 @@ public class MainActivity extends Activity {
             wv.getSettings().setJavaScriptEnabled(true);
             wv.addJavascriptInterface(new preCalc(MainActivity.this), "co");
         } else {
-            pC.T(getString(R.string.youNeedGingerBread));
+            ftG.T(getString(R.string.youNeedGingerBread));
         }
     }
 
@@ -316,56 +298,71 @@ public class MainActivity extends Activity {
 
         if (ftG.clcMode.equals("Start")) {
 //            ftG.setDisplay(MainActivity.this, "");
-            ftG.thisNum = "";
+            ftG.YzS.add("");
+            //ftG.thisNum = "";
             ftG.clcMode = "on-Going";
         }
 
 
         switch (v.getId()) {
             case R.id.b0:
-                ftG.appendDisplay(MainActivity.this, "0");
+                ftG.appendDisplay(MainActivity.this, "0", true);
                 break;
             case R.id.b1:
-                ftG.appendDisplay(MainActivity.this, "1");
+                ftG.appendDisplay(MainActivity.this, "1", true);
                 break;
             case R.id.b2:
-                ftG.appendDisplay(MainActivity.this, "2");
+                ftG.appendDisplay(MainActivity.this, "2", true);
                 break;
             case R.id.b3:
-                ftG.appendDisplay(MainActivity.this, "3");
+                ftG.appendDisplay(MainActivity.this, "3", true);
                 break;
             case R.id.b4:
-                ftG.appendDisplay(MainActivity.this, "4");
+                ftG.appendDisplay(MainActivity.this, "4", true);
                 break;
             case R.id.b5:
-                ftG.appendDisplay(MainActivity.this, "5");
+                ftG.appendDisplay(MainActivity.this, "5", true);
                 break;
             case R.id.b6:
-                ftG.appendDisplay(MainActivity.this, "6");
+                ftG.appendDisplay(MainActivity.this, "6", true);
                 break;
             case R.id.b7:
-                ftG.appendDisplay(MainActivity.this, "7");
+                ftG.appendDisplay(MainActivity.this, "7", true);
                 break;
             case R.id.b8:
-                ftG.appendDisplay(MainActivity.this, "8");
+                ftG.appendDisplay(MainActivity.this, "8", true);
                 break;
             case R.id.b9:
-                ftG.appendDisplay(MainActivity.this, "9");
+                ftG.appendDisplay(MainActivity.this, "9", true);
                 break;
             case R.id.bPlus:
-                ftG.appendDisplay(MainActivity.this, " + ");
+                ftG.appendDisplay(MainActivity.this, " + ", false);
                 ftG.clcMode = "Start";
                 break;
             case R.id.bMinus:
-                ftG.appendDisplay(MainActivity.this, " - ");
+                ftG.appendDisplay(MainActivity.this, " - ", false);
                 ftG.clcMode = "Start";
                 break;
             case R.id.bTimes:
-                ftG.appendDisplay(MainActivity.this, " * ");
+                ftG.appendDisplay(MainActivity.this, " * ", false);
                 ftG.clcMode = "Start";
                 break;
             case R.id.bDiv:
-                ftG.appendDisplay(MainActivity.this, " / ");
+                ftG.appendDisplay(MainActivity.this, " / ", false);
+                ftG.clcMode = "Start";
+                break;
+            case R.id.bEnter:
+
+                String myX = ftG.YzS.get();
+                String myD = ftG.display;
+                int lastOne = myD.lastIndexOf(myX);
+                myD = myD.substring(0, lastOne);
+                final String myR = myD + "";
+
+                ftG.display = myR;
+
+                mainD.setText(myR);
+
                 ftG.clcMode = "Start";
                 break;
             case R.id.bC:
@@ -384,7 +381,7 @@ public class MainActivity extends Activity {
                 break;
             case R.id.bDec:
                 if (ftG.putDecimal()) {
-                    ftG.appendDisplay(MainActivity.this, ".");
+                    ftG.appendDisplay(MainActivity.this, ".", true);
                 }
                 break;
             case R.id.bEqu:
@@ -392,8 +389,11 @@ public class MainActivity extends Activity {
                 preCalc.connDisp(mainD);
 
                 calculate();
-                ftG.clcMode = "Start";
-                ftG.display = mainD.getText().toString();
+                //ftG.clcMode = "Start";
+                String a = mainD.getText().toString();
+                ftG.display = a;
+                ftG.YzS.add(a);
+
                 break;
         }
 
@@ -463,18 +463,20 @@ public class MainActivity extends Activity {
 
     public void addMem(View view) {
         if (ftG.editM) {
-            return;
+            addAButtonToLayout(0);
+        } else {
+            addAMem();
         }
-//        showAll();
-        addAButton();
+//        ftG.dialogTitle = "Hello World!";
+//        ftG.dialogHeading = "Algo";
+//        ftG.dialogContent = "Hello World!";
+//        ftG.dialogBtnPositive = "OK";
+//        ftG.dialogBtnNegative = "No way!";
+//        ftG.dialogBtnNeutral = "Cancel";
+//        ftG.msgBox();
+
     }
 
-    public void onAddLayout(View view) {
-        if (ftG.editM) {
-            return;
-        }
-        addABtnInNewLayout();
-    }
 
     public void onAddB1(View view) {
         if (ftG.editM) {
@@ -483,39 +485,56 @@ public class MainActivity extends Activity {
         addAButtonToLayout(0);
     }
 
-    public void onAddB2(View view) {
-        if (ftG.editM) {
-            return;
-        }
-        addAButtonToLayout(1);
-    }
-
-    public void onAddB3(View view) {
-        if (ftG.editM) {
-            return;
-        }
-        addAButtonToLayout(2);
-    }
-
-    public void onAddB4(View view) {
-//        if (ftG.editM) {
-//            return;
-//        }
-//        addAButtonToLayout(3);
-
-        ftG.showResult();
-    }
-
 
     public void onEditBtn(View view) {
-        ftG.editM = true;
+        changeEditMode();
 
+    }
+
+    public void changeEditMode() {
         //Aqui: bring in the floating '+'
+//        #ffc8654c         //Rojo
+//        #ff1e0978         //Azul
+//        #fff9f7d5         //Blanquito
+//        #ff1d8f16         //Verdecito
+//        #ffd6d7d7         //Gris
 
-        //Aqui: Show all buttons
-        borraTuto();
-        ponLosAndamios(true);
+        if (!ftG.editM) {
+            btnAdd.setText("Add Button");
+            btnAdd.setBackgroundColor(Color.parseColor("#ffc8654c"));
+            btnAdd.setTextColor(Color.parseColor("#ff000000"));
 
-        //Aqui: Show a 'Done' button
+            btnEdit.setText("Done");
+            btnEdit.setBackgroundColor(Color.parseColor("#FF77A575"));
+            btnEdit.setTextColor(Color.parseColor("#fff9f7d5"));
+
+            btnRowAdd.setVisibility(View.VISIBLE);
+
+            ftG.editM = true;
+
+            //Aqui: Show all buttons
+            borraTuto();
+            ponLosAndamios(true);
+
+        } else {
+            btnAdd.setText("Add M");
+            btnAdd.setBackgroundColor(Color.parseColor("#ff1e0978"));
+            btnAdd.setTextColor(Color.parseColor("#fff9f7d5"));
+
+            btnEdit.setText("Edit");
+            btnEdit.setBackgroundColor(Color.parseColor("#ffd6d7d7"));
+            btnEdit.setTextColor(Color.parseColor("#ff000000"));
+
+            btnRowAdd.setVisibility(View.GONE);
+
+            ftG.editM = false;
+
+            borraTuto();
+            ponLosAndamios(false);
+        }
+    }
+
+    public void onAddRow(View view) {
+        addABtnInNewLayout();
     }
 }

@@ -5,6 +5,7 @@
 package com.ftpha.programmablecalculator;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +20,9 @@ import com.larswerkman.holocolorpicker.SVBar;
 import com.larswerkman.holocolorpicker.SaturationBar;
 import com.larswerkman.holocolorpicker.ValueBar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ColorPkrActivity extends Activity implements ColorPicker.OnColorChangedListener{
     private ColorPicker picker;
@@ -28,12 +32,12 @@ public class ColorPkrActivity extends Activity implements ColorPicker.OnColorCha
 //    private OpacityBar opacityBar;
     private Button button;
 //    private TextView text;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_pkr);
-
 
         picker = (ColorPicker) findViewById(R.id.cPicker);
 //        svBar = (SVBar) findViewById(R.id.svbar);
@@ -93,5 +97,13 @@ public class ColorPkrActivity extends Activity implements ColorPicker.OnColorCha
         } else if (ftG.colorFor == "btnText") {
             ftG.usrBtnActivity.ftLlTextColorTxt.setTextColor(i);
         }
+    }
+
+    public void OnColorClick(View view) {
+
+
+        picker.setOldCenterColor(((ColorDrawable) view.getBackground()).getColor());
+        picker.setNewCenterColor(((ColorDrawable) view.getBackground()).getColor());
+
     }
 }

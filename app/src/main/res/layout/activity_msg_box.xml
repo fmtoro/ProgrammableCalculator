@@ -1,0 +1,81 @@
+<!--
+  ~ Copyright (c) 2015. Fernando Toro. All rights reserved
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    tools:context="com.ftpha.programmablecalculator.MsgBoxActivity"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:text="Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="18dp"
+        android:textSize="26sp"
+        android:background="#ff332233"
+        android:textColor="#ffddeeff"
+        />
+
+    <TextView
+        android:id="@+id/txtHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Heading"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        android:visibility="visible"
+        />
+
+    <TextView
+        android:id="@+id/txtContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Content"
+        android:layout_margin="40dp"
+        android:textSize="16dp"
+        android:visibility="visible"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:padding="18dp">
+        <Button
+            android:id="@+id/btnPos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Positive"
+            android:textSize="18sp"
+            android:visibility="visible"
+            android:onClick="OnPositive"
+            />
+        <Button
+            android:id="@+id/btnNeg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Negative"
+            android:textSize="18sp"
+            android:visibility="visible"
+            android:onClick="OnNegative"
+            />
+        <Button
+            android:id="@+id/btnNeut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Neutral"
+            android:textSize="18sp"
+            android:visibility="visible"
+            android:onClick="OnNeutral"
+            />
+    </LinearLayout>
+
+</LinearLayout>

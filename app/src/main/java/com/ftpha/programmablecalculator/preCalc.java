@@ -5,6 +5,7 @@
 package com.ftpha.programmablecalculator;
 
 import android.content.Context;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.EditText;
@@ -30,20 +31,24 @@ public class preCalc {
         theDisp = disp;
     }
 
+/////////////////////////////////////////////////////////////////////////////////////////
     @JavascriptInterface
-    public String getX(){
-        return ftG.thisNum;
+    public String get(int level){
+        return ftG.YzS.get(level);
     }
 
     @JavascriptInterface
-    public void setX(final String theResult){
+    public String getX(){
+        return ftG.YzS.get();
+    }
+    @JavascriptInterface
+    public void appendX(final String value){
 
-        String myX = ftG.thisNum;
         String myD = ftG.display;
-        myD = myD.substring(0, myD.lastIndexOf(myX));
-        final String myR = myD + theResult;
+        final String myR = myD + " " + value;
 
-        ftG.thisNum = theResult;
+        //ftG.thisNum = theResult;
+        ftG.YzS.add(value);
         ftG.display = myR;
 
         theDisp.post(new Runnable() {
@@ -55,41 +60,133 @@ public class preCalc {
     }
 
     @JavascriptInterface
-    public String getFlag(){
-        return ftG.usrFlag;
-    }
+    public void setX(final String value){
 
-    @JavascriptInterface
-    public void setFlag(final String theResult){
+        String myX = ftG.YzS.get();
+        String myD = ftG.display;
+        int lastOne = myD.lastIndexOf(myX);
+        myD = myD.substring(0, lastOne);
+        final String myR = myD + value;
 
-        ftG.usrFlag = theResult;
-    }
-
-    @JavascriptInterface
-    public void addM(final String strToAdd){
-        ftG.mA.addAMem(strToAdd);
-    }
-    @JavascriptInterface
-    public void setD(final String theResult){
-
-        ftG.display = theResult;
-        ftG.thisNum = theResult;
+        //ftG.thisNum = theResult;
+        //ftG.YzS.pop();
+        ftG.YzS.add(value);
+        ftG.display = myR;
 
         theDisp.post(new Runnable() {
             @Override
             public void run() {
-                theDisp.setText(theResult);
+                theDisp.setText(myR);
             }
         });
     }
+
+    @JavascriptInterface
+    public void setD(final String value){
+
+        ftG.display = value;
+        //ftG.thisNum = theResult;
+        ftG.YzS.add(value);
+
+        theDisp.post(new Runnable() {
+            @Override
+            public void run() {
+                theDisp.setText(value);
+            }
+        });
+    }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+    @JavascriptInterface
+    public void putFlag(final String flag){
+
+        ftG.usrFlag += muFg(flag);
+    }
+
+    @JavascriptInterface
+    public boolean peekFlag(String flag){
+
+        return ftG.usrFlag.contains(muFg(flag));
+
+    }
+
+    @JavascriptInterface
+    public boolean takeFlag(String flag){
+
+        boolean rv = ftG.usrFlag.contains(muFg(flag));
+
+        if (rv) {
+            ftG.usrFlag = ftG.usrFlag.replace(muFg(flag),"");
+        }
+
+        return rv;
+
+    }
+
+
+    private String muFg(String baseFg){
+        return "<@" + baseFg + "@>";
+    }
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+//    @JavascriptInterface
+//    public void addM(final String strToAdd){
+////        No worky
+//        ftG.mA.addAMem(strToAdd);
+//    }
+
+
 
     @JavascriptInterface
     public void showToast(String mssg){
         Toast.makeText(cx, mssg, Toast.LENGTH_SHORT).show();
     }
 
+    @JavascriptInterface
     public void T(String mssg){
         showToast(mssg);
+    }
+
+    @JavascriptInterface
+    public void showDialog(){
+        ftG.msgBox();
+    }
+
+    @JavascriptInterface
+    public void dialogTitle(String title){
+        ftG.dialogTitle = title;
+    }
+
+    @JavascriptInterface
+    public void dialogHeading(String heading){
+        ftG.dialogHeading = heading;
+    }
+
+    @JavascriptInterface
+    public void dialogContent(String content){
+        ftG.dialogContent = content;
+    }
+
+    @JavascriptInterface
+    public void dialogBtnPositive(String btnText){
+        ftG.dialogBtnPositive = btnText;
+    }
+
+    @JavascriptInterface
+    public void dialogBtnNegative(String btnText){
+        ftG.dialogBtnNegative = btnText;
+    }
+
+    @JavascriptInterface
+    public void dialogBtnNeutral(String btnText){
+        ftG.dialogBtnNeutral = btnText;
     }
 
 

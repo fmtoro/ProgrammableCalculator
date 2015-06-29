@@ -40,9 +40,15 @@ public class cMemory {
     private static SQLiteOpenHelper dbH;
     private static SQLiteDatabase db;
 
-    public long Id;
-    public String mText;
-
+    public      long        Id;
+    public      String      mGroup;
+    public      String      mText;
+    public      String      mName;
+    public      String      mUtl;
+    public      long        mTxtSize;
+    public      long        mBColor;
+    public      long        mTxtColor;
+    public      float       mHeight;
 
 
 
@@ -54,34 +60,40 @@ public class cMemory {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void createActual() {
-        long elId;
+        long elId;//                               HAce falta?
         this.b = new Button(ftG.ctx);
-        this.b.setText(yo.mText);
-        elId = ftG.makeBtnId(2000, yo.Id );
-        this.b.setId((int) elId);
+        if (yo.mName.equals("")) {
+            this.b.setText(yo.mText);
+        } else {
+            this.b.setText(yo.mName);
+        }
+        elId = ftG.makeBtnId(2000, yo.Id );//                               HAce falta?
+        this.b.setId((int) elId);//                               HAce falta?
 
+        this.b.setTag(this.Id);
         LinearLayout l = (LinearLayout) ftG.mA.findViewById(R.id.memLL);
 
-        if (ftG.memColor == 0) {
+        if (yo.mBColor == 0) {
             this.b.setBackgroundColor(Color.parseColor("#FFBBBBBB") );
         }else {
-            this.b.setBackgroundColor(ftG.memColor);
+            this.b.setBackgroundColor((int)yo.mBColor);
         }
-        if (ftG.memTxtColor == 0) {
+        if (yo.mTxtColor == 0) {
             this.b.setTextColor(Color.parseColor("#FF222222") );
         }else {
-            this.b.setTextColor(ftG.memTxtColor);
+            this.b.setTextColor((int)yo.mTxtColor);
         }
 
         LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        lP.height = ftG.memHeight;
+
+        lP.height = (int)yo.mHeight;
         lP.gravity = Gravity.CENTER;
 
-        lP.setMargins(ftG.memMargin,ftG.memMargin,ftG.memMargin,ftG.memMargin);
+        lP.setMargins(ftG.memMargin, ftG.memMargin, ftG.memMargin, ftG.memMargin);
         this.b.setPadding(ftG.memPadding, ftG.memPadding, ftG.memPadding, ftG.memPadding);
-        this.b.setTextSize(ftG.memTxtSize);
+        this.b.setTextSize(yo.mTxtSize);
 
         this.b.setLayoutParams(lP);
 
@@ -91,8 +103,9 @@ public class cMemory {
 
                 if (!ftG.editM) {
 
-                    ftG.thisNum = yo.mText;
-                    ftG.appendDisplay(ftG.mA, yo.mText);
+                    //ftG.thisNum = yo.mText;
+                    ftG.YzS.add(yo.mText);
+                    ftG.appendDisplay(ftG.mA, yo.mText, true);
 
                 } else {
 //                    //Aqui estamos en edit mode
@@ -109,36 +122,43 @@ public class cMemory {
             //b.setOnDragListener(new ftDragL()); Some day...
 
 
-//        b.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                if (ftG.editM) {
-//                    if (!iAmASeparator) {
-//                        ClipData data = ClipData.newPlainText("", "");
-//                        View.DragShadowBuilder shwBuldr = new View.DragShadowBuilder(v);
-//
-//                        v.startDrag(data, shwBuldr, v, 0);
-//                        return true;
-//                    } else {
-//                        return false;
-//                    }
-//
-//                } else {
-//                    ftG.T(yo.ubCodeDescription);//ToDo: show differently
-//                    return false;
-//                }
-//
-//            }
-//        });
+        b.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (ftG.editM) {
+                    cMemory m = cMemory.getById((long) v.getTag() );
+
+                    m.delete(m.Id);
+                    ftG.mA.borraTuto();
+                    ftG.mA.ponLosAndamios(false);
+
+                    ftG.mA.changeEditMode();
+
+                } else {
+                    //Aqui: Special add. Sugests thisNum, but it can be changed to anything. it also
+                            // allows to name the mem, any string of max 10 characters
+                }
+                return true;
+
+            }
+        });
 
 
-        l.addView(this.b,0);
+        l.addView(this.b, 0);
     }
 
 
     private static final String[] allCols = {
             cMemoryH.Id,
-            cMemoryH.mText
+            cMemoryH.mGroup,
+            cMemoryH.mText,
+            cMemoryH.mName,
+            cMemoryH.mUtl,
+            cMemoryH.mTxtSize,
+            cMemoryH.mBColor,
+            cMemoryH.mTxtColor,
+            cMemoryH.mHeight
+
     };
 
     public static  void initDb(){
@@ -153,7 +173,14 @@ public class cMemory {
         dbH = new cMemoryH(context);
         yo = this;
         yo.Id = 0;
+        yo.mGroup = "Mem1";
         yo.mText = "0";
+        yo.mName = "";
+        yo.mUtl = "";
+        yo.mTxtSize = 14;
+        yo.mBColor = 0;
+        yo.mTxtColor = 0;
+        yo.mHeight = 76;
     }
 
     public static void Open(){
@@ -181,7 +208,14 @@ public class cMemory {
 
         ContentValues values = new ContentValues();
 
+        values.put(cMemoryH.mGroup, this.mGroup);
         values.put(cMemoryH.mText, this.mText);
+        values.put(cMemoryH.mName, this.mText);
+        values.put(cMemoryH.mUtl, this.mUtl);
+        values.put(cMemoryH.mTxtSize, this.mTxtSize);
+        values.put(cMemoryH.mBColor, this.mBColor);
+        values.put(cMemoryH.mTxtColor, this.mTxtColor);
+        values.put(cMemoryH.mHeight, this.mHeight);
 
 
         long insertId = db.insert(cMemoryH.TABLE_N, null,values );
@@ -193,16 +227,23 @@ public class cMemory {
     public boolean update(long ID){
 
         Open();
-        ContentValues vals = new ContentValues();
+        ContentValues values = new ContentValues();
 
-        vals.put(cMemoryH.mText, this.mText);
+        values.put(cMemoryH.mGroup, this.mGroup);
+        values.put(cMemoryH.mText, this.mText);
+        values.put(cMemoryH.mName, this.mText);
+        values.put(cMemoryH.mUtl, this.mUtl);
+        values.put(cMemoryH.mTxtSize, this.mTxtSize);
+        values.put(cMemoryH.mBColor, this.mBColor);
+        values.put(cMemoryH.mTxtColor, this.mTxtColor);
+        values.put(cMemoryH.mHeight, this.mHeight);
 
 
         boolean rslt;
 
         rslt = db.update(
                 cMemoryH.TABLE_N,
-                vals,
+                values,
                 cMemoryH.Id + " = " + ID,
                 null
         ) == 1;
@@ -232,9 +273,6 @@ public class cMemory {
         }
 
 
-
-
-
         Cursor cursor = db.query(
                 cMemoryH.TABLE_N,
                 allCols,
@@ -251,7 +289,14 @@ public class cMemory {
             while (cursor.moveToNext()) {
                 cMemory xx = new cMemory(ftG.ctx);
                 xx.Id = cursor.getLong(cursor.getColumnIndex(cMemoryH.Id));
+                xx.mGroup = cursor.getString(cursor.getColumnIndex(cMemoryH.mGroup));
                 xx.mText = cursor.getString(cursor.getColumnIndex(cMemoryH.mText));
+                xx.mName = cursor.getString(cursor.getColumnIndex(cMemoryH.mName));
+                xx.mUtl = cursor.getString(cursor.getColumnIndex(cMemoryH.mUtl));
+                xx.mTxtSize = cursor.getLong(cursor.getColumnIndex(cMemoryH.mTxtSize));
+                xx.mBColor = cursor.getLong(cursor.getColumnIndex(cMemoryH.mBColor));
+                xx.mTxtColor = cursor.getLong(cursor.getColumnIndex(cMemoryH.mTxtColor));
+                xx.mHeight = cursor.getFloat(cursor.getColumnIndex(cMemoryH.mHeight));
 
                 loc_cMemory.add(xx);
             }
@@ -284,7 +329,14 @@ Close();
             cursor.moveToNext();
 
             xx.Id = cursor.getLong(cursor.getColumnIndex(cMemoryH.Id));
+            xx.mGroup = cursor.getString(cursor.getColumnIndex(cMemoryH.mGroup));
             xx.mText = cursor.getString(cursor.getColumnIndex(cMemoryH.mText));
+            xx.mName = cursor.getString(cursor.getColumnIndex(cMemoryH.mName));
+            xx.mUtl = cursor.getString(cursor.getColumnIndex(cMemoryH.mUtl));
+            xx.mTxtSize = cursor.getLong(cursor.getColumnIndex(cMemoryH.mTxtSize));
+            xx.mBColor = cursor.getLong(cursor.getColumnIndex(cMemoryH.mBColor));
+            xx.mTxtColor = cursor.getLong(cursor.getColumnIndex(cMemoryH.mTxtColor));
+            xx.mHeight = cursor.getFloat(cursor.getColumnIndex(cMemoryH.mHeight));
 
         }
 

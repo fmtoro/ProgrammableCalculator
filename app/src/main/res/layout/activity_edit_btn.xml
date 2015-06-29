@@ -31,8 +31,9 @@
             android:layout_weight="1.1"
             android:layout_height="wrap_content"
             android:text="@string/showText"
-            android:checked="false"
-            android:onClick="onShowTextStatusSet"/>
+            android:checked="true"
+            android:onClick="onShowTextStatusSet"
+            android:enabled="false"/>
 
         <CheckBox
             android:id="@+id/chBxLocked"
@@ -40,7 +41,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/locked"
-            android:onClick="onLockedStatusSet"/>
+            android:onClick="onLockedStatusSet"
+            android:enabled="false"/>
     </LinearLayout>
 
     <LinearLayout
@@ -117,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rowRelHeight"
-                />
+                android:enabled="false"/>
             <EditText
                 android:id="@+id/txtRowH"
                 android:layout_width="wrap_content"
@@ -126,7 +128,8 @@
                 android:ems="10"
                 android:layout_weight="1"
                 android:text="1"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:enabled="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -225,7 +228,8 @@
                     android:layout_height="match_parent"
                     android:gravity="top"
                     android:background="#fffdfe"
-                    android:id="@+id/txtButtonDescription"/>
+                    android:id="@+id/txtButtonDescription"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
@@ -260,6 +264,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delete"
+                android:textSize="16dp"
                 android:onClick="onDelete"
                 android:id="@+id/button"
                 android:layout_gravity="left|bottom"/>
@@ -269,6 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:text="@string/save"
+                android:textSize="16dp"
                 android:onClick="onSaveBttn"
                 />
 
@@ -276,6 +282,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exit"
+                android:textSize="16dp"
                 android:onClick="onExitWOSave"
                 android:layout_gravity="bottom"/>
         </LinearLayout>
