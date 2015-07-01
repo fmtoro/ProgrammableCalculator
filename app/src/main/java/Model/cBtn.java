@@ -86,7 +86,7 @@ public class cBtn {
     public void createActual(LinearLayout l) {
 //        long elId;
         btnTagData tagData = new btnTagData();
-        final boolean iAmASeparator=(yo.bName == "Separator");//Aqui por aqui voy. procesar distinto cuando es separator
+        final boolean iAmASeparator=(yo.bName.equals( "Separator" ));//Aqui por aqui voy. procesar distinto cuando es separator
 
         this.b = new Button(ftG.ctx);
         this.b.setText(yo.ubText);
@@ -151,7 +151,7 @@ public class cBtn {
 
                         ftG.elX = ftG.mA.getDisplay();
 
-                        ftG.mA.doCalculate(yo.ubCode.toString());
+                        ftG.mA.doCalculate(yo.ubCode);
 
                     } else {
                         //Aqui estamos en edit mode

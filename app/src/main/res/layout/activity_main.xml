@@ -37,7 +37,8 @@
             android:background="#ffaac1ae"
             android:singleLine="true"
             android:layout_marginTop="4dp"
-            android:focusableInTouchMode="false"/>
+            android:focusableInTouchMode="false"
+            tools:ignore="TextFields"/>
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="2.5"
@@ -629,7 +631,7 @@
             android:layout_height="2dp"
             android:layout_weight="6"
             android:orientation="horizontal"
-            >
+            android:baselineAligned="false">
 
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -641,7 +643,7 @@
                 android:paddingLeft="4dp"
                 android:paddingBottom="4dp"
                 android:paddingRight="1dp">
-                -
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -823,7 +825,8 @@
                 android:orientation="horizontal"
                 android:paddingRight="4dp"
                 android:paddingBottom="4dp"
-                android:paddingLeft="1dp">
+                android:paddingLeft="1dp"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="0dp"

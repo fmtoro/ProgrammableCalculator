@@ -25,7 +25,6 @@ import java.io.OutputStream;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
 
-    private static String DB_PATH;
     private static String DB_NAME = "ftPgCalc";
     private static String myPath;
 
@@ -44,7 +43,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, ftG.dbVersion);
         this.myContext = context;
 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-        DB_PATH  = context.getDatabasePath(DataBaseHelper.DB_NAME).getParent();
+        String DB_PATH = context.getDatabasePath(DataBaseHelper.DB_NAME).getParent();
         myPath = context.getDatabasePath(DataBaseHelper.DB_NAME).getPath();
 
 

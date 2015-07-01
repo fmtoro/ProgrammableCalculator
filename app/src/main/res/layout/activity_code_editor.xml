@@ -20,6 +20,7 @@
         android:autoText="false"
         android:id="@+id/txtCode"
         android:editable="true"
-        android:background="#fffdfe"/>
+        android:background="#fffdfe"
+        tools:ignore="TextFields"/>
 
 </FrameLayout>

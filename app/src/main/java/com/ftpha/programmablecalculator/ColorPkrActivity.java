@@ -26,11 +26,7 @@ import java.util.List;
 
 public class ColorPkrActivity extends Activity implements ColorPicker.OnColorChangedListener{
     private ColorPicker picker;
-//    private SVBar svBar;
-    private SaturationBar saturationBar;
     private ValueBar valueBar;
-//    private OpacityBar opacityBar;
-    private Button button;
 //    private TextView text;
 
     
@@ -41,10 +37,10 @@ public class ColorPkrActivity extends Activity implements ColorPicker.OnColorCha
 
         picker = (ColorPicker) findViewById(R.id.cPicker);
 //        svBar = (SVBar) findViewById(R.id.svbar);
-        saturationBar = (SaturationBar) findViewById(R.id.saturationbar);
+        SaturationBar saturationBar = (SaturationBar) findViewById(R.id.saturationbar);
         valueBar = (ValueBar) findViewById(R.id.valuebar);
 //        opacityBar = (OpacityBar) findViewById(R.id.opacitybar);
-        button = (Button) findViewById(R.id.button1);
+        Button button = (Button) findViewById(R.id.button1);
 //        text = (TextView) findViewById(R.id.textView1);
 
         picker.setOldCenterColor(ftG.selColor);
@@ -94,7 +90,7 @@ public class ColorPkrActivity extends Activity implements ColorPicker.OnColorCha
         if (ftG.colorFor == "btn") {
             ftG.usrBtnActivity.ftLlButtonColor.setBackgroundColor(i);
             ftG.usrBtnActivity.ftLlTextColorBG.setBackgroundColor(i);
-        } else if (ftG.colorFor == "btnText") {
+        } else if (ftG.colorFor.equals("btnText")) {
             ftG.usrBtnActivity.ftLlTextColorTxt.setTextColor(i);
         }
     }
