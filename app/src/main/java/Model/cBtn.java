@@ -84,18 +84,18 @@ public class cBtn {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void createActual(LinearLayout l) {
-//        long elId;
+        long elId;
         btnTagData tagData = new btnTagData();
-        final boolean iAmASeparator=(yo.bName.equals( "Separator" ));//Aqui por aqui voy. procesar distinto cuando es separator
+        final boolean iAmASeparator=(yo.bName == "Separator");//Aqui por aqui voy. procesar distinto cuando es separator
 
         this.b = new Button(ftG.ctx);
         this.b.setText(yo.ubText);
-//        if (iAmASeparator) {
-//            elId = ftG.makeBtnId((yo.lId + 1000), Long.valueOf(yo.cName) );
-//        }else {
-//            elId = ftG.makeBtnId(yo.lId, yo.Id);
-//        }
-//        this.b.setId((int) elId);
+        if (iAmASeparator) {
+            elId = ftG.makeBtnId((yo.lId + 1000), Long.valueOf(yo.cName) );
+        }else {
+            elId = ftG.makeBtnId(yo.lId, yo.Id);
+        }
+        this.b.setId((int) elId);
         if (yo.ubColor == 0) {
             this.b.setBackgroundColor(Color.parseColor("#FFBBBBBB") );
         }else {
@@ -128,7 +128,7 @@ public class cBtn {
                 } else {
                     lP.weight = this.ubRelativeW;
                 }
-            }else {
+            }else{
                 if (this.ubActive == 1) {
                     if (this.ubRelativeW <= 0.33) {
                         lP.weight = 1f;

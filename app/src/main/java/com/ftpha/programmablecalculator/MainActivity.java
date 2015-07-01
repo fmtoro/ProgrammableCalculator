@@ -1,7 +1,6 @@
 package com.ftpha.programmablecalculator;
 
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -231,7 +229,6 @@ public class MainActivity extends Activity {
     }
 
 
-    @SuppressLint("SetJavaScriptEnabled")
     private void initBasic() {
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnEdit = (Button) findViewById(R.id.btnEdit);
@@ -243,20 +240,19 @@ public class MainActivity extends Activity {
 
 
         wv = (WebView) findViewById(R.id.wv);
-        //wv.setWebChromeClient(new WebChromeClient());
 
         //calculate();
 
 
-//        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-//        if (currentapiVersion >= 17) {
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion >= 17) {
             // Do something for froyo and above versions
 
             wv.getSettings().setJavaScriptEnabled(true);
             wv.addJavascriptInterface(new preCalc(MainActivity.this), "co");
-//        } else {
-//            ftG.T(getString(R.string.youNeedGingerBread));
-//        }
+        } else {
+            ftG.T(getString(R.string.youNeedGingerBread));
+    }
     }
 
     private void initDisplay() {
@@ -391,7 +387,6 @@ public class MainActivity extends Activity {
                 String a = "";
                 preCalc.connDisp(mainD);
 
-                //ftG.YzS.add("");
                 calculate();
                 //ftG.clcMode = "Start";
                 a = mainD.getText().toString();

@@ -57,12 +57,12 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:layout_width="0dp"
-            android:layout_weight="14"
+            android:layout_weight="10"
             android:layout_height="wrap_content"
             android:id="@+id/txtBttnText"/>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="8"
+            android:layout_weight="7"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
             >
@@ -95,7 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="A"
-                    android:textSize="22sp"
+                    android:textSize="22dp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
@@ -108,8 +108,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -123,7 +122,7 @@
                 android:enabled="false"/>
             <EditText
                 android:id="@+id/txtRowH"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:ems="10"
@@ -148,7 +147,7 @@
 
             <EditText
                 android:id="@+id/txtBtnW"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:ems="10"
@@ -169,8 +168,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="100"
@@ -203,20 +201,21 @@
                             android:text=" ..."
                             android:background="#cccccc"
                             android:onClick="onGoToBttnsCode"
-                            />
+                            android:enabled="false"
+                            android:editable="true"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout> <LinearLayout
+        </LinearLayout>
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="120">
+        android:layout_weight="60">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginTop="4dp"
-            android:baselineAligned="false">
+            android:layout_marginTop="4dp">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="100"
@@ -267,7 +266,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delete"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:onClick="onDelete"
                 android:id="@+id/button"
                 android:layout_gravity="left|bottom"/>
@@ -277,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:text="@string/save"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:onClick="onSaveBttn"
                 />
 
@@ -285,7 +284,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exit"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:onClick="onExitWOSave"
                 android:layout_gravity="bottom"/>
         </LinearLayout>

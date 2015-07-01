@@ -1,59 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ftpha.programmablecalculator" >
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-
-    <uses-permission android:name="android.permission.CAMERA"/>
-
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-
-    <uses-permission android:name="android.permission.GET_TASKS" />
-
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <uses-permission android:name="android.permission.READ_SMS" />
-
-    <uses-permission android:name="android.permission.RECEIVE_MMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <uses-permission android:name="android.permission.SEND_SMS" />
-
-
-    <uses-permission android:name="android.permission.SET_WALLPAPER" />
-
-
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_HISTORY_BOOKMARKS" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.WRITE_SMS" />
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
-
-    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <!--package="com.ftpha.programmablecalculator"-->
     <application
@@ -76,6 +23,7 @@
             android:name=".EditBtnActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_edit_btn"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -85,6 +33,7 @@
             android:name=".CodeEditorActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_code_editor"
+            android:parentActivityName=".EditBtnActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -102,12 +51,12 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
         </activity>
-        <activity
-            android:name=".InputBoxActivity"
-            android:label="ib"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
-        </activity>
+        <!--<activity-->
+            <!--android:name=".InputBoxActivity"-->
+            <!--android:label="ib"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >-->
+        <!--</activity>-->
     </application>
 
 </manifest>

@@ -67,14 +67,14 @@
             android:id="@+id/cl1"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="#ff47a399"
+            android:background="#ff66977e"
             android:onClick="OnColorClick"
             android:layout_marginLeft="6dp"/>
         <Button
             android:id="@+id/cl2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="#ff77a575"
+            android:background="#ff7b9775"
             android:onClick="OnColorClick"
             android:layout_marginLeft="6dp"/>
         <Button
@@ -88,7 +88,7 @@
             android:id="@+id/cl4"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="#ffc8664d"
+            android:background="#ff977265"
             android:onClick="OnColorClick"
             android:layout_marginLeft="6dp"/>
         <Button
@@ -102,7 +102,7 @@
             android:id="@+id/cl6"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="#ff1e0978"
+            android:background="#ff3b5797"
             android:onClick="OnColorClick"
             android:layout_marginLeft="6dp"/>
         <Button

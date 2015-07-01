@@ -176,9 +176,7 @@ public class EditBtnActivity extends Activity {
     }
 
     public void onActiveStatusSet(View view) {
-        if (ftChBxActive.isChecked()) {
-            ftTxtBtnW.setText("1.0");
-        }
+        //?
     }
 
     public void onShowTextStatusSet(View view) {

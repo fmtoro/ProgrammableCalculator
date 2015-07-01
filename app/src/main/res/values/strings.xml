@@ -9,8 +9,8 @@
     <string name="active">Active</string>
     <string name="showText">Show Text</string>
     <string name="locked">Locked</string>
-    <string name="rowRelHeight">Row R. Height:</string>
-    <string name="buttonRelWidth">Button R. Width:</string>
+    <string name="rowRelHeight">Row Height:</string>
+    <string name="buttonRelWidth">R. Width:</string>
     <string name="codeForThisButton">Code for this button:</string>
     <string name="instrForThisButton">Instructions / description for this button:</string>
     <string name="save">Save</string>
