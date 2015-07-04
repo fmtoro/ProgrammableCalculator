@@ -2,10 +2,16 @@ package com.ftpha.programmablecalculator;
 
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Display;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +48,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        initBasic();
+        initPrefs();
+
         ftG.ctx = this;
         ifNoDbMakeDb();
 
@@ -50,10 +60,28 @@ public class MainActivity extends Activity {
         ftG.tlll = (LinearLayout) findViewById(R.id.tlll);
         ftG.currActivity = this;
 
-        initBasic();
 
+        initWebView();
 
         ponLosAndamios(false);
+
+    }
+
+    private void initPrefs(){
+
+        SharedPreferences shPrf = PreferenceManager.getDefaultSharedPreferences(ftG.ctx);
+
+        ftG.prfDisplayTextSize = shPrf.getString( "displayTextSize", "50");
+        ftG.prfDisplayTextColor = shPrf.getString( " displayTextColor", "#FF000000");
+        ftG.prfDisplayBackgroundColor = shPrf.getString( "displayBackgroundColor", "#ffaac1ae");
+        ftG.prfDisplayMargins = shPrf.getString( "displayMargins", "2");
+        ftG.prfDisplayPaddingRight = shPrf.getString( "displayPaddingRight", "8");
+        ftG.prfDisplayPaddingBottom = shPrf.getString( "displayPaddingBottom", "0");
+        ftG.prfDisplayPaddingTop = shPrf.getString( "displayPaddingTop", "0");
+        ftG.prfDisplayPaddingLeft = shPrf.getString( "displayPaddingLeft", "0");
+
+        ftG.prfNumbersVisible = shPrf.getString( "numbersVisible", "true");
+        ftG.prfNumbersTextSize = shPrf.getString( "numbersTextSize", "32");
 
     }
 
@@ -167,6 +195,17 @@ public class MainActivity extends Activity {
         ponLosAndamios(false);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode){
+            case KeyEvent.KEYCODE_MENU:
+                Intent i = new Intent(MainActivity.this, AppPreferences.class);
+                startActivity(i);
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private void MoveBtnFromTo(cBtn moveBtn,
                                long toLayout,
                                int toPosition){
@@ -235,15 +274,22 @@ public class MainActivity extends Activity {
         btnRowAdd = (Button) findViewById(R.id.btnAddRow);
 
         initDisplay();
-
         ftG.clcMode = "Start";
 
 
-        wv = (WebView) findViewById(R.id.wv);
+//        Display display = getWindowManager().getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+//        ftG.screenW = size.x;
+//        ftG.screenH = size.y;
 
         //calculate();
 
 
+    }
+
+    private void initWebView() {
+        wv = (WebView) findViewById(R.id.wv);
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= 17) {
             // Do something for froyo and above versions
@@ -252,7 +298,7 @@ public class MainActivity extends Activity {
             wv.addJavascriptInterface(new preCalc(MainActivity.this), "co");
         } else {
             ftG.T(getString(R.string.youNeedGingerBread));
-    }
+        }
     }
 
     private void initDisplay() {

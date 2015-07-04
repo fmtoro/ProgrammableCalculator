@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015. Fernando Toro. All rights reserved
+  -->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceScreen
+        android:title="Display Settings">
+
+        <ListPreference
+            android:key="displayTextSize"
+            android:title="Text Size"
+            android:dialogTitle="Display Text Size"
+            android:summary="Text size for the main display"
+            android:entries="@array/textSizeLrg"
+            android:entryValues="@array/textSizeLrgVals"
+            android:defaultValue="50"
+            />
+
+        <EditTextPreference
+            android:key="displayTextColor"
+            android:title="Text Color"
+            android:dialogTitle="Display Text Color"
+            android:summary="Color of the text on the main display"
+            android:defaultValue="#FF000000"
+            />
+
+        <EditTextPreference
+            android:key="displayBackgroundColor"
+            android:title="Background Color"
+            android:summary="Color of the background of the main display"
+            android:defaultValue="#ffaac1ae"
+            />
+
+        <ListPreference
+            android:key="displayMargins"
+            android:title="Margin"
+            android:summary="Margins for the main display"
+            android:dialogTitle="Display Text Margins"
+            android:defaultValue="2"
+            android:entries="@array/smallNums"
+            android:entryValues="@array/smallNumVals"
+            android:numeric="integer"
+            />
+
+        <PreferenceCategory
+            android:title="Padding"
+
+            >
+            <ListPreference
+                android:key="displayPaddingRight"
+                android:title="    Padding Right"
+                android:summary="     Right Padding for the main display"
+                android:defaultValue="8"
+                android:dialogTitle="Display - Right Padding"
+                android:entries="@array/smallNums"
+                android:entryValues="@array/smallNumVals"
+                android:numeric="integer"
+                />
+
+            <ListPreference
+                android:key="displayPaddingBottom"
+                android:title="    Padding Bottom"
+                android:summary="     Bottom Padding for the main display"
+                android:defaultValue="0"
+                android:dialogTitle="Display - Bottom Padding"
+                android:entries="@array/smallNums"
+                android:entryValues="@array/smallNumVals"
+                android:numeric="integer"
+                />
+
+            <ListPreference
+                android:key="displayPaddingTop"
+                android:title="    Padding Top"
+                android:summary="     Top Padding for the main display"
+                android:defaultValue="0"
+                android:dialogTitle="Display - Top Padding"
+                android:entries="@array/smallNums"
+                android:entryValues="@array/smallNumVals"
+                android:numeric="integer"
+                />
+
+            <ListPreference
+                android:key="displayPaddingLeft"
+                android:title="    Padding Left"
+                android:summary="     Left Padding for the main display"
+                android:defaultValue="0"
+                android:dialogTitle="Display - Left Padding"
+                android:entries="@array/smallNums"
+                android:entryValues="@array/smallNumVals"
+                android:numeric="integer"
+                />
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:title="Number Button Settings">
+
+        <SwitchPreference
+            android:key="numbersVisible"
+            android:title="Numbers Visible"
+            android:defaultValue="true"
+            />
+
+        <ListPreference
+            android:key="numbersTextSize"
+            android:title="Text Size"
+            android:summary="Size of  the text on the number buttons"
+            android:dialogTitle="Number Buttons Text Size"
+            android:defaultValue="32"
+            android:entries="@array/textSizeMed"
+            android:entryValues="@array/textSizeMed"
+            />
+
+    </PreferenceScreen>
+
+</PreferenceScreen>

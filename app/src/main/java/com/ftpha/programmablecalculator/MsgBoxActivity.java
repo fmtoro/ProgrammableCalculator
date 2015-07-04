@@ -37,6 +37,7 @@ public class MsgBoxActivity extends Activity {
         btnNeut = (Button) findViewById(R.id.btnNeut);
 
 
+
         if (ftG.dialogTitle.isEmpty()) {
             lblTitle.setVisibility(View.GONE);
         } else {

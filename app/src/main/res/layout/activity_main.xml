@@ -31,10 +31,10 @@
             android:gravity="center_vertical|right"
             android:textSize="50sp"
             android:layout_gravity="center_vertical"
-            android:paddingRight="12dp"
+            android:paddingRight="8dp"
             android:background="#ffaac1ae"
             android:singleLine="true"
-            android:layout_marginTop="4dp"
+            android:layout_margin="2dp"
             android:inputType="text"
             android:focusableInTouchMode="false"/>
     </LinearLayout>

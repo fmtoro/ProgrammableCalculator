@@ -35,6 +35,9 @@ public class ftG {
     public static String logTag = "ftpha - shdcalcdm - ";
 
 
+    public static int screenW;
+    public static int screenH;
+
     public static int memHeight = 76;
     public static int memColor = 0;
     public static int memTxtColor = 0;
@@ -49,6 +52,23 @@ public class ftG {
     public static String dialogTitle = "";
     public static String dialogHeading = "";
     public static String dialogContent = "";
+
+
+    ////////////////////////////////////////////////////////////////////////////////
+//    Preferences
+
+    public static String prfDisplayTextSize;
+    public static String prfDisplayTextColor;
+    public static String prfDisplayBackgroundColor;
+    public static String prfDisplayMargins;
+    public static String prfDisplayPaddingRight;
+    public static String prfDisplayPaddingBottom;
+    public static String prfDisplayPaddingTop;
+    public static String prfDisplayPaddingLeft;
+
+    public static String prfNumbersVisible;
+    public static String prfNumbersTextSize;
+
 
     ////////////////////////////////////////////////////////////////////////////////
     public static String inBoxTitle = "";
