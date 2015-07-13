@@ -3,6 +3,7 @@ package com.ftpha.programmablecalculator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.security.PublicKey;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,17 +59,15 @@ public class ftG {
     ////////////////////////////////////////////////////////////////////////////////
 //    Preferences
 
-    public static String prfDisplayTextSize;
-    public static String prfDisplayTextColor;
-    public static String prfDisplayBackgroundColor;
-    public static String prfDisplayMargins;
-    public static String prfDisplayPaddingRight;
-    public static String prfDisplayPaddingBottom;
-    public static String prfDisplayPaddingTop;
-    public static String prfDisplayPaddingLeft;
+    public static int prfDisplayTextSize;
+    public static int prfDisplayTextColor;
+    public static int prfDisplayBackgroundColor;
+    public static int prfDisplayMargins;
+    public static int prfDisplayPaddingRight;
+    public static int prfDisplayPaddingBottom;
+    public static int prfDisplayPaddingTop;
+    public static int prfDisplayPaddingLeft;
 
-    public static String prfNumbersVisible;
-    public static String prfNumbersTextSize;
 
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -163,6 +163,61 @@ public class ftG {
         a.setD(display);
     }
 
+    public static boolean boolFromString(String strVal, boolean defVal){
+
+        if (strVal.equals("true")||strVal.equals("True")||strVal.equals("TRUE")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static int intFromString(String strVal, int defVal){
+
+        if (stringIsNumeric(strVal)) {
+            return Integer.parseInt(strVal);
+        } else {
+            return defVal;
+        }
+    }
+
+    public static int intFromHex(String strVal, String defVal){
+
+        int intColor;
+
+        try {
+            intColor = Color.parseColor(strVal);
+        } catch (IllegalArgumentException iae) {
+            intColor = Color.parseColor(defVal);
+        }
+
+        return intColor;
+
+    }
+    public static boolean stringIsNumeric( String str )
+    {
+        DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
+        char localeMinusSign = currentLocaleSymbols.getMinusSign();
+
+        if ( !Character.isDigit( str.charAt( 0 ) ) && str.charAt( 0 ) != localeMinusSign ) return false;
+
+        boolean isDecimalSeparatorFound = false;
+        char localeDecimalSeparator = currentLocaleSymbols.getDecimalSeparator();
+
+        for ( char c : str.substring( 1 ).toCharArray() )
+        {
+            if ( !Character.isDigit( c ) )
+            {
+                if ( c == localeDecimalSeparator && !isDecimalSeparatorFound )
+                {
+                    isDecimalSeparatorFound = true;
+                    continue;
+                }
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static void setDisplay(MainActivity a,String strToSet){
         display = strToSet;
@@ -198,6 +253,7 @@ public class ftG {
 
 
         return isNumeric(ftG.YzS.get());
+
     }
 
     public static boolean isNumeric(String str)
@@ -238,16 +294,33 @@ public class ftG {
         public static List<String> zS= new ArrayList<>();
 
 
-        public static void add(String yz){
+        public static void add(String yz, boolean forceCreate) {
+
+            if (yz.trim().equals("")) {
+                if (!forceCreate) {
+                    return;
+                }
+            }
             zS.add(0, yz);
             if (zS.size() > 50) {
                 zS.remove(50);
             }
         }
 
+//        public static void add(String yz) {
+//
+//            if (yz.trim().equals("") && !zS.isEmpty()) {
+//                return;
+//            }
+//            zS.add(0, yz);
+//            if (zS.size() > 50) {
+//                zS.remove(50);
+//            }
+//        }
+
         public static void edit(String modYz) {
             if (zS.isEmpty()) {
-                add("");
+                add("", true);
             }
             String x = zS.get(0);
             x += modYz;
@@ -268,7 +341,7 @@ public class ftG {
 
         public static String get() {
             if (zS.isEmpty()) {
-                add("");
+                add("", true);
             }
             return zS.get(0);
         }

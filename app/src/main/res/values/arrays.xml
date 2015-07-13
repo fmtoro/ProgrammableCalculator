@@ -120,6 +120,14 @@
 
 
     <string-array name="textSizeLrg">
+        <item name="38">38</item>
+        <item name="39">39</item>
+        <item name="40">40</item>
+        <item name="41">41</item>
+        <item name="42">42</item>
+        <item name="43">43</item>
+        <item name="44">44</item>
+        <item name="45">45</item>
         <item name="46">46</item>
         <item name="47">47</item>
         <item name="48">48</item>
@@ -129,9 +137,25 @@
         <item name="52">52</item>
         <item name="53">53</item>
         <item name="54">54</item>
+        <item name="55">55</item>
+        <item name="56">56</item>
+        <item name="57">57</item>
+        <item name="58">58</item>
+        <item name="59">59</item>
+        <item name="60">60</item>
+        <item name="61">61</item>
+        <item name="62">62</item>
     </string-array>
 
     <string-array name="textSizeLrgVals">
+        <item name="38">38</item>
+        <item name="39">39</item>
+        <item name="40">40</item>
+        <item name="41">41</item>
+        <item name="42">42</item>
+        <item name="43">43</item>
+        <item name="44">44</item>
+        <item name="45">45</item>
         <item name="46">46</item>
         <item name="47">47</item>
         <item name="48">48</item>
@@ -141,6 +165,14 @@
         <item name="52">52</item>
         <item name="53">53</item>
         <item name="54">54</item>
+        <item name="55">55</item>
+        <item name="56">56</item>
+        <item name="57">57</item>
+        <item name="58">58</item>
+        <item name="59">59</item>
+        <item name="60">60</item>
+        <item name="61">61</item>
+        <item name="62">62</item>
     </string-array>
 
 </resources>

@@ -48,7 +48,7 @@ public class preCalc {
         final String myR = myD + " " + value;
 
         //ftG.thisNum = theResult;
-        ftG.YzS.add(value);
+        ftG.YzS.add(value,true);
         ftG.display = myR;
 
         theDisp.post(new Runnable() {
@@ -70,7 +70,7 @@ public class preCalc {
 
         //ftG.thisNum = theResult;
         //ftG.YzS.pop();
-        ftG.YzS.add(value);
+        ftG.YzS.add(value,true);
         ftG.display = myR;
 
         theDisp.post(new Runnable() {
@@ -86,7 +86,7 @@ public class preCalc {
 
         ftG.display = value;
         //ftG.thisNum = theResult;
-        ftG.YzS.add(value);
+        ftG.YzS.add(value,true);
 
         theDisp.post(new Runnable() {
             @Override

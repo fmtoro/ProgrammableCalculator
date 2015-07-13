@@ -103,9 +103,9 @@ public class cMemory {
 
                 if (!ftG.editM) {
 
-                    //ftG.thisNum = yo.mText;
-                    ftG.YzS.add(yo.mText);
-                    ftG.appendDisplay(ftG.mA, yo.mText, true);
+                    //ftG.display = yo.mText;
+                    ftG.YzS.add(yo.mText, false);
+                    ftG.appendDisplay(ftG.mA, yo.mText, false);
 
                 } else {
 //                    //Aqui estamos en edit mode

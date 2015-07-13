@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ftpha.programmablecalculator" >
 
-    <!--package="com.ftpha.programmablecalculator"-->
+    <!-- package="com.ftpha.programmablecalculator" -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -53,9 +53,15 @@
         </activity>
         <activity
             android:name=".AppPreferences"
-            android:label="App Preferences"
             android:configChanges="orientation"
+            android:label="App Preferences"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
         </activity>
     </application>
 

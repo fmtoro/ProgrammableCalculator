@@ -1,0 +1,72 @@
+<!--
+  ~ Copyright (c) 2015. Fernando Toro. All rights reserved
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+              android:background="#ff03460f"
+                tools:context="com.ftpha.programmablecalculator.AboutActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffffff"
+        android:orientation="vertical"
+        android:paddingLeft="34dp"
+        android:paddingRight="34dp"
+        android:paddingTop="34dp"
+        android:paddingBottom="24dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="proCalc"
+            android:layout_gravity="center"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:typeface="sans"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="V - 1.0"
+            android:layout_gravity="center"
+            android:layout_marginBottom="18dp"
+            android:textStyle="bold"
+            android:typeface="sans"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="© 2015 FT Phone Apps all rights reserved"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="By:\nFernando Toro"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            android:text="Exit"
+            android:onClick="OnExit"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

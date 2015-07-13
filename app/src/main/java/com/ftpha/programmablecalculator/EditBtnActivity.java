@@ -47,6 +47,7 @@ public class EditBtnActivity extends Activity {
 
     EditText ftTxtButtonCode;
     EditText ftTxtButtonDescription;
+    Menu menU;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,9 @@ public class EditBtnActivity extends Activity {
         initViewVariables();
         loadMeUp();
         ftG.usrBtnActivity = this;
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void loadMeUp(){
@@ -117,6 +121,8 @@ public class EditBtnActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_edit_btn, menu);
+        menU = menu;
+        initMenu();
         return true;
     }
     
@@ -125,23 +131,54 @@ public class EditBtnActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent i = new Intent(EditBtnActivity.this, AppPreferences.class);
+                startActivity(i);
+                return true;
+
+            case R.id.about:
+                Intent j = new Intent(EditBtnActivity.this, AboutActivity.class);
+                startActivity(j);
+                return true;
+
+            case R.id.save:
+//                setSaveVisibility(false);
+                doSave();
+                return true;
+
+            case R.id.delete:
+                doDelete();
+                return true;
         }
-        
+
+
+
         return super.onOptionsItemSelected(item);
+    }
+
+    public void initMenu()
+    {
+
+        MenuItem mnuSave = menU.findItem(R.id.save);
+        MenuItem mnuDelete = menU.findItem(R.id.delete);
+
+        mnuSave.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        mnuDelete.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
     }
 
     public void onSaveBttn(View view) {
 
+        doSave();
+
+    }
+
+    private void doSave() {
         updateAndSaveBtn();
 
         ftG.mA.changeEditMode();
         finish();
-
     }
 
     private void updateAndSaveBtn() {
@@ -171,6 +208,10 @@ public class EditBtnActivity extends Activity {
     }
 
     public void onExitWOSave(View view) {
+        doExitWOSave();
+    }
+
+    private void doExitWOSave() {
         ftG.mA.changeEditMode();
         finish();
     }
@@ -248,12 +289,16 @@ public class EditBtnActivity extends Activity {
 
     public void onDelete(View view) {
         //
+        doDelete();
+
+    }
+
+    private void doDelete() {
         ftG.wB.delete(ftG.wB.Id);
         ftG.mA.borraTuto();
         ftG.mA.ponLosAndamios(false);
 
         ftG.mA.changeEditMode();
         finish();
-
     }
 }

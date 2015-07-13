@@ -8,9 +8,11 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,19 +71,30 @@ public class MainActivity extends Activity {
 
     private void initPrefs(){
 
-        SharedPreferences shPrf = PreferenceManager.getDefaultSharedPreferences(ftG.ctx);
+        SharedPreferences shPrf = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
 
-        ftG.prfDisplayTextSize = shPrf.getString( "displayTextSize", "50");
-        ftG.prfDisplayTextColor = shPrf.getString( " displayTextColor", "#FF000000");
-        ftG.prfDisplayBackgroundColor = shPrf.getString( "displayBackgroundColor", "#ffaac1ae");
-        ftG.prfDisplayMargins = shPrf.getString( "displayMargins", "2");
-        ftG.prfDisplayPaddingRight = shPrf.getString( "displayPaddingRight", "8");
-        ftG.prfDisplayPaddingBottom = shPrf.getString( "displayPaddingBottom", "0");
-        ftG.prfDisplayPaddingTop = shPrf.getString( "displayPaddingTop", "0");
-        ftG.prfDisplayPaddingLeft = shPrf.getString( "displayPaddingLeft", "0");
+        ftG.prfDisplayTextSize = ftG.intFromString(shPrf.getString("displayTextSize", "50"), 50);
+        ftG.prfDisplayTextColor = ftG.intFromHex(shPrf.getString("displayTextColor", "#FF000000"), "#FF000000") ;
+        ftG.prfDisplayBackgroundColor = ftG.intFromHex(shPrf.getString("displayBackgroundColor", "#ffaac1ae"), "#FF000000") ;
+        ftG.prfDisplayMargins = ftG.intFromString(shPrf.getString("displayMargins", "2"), 2);
+        ftG.prfDisplayPaddingRight = ftG.intFromString(shPrf.getString("displayPaddingRight", "8"), 8);
+        ftG.prfDisplayPaddingBottom = ftG.intFromString(shPrf.getString("displayPaddingBottom", "0"),0);
+        ftG.prfDisplayPaddingTop = ftG.intFromString(shPrf.getString("displayPaddingTop", "0"), 0);
+        ftG.prfDisplayPaddingLeft = ftG.intFromString(shPrf.getString("displayPaddingLeft", "0"), 0);
 
-        ftG.prfNumbersVisible = shPrf.getString( "numbersVisible", "true");
-        ftG.prfNumbersTextSize = shPrf.getString( "numbersTextSize", "32");
+        mainD.setTextSize((float) ftG.prfDisplayTextSize);
+        mainD.setTextColor(ftG.prfDisplayTextColor);
+        mainD.setBackgroundColor(ftG.prfDisplayBackgroundColor);
+
+        LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        lP.setMargins(ftG.prfDisplayMargins, ftG.prfDisplayMargins, ftG.prfDisplayMargins, ftG.prfDisplayMargins);
+        mainD.setPadding(ftG.prfDisplayPaddingLeft, ftG.prfDisplayPaddingTop,
+                ftG.prfDisplayPaddingRight, ftG.prfDisplayPaddingBottom);
+
+        mainD.setLayoutParams(lP);
+
 
     }
 
@@ -195,16 +208,16 @@ public class MainActivity extends Activity {
         ponLosAndamios(false);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode){
-            case KeyEvent.KEYCODE_MENU:
-                Intent i = new Intent(MainActivity.this, AppPreferences.class);
-                startActivity(i);
-                return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        switch (keyCode){
+//            case KeyEvent.KEYCODE_MENU:
+//                Intent i = new Intent(MainActivity.this, AppPreferences.class);
+//                startActivity(i);
+//                return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     private void MoveBtnFromTo(cBtn moveBtn,
                                long toLayout,
@@ -343,7 +356,7 @@ public class MainActivity extends Activity {
 
         if (ftG.clcMode.equals("Start")) {
 //            ftG.setDisplay(MainActivity.this, "");
-            ftG.YzS.add("");
+            ftG.YzS.add("", true);
             //ftG.thisNum = "";
             ftG.clcMode = "on-Going";
         }
@@ -489,8 +502,15 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                Intent i = new Intent(MainActivity.this, AppPreferences.class);
+                startActivity(i);
+                return true;
+            case R.id.about:
+                Intent j = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(j);
+                return true;
         }
 
 
