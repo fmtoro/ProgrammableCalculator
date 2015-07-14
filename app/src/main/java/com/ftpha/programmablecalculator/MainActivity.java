@@ -5,18 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,12 +38,15 @@ public class MainActivity extends Activity {
 
     private static WebView wv;
 
+    Menu menU;
 
 
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
 
@@ -66,6 +65,8 @@ public class MainActivity extends Activity {
         initWebView();
 
         ponLosAndamios(false);
+
+
 
     }
 
@@ -125,6 +126,10 @@ public class MainActivity extends Activity {
         ftG.clc = new Calc(ftG.ctx,padded); //Aqui: Instead of new, getById with Id = 1
 
         for (cLayout l : ftG.clc.ltS) {
+            if (l.btS.isEmpty()) {
+                l.delete(l.Id);
+                continue;
+            }
             l.createActual();
 
             for (cBtn b : l.btS) {
@@ -491,6 +496,8 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menU = menu;
+        setDoneVisibility(false);
         return true;
     }
 
@@ -511,10 +518,23 @@ public class MainActivity extends Activity {
                 Intent j = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(j);
                 return true;
+            case R.id.action_done:
+                changeEditMode();
         }
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void setDoneVisibility(boolean makeVisible) {
+
+        MenuItem mnuDone = menU.findItem(R.id.action_done);
+        mnuDone.setVisible(makeVisible);
+        if (makeVisible) {
+            mnuDone.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+
     }
 
     public void onNumClick(View v) {
@@ -564,15 +584,16 @@ public class MainActivity extends Activity {
 //        #ffd6d7d7         //Gris
 
         if (!ftG.editM) {
-            btnAdd.setText("Add Button");
+            btnAdd.setText("Add Btn");
             btnAdd.setBackgroundColor(Color.parseColor("#ffc8654c"));
             btnAdd.setTextColor(Color.parseColor("#ff000000"));
 
-            btnEdit.setText("Done");
-            btnEdit.setBackgroundColor(Color.parseColor("#FF77A575"));
-            btnEdit.setTextColor(Color.parseColor("#fff9f7d5"));
+            btnEdit.setVisibility(View.GONE);
+
 
             btnRowAdd.setVisibility(View.VISIBLE);
+
+            setDoneVisibility(true);
 
             ftG.editM = true;
 
@@ -585,11 +606,11 @@ public class MainActivity extends Activity {
             btnAdd.setBackgroundColor(Color.parseColor("#ff1e0978"));
             btnAdd.setTextColor(Color.parseColor("#fff9f7d5"));
 
-            btnEdit.setText("Edit");
-            btnEdit.setBackgroundColor(Color.parseColor("#ffd6d7d7"));
-            btnEdit.setTextColor(Color.parseColor("#ff000000"));
+            btnEdit.setVisibility(View.VISIBLE);
 
             btnRowAdd.setVisibility(View.GONE);
+
+            setDoneVisibility(false);
 
             ftG.editM = false;
 

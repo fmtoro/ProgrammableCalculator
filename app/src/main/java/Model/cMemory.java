@@ -63,9 +63,17 @@ public class cMemory {
         long elId;//                               HAce falta?
         this.b = new Button(ftG.ctx);
         if (yo.mName.equals("")) {
-            this.b.setText(yo.mText);
+            if (ftG.editM) {
+                this.b.setText("X  " + yo.mText);
+            } else {
+                this.b.setText(yo.mText);
+            }
         } else {
-            this.b.setText(yo.mName);
+            if (ftG.editM) {
+                this.b.setText("X  " + yo.mName);
+            } else {
+                this.b.setText(yo.mName);
+            }
         }
         elId = ftG.makeBtnId(2000, yo.Id );//                               HAce falta?
         this.b.setId((int) elId);//                               HAce falta?
@@ -109,12 +117,9 @@ public class cMemory {
 
                 } else {
 //                    //Aqui estamos en edit mode
-//
-//                    int ix = ftG.clc.ltS.get((int) yo.lId - 1).btS.indexOf(yo);
-//                    ftG.wB = ftG.clc.ltS.get((int) yo.lId - 1).btS.get(ix);
-//
-//                    Intent in = new Intent(ftG.currActivity, EditBtnActivity.class);
-//                    ftG.currActivity.startActivity(in);
+
+                    deleteMem(v);
+
                 }
             }
         });
@@ -126,13 +131,7 @@ public class cMemory {
             @Override
             public boolean onLongClick(View v) {
                 if (ftG.editM) {
-                    cMemory m = cMemory.getById((long) v.getTag() );
-
-                    m.delete(m.Id);
-                    ftG.mA.borraTuto();
-                    ftG.mA.ponLosAndamios(false);
-
-                    ftG.mA.changeEditMode();
+                    //deleteMem(v);
 
                 } else {
                     //Aqui: Special add. Sugests thisNum, but it can be changed to anything. it also
@@ -145,6 +144,15 @@ public class cMemory {
 
 
         l.addView(this.b, 0);
+    }
+
+    private void deleteMem(View v) {
+        cMemory m = cMemory.getById((long) v.getTag() );
+
+        m.delete(m.Id);
+        ftG.mA.borraTuto();
+        ftG.mA.ponLosAndamios(false);
+
     }
 
 

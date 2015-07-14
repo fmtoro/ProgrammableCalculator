@@ -156,8 +156,11 @@ public class cBtn {
                     } else {
                         //Aqui estamos en edit mode
 
-                        int ix = ftG.clc.ltS.get((int) yo.lId - 1).btS.indexOf(yo);
-                        ftG.wB = ftG.clc.ltS.get((int) yo.lId - 1).btS.get(ix);
+//                        int ix = ftG.clc.ltS.get((int) yo.lId - 1).btS.indexOf(yo);
+//                        if (ix < 0) {
+//                            return;
+//                        }
+                        ftG.wB = yo;
 
                         Intent in = new Intent(ftG.currActivity, EditBtnActivity.class);
                         ftG.currActivity.startActivity(in);

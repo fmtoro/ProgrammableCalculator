@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -52,6 +53,8 @@ public class EditBtnActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_edit_btn);
 
         initViewVariables();
@@ -90,7 +93,7 @@ public class EditBtnActivity extends Activity {
         }
 
 
-        ftTxtRowH.setText(String.valueOf(ftG.clc.ltS.get((int) wBc.lId - 1).lRelativeH));
+        ftTxtRowH.setText(String.valueOf(cLayout.getById(wBc.Id).lRelativeH));
         ftTxtBtnW.setText(String.valueOf(wBc.ubRelativeW));
 
         ftTxtButtonCode.setText(wBc.ubCode);
@@ -191,7 +194,7 @@ public class EditBtnActivity extends Activity {
         ftG.wB.ubColor = ((ColorDrawable)ftLlButtonColor.getBackground()).getColor();
         ftG.wB.ubTextColor = ftLlTextColorTxt.getCurrentTextColor();
 
-        ftG.clc.ltS.get((int) ftG.wB.lId - 1).lRelativeH = Float.valueOf(ftTxtRowH.getText().toString());
+        cLayout.getById(ftG.wB.lId).lRelativeH = Float.valueOf(ftTxtRowH.getText().toString());
         ftG.wB.ubRelativeW = Float.valueOf(ftTxtBtnW.getText().toString());
 
         ftG.wB.ubCode = ftTxtButtonCode.getText().toString();

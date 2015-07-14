@@ -83,6 +83,7 @@ public class cLayout{
 
 
 
+
     public cLayout(Context context){
 
         dbH = new cLayoutH(context);
@@ -247,6 +248,15 @@ Close();
         } else {
             return false;
         }
+    }
+
+    public boolean delete(long ID){
+        boolean rslt;
+        Open();
+        rslt = db.delete(cLayoutH.TABLE_N, cBtnH.Id + " = " + ID, null) > 0;
+        Close();
+
+        return rslt;
     }
 
 
