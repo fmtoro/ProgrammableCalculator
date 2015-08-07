@@ -86,7 +86,7 @@ public class cBtn {
     public void createActual(LinearLayout l) {
         long elId;
         btnTagData tagData = new btnTagData();
-        final boolean iAmASeparator=(yo.bName == "Separator");//Aqui por aqui voy. procesar distinto cuando es separator
+        final boolean iAmASeparator=(yo.bName == "Separator");
 
         this.b = new Button(ftG.ctx);
         this.b.setText(yo.ubText);
@@ -283,12 +283,17 @@ public class cBtn {
             }
         }
 
-        for (cBtn btn : ftG.clc.ltS.get((int)dropLayout-1).btS ){
-            if (btn.ubPosInLayout>=dropPos) {
-                btn.moveRight();
+//        for (cBtn btn : ftG.clc.ltS.get((int)dropLayout-1).btS ){
+        for (cLayout l : ftG.clc.ltS) {
+            if (l.Id == dropLayout) {
+                for (cBtn btn : l.btS) {
+                    if (btn.ubPosInLayout >= dropPos) {
+                        btn.moveRight();
+                    }
+                }
             }
-        }
 
+        }
         btnInQuestion.moveTo(dropLayout, dropPos);
 
     }
