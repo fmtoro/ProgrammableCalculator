@@ -115,7 +115,7 @@ public class cBtn {
             lP.setMargins(3,3,3,3);
         }
         if (iAmASeparator) {
-            lP.weight = 0.02f;
+            lP.weight = 0.04f;
             yo.b.setAlpha(0.01f);
             tagData.theLayout = yo.lId;
             tagData.Pos = Integer.valueOf( yo.cName);
@@ -151,7 +151,18 @@ public class cBtn {
 
                         ftG.elX = ftG.mA.getDisplay();
 
+
+
+
                         ftG.mA.doCalculate(yo.ubCode);
+
+                        if (yo.ubCodeDescription.equals("")) {
+                            ftG.usrHasEqualFlag = false;
+                            ftG.usrTheEqualCode = "";
+                        }else {
+                            ftG.usrHasEqualFlag = true;
+                            ftG.usrTheEqualCode = yo.ubCodeDescription;
+                        }
 
                     } else {
                         //Aqui estamos en edit mode
@@ -186,7 +197,7 @@ public class cBtn {
                     }
 
                 }else {
-                    ftG.T(yo.ubCodeDescription);//ToDo: show differently
+                    //ftG.T(yo.ubCodeDescription);//ToDo: show differently
                     return false;
                 }
 
@@ -283,7 +294,6 @@ public class cBtn {
             }
         }
 
-//        for (cBtn btn : ftG.clc.ltS.get((int)dropLayout-1).btS ){
         for (cLayout l : ftG.clc.ltS) {
             if (l.Id == dropLayout) {
                 for (cBtn btn : l.btS) {

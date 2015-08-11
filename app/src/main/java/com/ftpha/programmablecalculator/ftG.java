@@ -102,6 +102,9 @@ public class ftG {
 
     ////////////////////////////////////////////////////////////////////////////////
     public static String usrFlag = "";
+    public static boolean usrHasEqualFlag = false;
+    public static String usrTheEqualCode = "";
+
 
 
     public static int selColor;

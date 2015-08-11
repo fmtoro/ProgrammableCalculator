@@ -102,6 +102,19 @@ public class preCalc {
 
 
 
+//    @JavascriptInterface
+//    public void setEqualFlag(){
+//
+//        ftG.usrHasEqualFlag = true;
+//
+//    }
+//
+//    @JavascriptInterface
+//    public void setAfterEqualCode(final String flag){
+//
+//        ftG.usrTheEqualCode += flag;
+//    }
+
     @JavascriptInterface
     public void putFlag(final String flag){
 

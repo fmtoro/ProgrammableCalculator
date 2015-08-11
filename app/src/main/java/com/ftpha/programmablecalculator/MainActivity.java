@@ -465,15 +465,24 @@ public class MainActivity extends Activity {
 
         StringBuilder codeToSend = new StringBuilder();
 
-        codeToSend.append("javascript:");
-        codeToSend.append("a = ");
-        codeToSend.append(ftG.display);
-        codeToSend.append(";\n");
-        codeToSend.append("co.setD(a);");
+
+        if (ftG.usrHasEqualFlag) {
+            codeToSend.append("javascript:\n");
+            codeToSend.append(ftG.usrTheEqualCode);
+        }else {
+            codeToSend.append("javascript:");
+            codeToSend.append("a = ");
+            codeToSend.append(ftG.display);
+            codeToSend.append(";\n");
+            codeToSend.append("co.setD(a);");
+        }
         String r = codeToSend.toString();
 
         wv.loadData("", "text/html", null);
         wv.loadUrl(r);
+
+        ftG.usrHasEqualFlag = false;
+        ftG.usrTheEqualCode = "";
 
     }
 
@@ -485,10 +494,13 @@ public class MainActivity extends Activity {
 
         codeToSend.append("javascript:\n");
         codeToSend.append(jsCode);
+
+
         String r = codeToSend.toString();
 
         wv.loadData("", "text/html", null);
         wv.loadUrl(r);
+
 
     }
 

@@ -198,7 +198,7 @@ public class EditBtnActivity extends Activity {
         ftG.wB.ubRelativeW = Float.valueOf(ftTxtBtnW.getText().toString());
 
         ftG.wB.ubCode = ftTxtButtonCode.getText().toString();
-        ftG.wB.ubCodeDescription = ftTxtButtonDescription.getText().toString();
+        ftG.wB.ubCodeDescription = ftTxtButtonDescription.getText().toString().trim();
 
         if (ftG.wB.ubActive == 0) {
             ftG.wB.ubRelativeW = 0;
@@ -220,7 +220,11 @@ public class EditBtnActivity extends Activity {
     }
 
     public void onActiveStatusSet(View view) {
-        //?
+        if (ftChBxActive.isChecked()) {
+            ftTxtBtnW.setText("1.0");
+        }else {
+            ftTxtBtnW.setText("0");
+        }
     }
 
     public void onShowTextStatusSet(View view) {
