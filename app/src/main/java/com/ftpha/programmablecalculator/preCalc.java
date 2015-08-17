@@ -238,4 +238,15 @@ public class preCalc {
 
     }
 
+    @JavascriptInterface
+    public void delV(String key){
+
+        for (uVar v : ftG.clc.uVars) {
+            if (v.key.equals(key)) {
+                v.val = "";
+                return;
+            }
+        }
+    }
+
 }
