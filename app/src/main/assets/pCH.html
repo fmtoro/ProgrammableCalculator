@@ -1,0 +1,175 @@
+<!--
+  ~ Copyright (c) 2015. Fernando Toro. All rights reserved
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Untitled Document</title>
+</head>
+
+<body>
+<h2>proCalc API Reference</h2>
+<p>Programming a button for this calculator is very simple, all you have to do, is write standard JavaScript code. In order to have access to the values the user have typed, you will use some of the functions in the API. In order to control certain features of the calculator, or to instruct the calculator to display your results you will make use of other functions of this API.</p>
+<p>It is a good idea to look at the code included in the calculator. Yes, most of the built in functionality is implemented in the same way you will use to customize it. As a result, you can modify, hide or delete almost everything. The only exeption are the number buttons the basic opperations and the memories.</p>
+<p>Most of the functions you will write will operate on a single number e.g. Sin, Cos, n!, etc. Sometimes, however, you may want to operate on 2 or more numbers for example y to the power x. For these ocations you will write code under 'onEqual (=) code:' this code will run when the user hits the '=' button. Take a look at the included code for 'y to the power x', or 'x root of y'.</p>
+<p>&nbsp;</p>
+<h4>co - CalculatorObject: </h4>
+<blockquote>
+    <p>It is the base object for calculator related work.<br />
+        Returns the calculator object</p>
+</blockquote>
+<p><br />
+</p>
+<h4>get(int level)</h4>
+<blockquote>
+    <p> Gets you any level of calculator value.<br />
+        Returns a String<br />
+        Example:<br />
+        given --&gt; 2 + 3 - 4<br />
+        <code>co.get(0) will return &quot;4&quot;<br />
+            co.get(1) will return &quot;3&quot;<br />
+            co.get(2) will return &quot;2&quot;<br />
+            co.get(3) will return &quot;&quot;<br />
+            co.getX()   will return &quot;4&quot;</code></p>
+</blockquote>
+<p><br />
+</p>
+<h4>getX()</h4>
+<blockquote>
+    <p>  Gets you the current value of X. (convenience method)<br />
+        Returns a String<br />
+        Example: see 'get()'</p>
+    <p><br />
+
+    </p>
+</blockquote>
+<h4>appendX(String value) </h4>
+<blockquote>
+    <p>  Will put 'value' at the end of the display. It will also,  internally, add it to X.<br />
+        Does not return a value.</p>
+    <p><br />
+
+    </p>
+</blockquote>
+<h4>setX(String value)</h4>
+<blockquote>
+    <p>  Will put 'value' at the end of the display substituting the value of X. It will also, internally, add it to X.<br />
+        Does not return a value.<br />
+        Example:<br />
+        Given:  4 + 3<br />
+        You now want to add 5 squared.<br />
+        You type + 5 x 2 <br />
+        If you use 'appendX()' you would end up with:<br />
+        4 + 3 + 525<br />
+        25 being your result and 5 the number you had typed (X)<br />
+        'setX()' will make 25 replace 5 (the current X) leaving you with the desired<br />
+        4 + 3 + 25<br />
+
+    </p>
+</blockquote>
+<h4>setD(String value) </h4>
+<blockquote>
+    <p>Will put 'value' at the end of the display. The value of X remains unaffected.<br />
+        Does not return a value.</p>
+</blockquote>
+<p>&nbsp;</p>
+<h4>putFlag(String flag) </h4>
+<blockquote>
+    <p>Sets a user defined flag that persists over calls to your code.<br />
+        Does not return a value.<br />
+        Example:<br />
+        Let's say that your code starts a timer. You can set a flag &quot;timer&quot;. Next time the same code runs, it can check the timer flag to determine if the timer has already been started.</p>
+    <p><code>If(co.peekFlag(&quot;timer&quot;)){<br />
+        //Code to stop the timer and display the result<br />
+        co.takeFlag(&quot;timer&quot;);<br />
+        } else {<br />
+        //Code to start timer<br />
+        co.putFlag(&quot;timer&quot;);<br />
+        }</code></p>
+    <p>&nbsp;</p>
+</blockquote>
+<h4>peekFlag(String flag)</h4>
+<blockquote>
+    <p>  Will return true if the flag exists and false if it doesn't. It will not affect the existing flag<br />
+        Returns a boolean
+    </p>
+    <p>&nbsp;</p>
+</blockquote>
+<h4>takeFlag(String flag)</h4>
+<blockquote>
+    <p>  Will return true if the flag exists and false if it doesn't. It will also remove the flag<br />
+        Returns a boolean</p>
+    <p><br />
+
+    </p>
+</blockquote>
+<h4>T(String mssg)</h4>
+<blockquote>
+    <p>  This function will display a standard toast with the message you pass it.<br />
+        Does not return a value.<br />
+        Example:<br />
+        <code>co.T(&quot;Hello World!&quot;);
+        </code></p>
+</blockquote>
+<p><br />
+</p>
+<h4>dialogTitle(String title)</h4>
+<blockquote>
+    <p>  Sets the title of a dialog box to be shown.<br />
+        Does not return a value.
+    </p>
+</blockquote>
+<p>&nbsp;</p>
+<h4>dialogHeading(String heading) </h4>
+<blockquote>
+    <p> Sets the heading of a dialog box to be shown.<br />
+        Does not return a value.</p>
+</blockquote>
+<p><br />
+</p>
+<h4>dialogContent(String content) </h4>
+<blockquote>
+    <p> Sets the contents of a dialog box to be shown.<br />
+        Does not return a value.</p>
+</blockquote>
+<p><br />
+</p>
+<h4>dialogBtnPositive(String btnText) </h4>
+<blockquote>
+    <p> Sets the text of the button in a dialog box to be shown.<br />
+        Does not return a value.</p>
+</blockquote>
+<p><br />
+</p>
+<h4>void showDialog() </h4>
+<blockquote>
+    <p> Shows a previously prepared dialog box.<br />
+        Does not return a value.<br />
+        Example:<br />
+        <code>co.dialogTitle(&quot;proCalc Dialog&quot;); <br />
+            co.dialogHeading(&quot;Show your result in a dialog box&quot;); <br />
+            var ctnt = &quot;Sometimes you may need more room to show your results than proCalc's display can handle. You can follow this template to show your results in a dialog box.&quot;; <br />
+            ctnt += &quot;\n&quot;; <br />
+            ctnt += &quot;\n&quot;; <br />
+            ctnt += &quot;For example&quot;;<br />
+            ctnt += &quot;\n&quot;; <br />
+            ctnt += &quot;     Your x value is: &quot;; <br />
+            ctnt += co.get(0); <br />
+            ctnt += &quot;\n&quot;; <br />
+            ctnt += &quot;     Your y value is: &quot;; <br />
+            ctnt += co.get(1); <br />
+        </code></p>
+    <p><code>ctnt += &quot;\n&quot;;<br />
+        ctnt += &quot;\n&quot;; <br />
+        ctnt += &quot;\n&quot;; <br />
+    </code></p>
+    <p><code>ctnt += &quot;Enjoy :)&quot;; <br />
+        co.dialogContent(ctnt); <br />
+        co.dialogBtnPositive(&quot;OK&quot;); <br />
+        co.showDialog();</code></p>
+</blockquote>
+</body>
+</html>

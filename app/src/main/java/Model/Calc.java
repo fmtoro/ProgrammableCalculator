@@ -27,6 +27,8 @@ package Model;
 
         public List<cMemory> memS;
 
+        public List<uVar> uVars;
+
 
 
         private Context ctx;
@@ -84,6 +86,7 @@ package Model;
             dbH = new CalcH(context);
             this.ltS = cLayout.listAll();
             this.memS = cMemory.listAll();
+            this.uVars = new ArrayList<>();
 
             for (cLayout l : ltS) {
                 if (padded) {

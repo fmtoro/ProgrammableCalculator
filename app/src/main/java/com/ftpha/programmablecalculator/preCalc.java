@@ -11,6 +11,8 @@ import android.webkit.JavascriptInterface;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import Model.uVar;
+
 /**
  * Created by Fernando on 2015-05-25.
  * Originally created as part of: preCalc2
@@ -202,5 +204,38 @@ public class preCalc {
         ftG.dialogBtnNeutral = btnText;
     }
 
+
+    @JavascriptInterface
+    public void setV(String key, String val){
+        boolean found = false;
+
+        for (uVar v : ftG.clc.uVars) {
+            if (v.key.equals(key)) {
+                v.val = val;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            uVar iV = new uVar();
+            iV.key = key;
+            iV.val = val;
+        }
+
+    }
+
+    @JavascriptInterface
+    public String getV(String key){
+
+        for (uVar v : ftG.clc.uVars) {
+            if (v.key.equals(key)) {
+                return v.val;
+            }
+        }
+
+        return  "";
+
+    }
 
 }
