@@ -98,6 +98,10 @@ public class preCalc {
         });
     }
 
+    @JavascriptInterface
+    public void resetX(){
+        ftG.YzS.reset();
+    }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -221,20 +225,25 @@ public class preCalc {
             uVar iV = new uVar();
             iV.key = key;
             iV.val = val;
+            ftG.clc.uVars.add(iV);
         }
 
     }
 
     @JavascriptInterface
     public String getV(String key){
+        boolean found = false;
 
         for (uVar v : ftG.clc.uVars) {
             if (v.key.equals(key)) {
+
                 return v.val;
             }
         }
 
-        return  "";
+
+            return "0";
+
 
     }
 

@@ -297,6 +297,14 @@ public class ftG {
         public static List<String> zS= new ArrayList<>();
 
 
+        public static void reset() {
+
+            zS.add(0, "");
+            if (zS.size() > 50) {
+                zS.remove(50);
+            }
+        }
+
         public static void add(String yz, boolean forceCreate) {
 
             if (yz.trim().equals("")) {
