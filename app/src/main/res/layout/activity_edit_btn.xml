@@ -182,6 +182,7 @@
                         android:id="@+id/txtButtonCode"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textSize="10sp"
                         android:gravity="top"
                         android:background="#fffdfe"/>
                 </LinearLayout>
@@ -201,7 +202,7 @@
                             android:text=" ..."
                             android:background="#cccccc"
                             android:onClick="onGoToBttnsCode"
-                            android:enabled="false"
+                            android:enabled="true"
                             android:editable="true"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -230,6 +231,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="top"
+                    android:textSize="10sp"
                     android:background="#fffdfe"
                     android:id="@+id/txtButtonDescription"
                     />
@@ -239,20 +241,26 @@
                 android:layout_weight="7"
                 android:layout_height="match_parent"
                 android:onClick="onGoToBttnsDescription">
-                <!--<LinearLayout-->
-                    <!--android:layout_width="20dp"-->
-                    <!--android:layout_height="20dp"-->
-                    <!--android:layout_gravity="bottom"-->
-                    <!--android:layout_marginLeft="3dp"-->
-                    <!-->-->
-                    <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:text=" ..."-->
-                        <!--android:background="#cccccc"-->
-                        <!--/>-->
-                <!--</LinearLayout>-->
+
+
             </LinearLayout>
+                <LinearLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="3dp"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text=" ..."
+                        android:background="#cccccc"
+                        android:onClick="onGoToBttnsEqualCode"
+                        android:enabled="true"
+                        android:editable="true"
+                        />
+                </LinearLayout>
+            <!--</LinearLayout>-->
         </LinearLayout>
 
     </LinearLayout>

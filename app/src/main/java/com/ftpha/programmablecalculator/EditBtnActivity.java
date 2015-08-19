@@ -242,45 +242,7 @@ public class EditBtnActivity extends Activity {
         startActivity(iT);
     }
 
-//    private void showColorPickerDialog()
-//    {
-//        AlertDialog.Builder colorDialogBuilder = new AlertDialog.Builder(
-//                EditBtnActivity.this);
-//        LayoutInflater inflater = LayoutInflater.from(this);
-//        View dialogview = inflater.inflate(R.layout.activity_color_pkr, null);
-//        picker = (ColorPicker) findViewById(R.id.cPicker);
-//        svBar = (SVBar) findViewById(R.id.svbar);
-//        opacityBar = (OpacityBar) findViewById(R.id.opacitybar);
-//        picker.addSVBar(svBar);
-//        picker.addOpacityBar(opacityBar);
-//        picker.setOnColorChangedListener(new ColorPicker.OnColorChangedListener()
-//        {
-//            @Override
-//            public void onColorChanged(int color) {
-//
-//            }
-//        });
-//        colorDialogBuilder.setTitle("Choose Text Color");
-//        colorDialogBuilder.setView(dialogview);
-//        colorDialogBuilder.setPositiveButton(R.string.ok,
-//                new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        ftG.L("Color :" + picker.getColor());
-//                        //colorPickerView.setTextColor(picker.getColor());
-//                        picker.setOldCenterColor(picker.getColor());
-//                    }
-//                });
-//        colorDialogBuilder.setNegativeButton("Cancel",
-//                new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                });
-//        AlertDialog colorPickerDialog = colorDialogBuilder.create();
-//        colorPickerDialog.show();
-//    }
+
     public void onTextColClicked(View view) {
         ftG.selColor = ftLlTextColorTxt.getCurrentTextColor();
         ftG.colorFor = "btnText";
@@ -291,9 +253,27 @@ public class EditBtnActivity extends Activity {
     public void onGoToBttnsCode(View view) {
         Intent i = new Intent(EditBtnActivity.this, CodeEditorActivity.class);
         updateAndSaveBtn();
-        startActivity(i);
+        i.putExtra("codeTxt", ftTxtButtonCode.getText().toString());
+        startActivityForResult(i, 1);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK){
+                String result=data.getStringExtra("result");
+                ftTxtButtonCode.setText(result);
+            }
+        }
+        if (requestCode == 2) {
+            if(resultCode == RESULT_OK){
+                String result=data.getStringExtra("result");
+                ftTxtButtonDescription.setText(result);
+            }
+
+        }
+    }//onActivityResult
     public void onDelete(View view) {
         //
         doDelete();
@@ -307,5 +287,12 @@ public class EditBtnActivity extends Activity {
 
         ftG.mA.changeEditMode();
         finish();
+    }
+
+    public void onGoToBttnsEqualCode(View view) {
+        Intent i = new Intent(EditBtnActivity.this, CodeEditorActivity.class);
+        updateAndSaveBtn();
+        i.putExtra("codeTxt", ftTxtButtonDescription.getText().toString());
+        startActivityForResult(i, 2);
     }
 }

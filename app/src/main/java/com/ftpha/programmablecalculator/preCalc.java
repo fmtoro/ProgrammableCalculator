@@ -11,6 +11,8 @@ import android.webkit.JavascriptInterface;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import Model.uVar;
 
 /**
@@ -97,29 +99,15 @@ public class preCalc {
             }
         });
     }
-
     @JavascriptInterface
-    public void resetX(){
-        ftG.YzS.reset();
+    public String getD(){
+
+
+        return theDisp.getText().toString();
+
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-//    @JavascriptInterface
-//    public void setEqualFlag(){
-//
-//        ftG.usrHasEqualFlag = true;
-//
-//    }
-//
-//    @JavascriptInterface
-//    public void setAfterEqualCode(final String flag){
-//
-//        ftG.usrTheEqualCode += flag;
-//    }
 
     @JavascriptInterface
     public void putFlag(final String flag){
@@ -147,24 +135,11 @@ public class preCalc {
 
     }
 
-
     private String muFg(String baseFg){
         return "<@" + baseFg + "@>";
     }
 
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////
-//    @JavascriptInterface
-//    public void addM(final String strToAdd){
-////        No worky
-//        ftG.mA.addAMem(strToAdd);
-//    }
-
-
-
-    @JavascriptInterface
-    public void showToast(String mssg){
+    private void showToast(String mssg){
         Toast.makeText(cx, mssg, Toast.LENGTH_SHORT).show();
     }
 
@@ -208,7 +183,6 @@ public class preCalc {
         ftG.dialogBtnNeutral = btnText;
     }
 
-
     @JavascriptInterface
     public void setV(String key, String val){
         boolean found = false;
@@ -248,14 +222,15 @@ public class preCalc {
     }
 
     @JavascriptInterface
-    public void delV(String key){
+    public void clearV(){
 
-        for (uVar v : ftG.clc.uVars) {
-            if (v.key.equals(key)) {
-                v.val = "";
-                return;
-            }
-        }
+        ftG.clc.uVars = new ArrayList<>();
+
+    }
+
+    @JavascriptInterface
+    public void resetX(){
+        ftG.YzS.reset();
     }
 
 }

@@ -470,6 +470,7 @@ public class MainActivity extends Activity {
             codeToSend.append("javascript:\n");
             codeToSend.append(ftG.usrTheEqualCode);
         }else {
+            ftG.rawDisplay = mainD.getText().toString();
             codeToSend.append("javascript:");
             codeToSend.append("a = ");
             codeToSend.append(ftG.display);

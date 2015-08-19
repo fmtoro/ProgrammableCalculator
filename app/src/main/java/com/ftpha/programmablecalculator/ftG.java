@@ -56,6 +56,9 @@ public class ftG {
     public static String dialogContent = "";
 
 
+    public static String rawDisplay = "";
+
+
     ////////////////////////////////////////////////////////////////////////////////
 //    Preferences
 
@@ -116,7 +119,6 @@ public class ftG {
 
     public static String equation;
     public static String display = "";
-    public static String subDisplay;
 
     public static String elX;
 

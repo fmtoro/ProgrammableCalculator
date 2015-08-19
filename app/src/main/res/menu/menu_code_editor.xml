@@ -8,6 +8,10 @@
       tools:context="com.ftpha.programmablecalculator.CodeEditorActivity">
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"
-          android:orderInCategory="100"
+          android:orderInCategory="200"
           app:showAsAction="never"/>
+    <item android:id="@+id/action_done"
+          android:title="Done"
+          android:orderInCategory="100"
+          app:showAsAction="always"/>
 </menu>
