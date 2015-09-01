@@ -182,7 +182,7 @@
                         android:id="@+id/txtButtonCode"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="10sp"
+                        android:textSize="14sp"
                         android:gravity="top"
                         android:background="#fffdfe"/>
                 </LinearLayout>
@@ -211,7 +211,7 @@
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="60">
+        android:layout_weight="120">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -231,19 +231,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="top"
-                    android:textSize="10sp"
+                    android:textSize="14sp"
                     android:background="#fffdfe"
                     android:id="@+id/txtButtonDescription"
                     />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="7"
-                android:layout_height="match_parent"
-                android:onClick="onGoToBttnsDescription">
 
-
-            </LinearLayout>
                 <LinearLayout
                     android:layout_width="20dp"
                     android:layout_height="20dp"

@@ -154,7 +154,7 @@ public class MainActivity extends Activity {
         cMem.mTxtSize = 14;
         cMem.mBColor = Color.parseColor("#FFCCCCCC");
         cMem.mTxtColor = Color.parseColor("#FF222222");
-        cMem.mHeight = 80;
+        cMem.mHeight = 100;
 
 
         cMem.create();
@@ -164,7 +164,9 @@ public class MainActivity extends Activity {
         for (cMemory m : ftG.clc.memS) {
             m.update(m.Id);
         }
+
         ftG.clc.memS = cMemory.listAll();
+
 
     }
 
@@ -182,7 +184,30 @@ public class MainActivity extends Activity {
         for (cMemory m : ftG.clc.memS) {
             m.update(m.Id);
         }
+
         ftG.clc.memS = cMemory.listAll();
+
+    }
+
+    public void addAMem(String strToAdd, String nameOfMem) {
+        //Aqui: thread issue. Fix
+        //basically this has to be done in the UI thread.
+
+        cMemory cMem = new cMemory(ftG.ctx);
+        cMem.mText = strToAdd;
+        cMem.mName = nameOfMem;
+
+
+        cMem.create();
+        cMem.createActual();
+
+        ftG.clc.memS.add(cMem);
+        for (cMemory m : ftG.clc.memS) {
+            m.update(m.Id);
+        }
+
+        ftG.clc.memS = cMemory.listAll();
+
 
     }
 
@@ -559,18 +584,15 @@ public class MainActivity extends Activity {
     }
 
     public void addMem(View view) {
+
+
+
         if (ftG.editM) {
             addAButtonToLayout(0);
         } else {
             addAMem();
         }
-//        ftG.dialogTitle = "Hello World!";
-//        ftG.dialogHeading = "Algo";
-//        ftG.dialogContent = "Hello World!";
-//        ftG.dialogBtnPositive = "OK";
-//        ftG.dialogBtnNegative = "No way!";
-//        ftG.dialogBtnNeutral = "Cancel";
-//        ftG.msgBox();
+
 
     }
 

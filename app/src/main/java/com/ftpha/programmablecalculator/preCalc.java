@@ -233,4 +233,10 @@ public class preCalc {
         ftG.YzS.reset();
     }
 
+//    @JavascriptInterface
+//    public void addM(String val, String name){
+//        ftG.mA.addAMem(val, name);
+//
+//    }
+
 }

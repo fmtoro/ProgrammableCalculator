@@ -64,21 +64,22 @@ public class cMemory {
         this.b = new Button(ftG.ctx);
         if (yo.mName.equals("")) {
             if (ftG.editM) {
-                this.b.setText("X  " + yo.mText);
-            } else {
-                this.b.setText(yo.mText);
+                this.b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.basura, 0, 0, 0);
             }
+            this.b.setText(yo.mText);
         } else {
             if (ftG.editM) {
-                this.b.setText("X  " + yo.mName);
-            } else {
-                this.b.setText(yo.mName);
+                this.b.setCompoundDrawablesWithIntrinsicBounds(R.drawable.basura, 0, 0, 0);
             }
+            this.b.setText(yo.mName);
+
         }
-        elId = ftG.makeBtnId(2000, yo.Id );//                               HAce falta?
-        this.b.setId((int) elId);//                               HAce falta?
+//        elId = ftG.makeBtnId(2000, yo.Id );//                               HAce falta?
+//        this.b.setId((int) elId);//                               HAce falta?
 
         this.b.setTag(this.Id);
+
+
         LinearLayout l = (LinearLayout) ftG.mA.findViewById(R.id.memLL);
 
         if (yo.mBColor == 0) {
@@ -188,7 +189,7 @@ public class cMemory {
         yo.mTxtSize = 14;
         yo.mBColor = 0;
         yo.mTxtColor = 0;
-        yo.mHeight = 76;
+        yo.mHeight = 100;
     }
 
     public static void Open(){
